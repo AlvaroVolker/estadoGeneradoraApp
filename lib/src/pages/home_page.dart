@@ -11,16 +11,16 @@ class HomePage extends StatelessWidget {
         title: Text('Titulo'),
         backgroundColor: Color.fromRGBO(255,255,255, 1),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.black), onPressed: () {},
         ),
       ),
 
       body: Center(
         child: Text(
-          'Welcome',
+          'HomePage',
           style: new TextStyle(
             fontSize: 50,
-            color: Colors.indigo,
+            color: Colors.blueGrey,
             fontFamily: 'RobotoMono'
           ), 
         )
