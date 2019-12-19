@@ -6,8 +6,6 @@ class HomePage extends StatefulWidget {
   }
 }
 
-
-
 class MyAppState extends State<HomePage>{
 
   int _selectedPage = 0;
@@ -16,7 +14,6 @@ class MyAppState extends State<HomePage>{
   Text('Item 2'),
   Text('Item 3')
 ];
-
 
  @override
   Widget build(BuildContext context) {
@@ -43,7 +40,7 @@ class MyAppState extends State<HomePage>{
                 icon: Icon(Icons.favorite, color: (Colors.black)),
                 title: Text('Favorites', style: (
                   TextStyle(color: Colors.black)
-                ),textAlign: TextAlign.end,)
+                ),textAlign: TextAlign.end)
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.graphic_eq, color: (Colors.black)),
@@ -54,6 +51,7 @@ class MyAppState extends State<HomePage>{
             ],
           ),
           ),
-    );    
+    );
+     
   }
 }
