@@ -43,7 +43,7 @@ class MyAppState extends State<HomePage>{
                 ),textAlign: TextAlign.end)
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.graphic_eq, color: (Colors.black)),
+                icon: Icon(Icons.show_chart, color: (Colors.black)),
                 title: Text('Graphic', style: (
                   TextStyle(color: Colors.black)
                 ),)
