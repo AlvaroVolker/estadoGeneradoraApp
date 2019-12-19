@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
 
   @override
-  Widget build( context) {
+  Widget build(context) {
 
     return MaterialApp(    
         home: Center(
-
-            child: HomePage(),
-            
+            child: HomePage(),         
         ),
       );
   
