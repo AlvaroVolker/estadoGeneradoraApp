@@ -21,36 +21,46 @@ class MyAppState extends State<HomePage>{
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-        home: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _selectedPage,
-            onTap: (int index){
-              setState(() {
-                _selectedPage = index;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: (Colors.black)),
-                title: Text('Home', style: (
-                  TextStyle(color: Colors.black)
-                ),)
+        home: Container(
+          child: Scaffold(
+            body: Center
+            (child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[Text('Generacion', style: TextStyle(fontSize: 30),)],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite, color: (Colors.black)),
-                title: Text('Favorites', style: (
-                  TextStyle(color: Colors.black)
-                ),textAlign: TextAlign.end)
+            ),
+            bottomNavigationBar: Container(
+              child: BottomNavigationBar(
+                currentIndex: _selectedPage,
+                onTap: (int index){
+                  setState(() {
+                    _selectedPage = index;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home, color: (Colors.black)),
+                    title: Text('Home', style: (
+                      TextStyle(color: Colors.black)
+                    ),)
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite, color: (Colors.black)),
+                    title: Text('Favorites', style: (
+                      TextStyle(color: Colors.black)
+                    ),textAlign: TextAlign.end)
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.show_chart, color: (Colors.black)),
+                    title: Text('Graphic', style: (
+                      TextStyle(color: Colors.black)
+                    ),)
+                  ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.show_chart, color: (Colors.black)),
-                title: Text('Graphic', style: (
-                  TextStyle(color: Colors.black)
-                ),)
-              ),
-            ],
-          ),
-          ),
+            ),
+            ),
+        ),
     );
      
   }
