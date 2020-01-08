@@ -13,6 +13,7 @@ class MyAppState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Container(
         child: Scaffold(
@@ -21,7 +22,7 @@ class MyAppState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  'Generacion',
+                  '',
                   style: TextStyle(fontSize: 30),
                 )
               ],
