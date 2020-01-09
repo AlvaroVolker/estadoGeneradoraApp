@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,8 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
-  int _selectedPage = 0;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,17 +16,7 @@ class MyAppState extends State<HomePage> {
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Container(
         child: Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  '',
-                  style: TextStyle(fontSize: 30),
-                )
-              ],
-            ),
-          ),
+          body: _body(),
           bottomNavigationBar: _crearBottomBar(),
         ),
       ),
@@ -35,33 +24,53 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _crearBottomBar() {
-    return Container(
-      child: BottomNavigationBar(
-        currentIndex: _selectedPage,
-        onTap: (int index) {
-          setState(() {
-            _selectedPage = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: (Colors.black87)),
-              title: Text(
-                'Home',
-                style: (TextStyle(color: Colors.black87)),
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite, color: (Colors.black87)),
-              title: Text('Favorites',
-                  style: (TextStyle(color: Colors.black87)),
-                  textAlign: TextAlign.end)),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.show_chart, color: (Colors.black87)),
-              title: Text(
-                'Graphic',
-                style: (TextStyle(color: Colors.black87)),
-              )),
+    return BottomAppBar(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _bottomAction(FontAwesomeIcons.home),
+          _bottomAction(FontAwesomeIcons.heart),
+          _bottomAction(FontAwesomeIcons.chartBar),
         ],
+      ),
+    );
+  }
+
+  Widget _crearAppBar() {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: CircleAvatar(
+            child: Text('SL'),
+            backgroundColor: Colors.blueGrey,
+          ),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+
+  Widget _bottomAction(IconData icon) {
+    return InkWell(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Icon(icon),
+      ),
+      onTap: () {},
+    );
+  }
+
+  Widget _body() {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 17.0, top: 40.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            _crearAppBar(),
+          ],
+        ),
       ),
     );
   }
