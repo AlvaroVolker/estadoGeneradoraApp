@@ -81,21 +81,52 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _pagesNavigation() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 20),
-      child: Row(children: <Widget>[
-        Text('Generación',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 27)),
-        Padding(
-          padding: const EdgeInsets.only(left: 5, top: 8),
-          child: Text('Favoritos',
-              style: TextStyle(color: Colors.grey, fontSize: 15)),
-        )
-      ]),
-    );
+    return Container(
+        child: Row(
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20),
+                child: Row(children: <Widget>[
+                  Text('Generación',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 27)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5, top: 8),
+                    child: Text('Favoritos',
+                        style: TextStyle(color: Colors.grey, fontSize: 15)),
+                  ),
+                  Expanded(
+                    flex: 12,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        ButtonTheme(
+                          alignedDropdown: true,
+                          child: DropdownButton(
+                            isExpanded: true,
+                            items: <DropdownMenuItem>[
+                              new DropdownMenuItem(
+                                child: new Text('Hola'),
+                              )
+                            ],
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 
   Widget _textGeneration() {
