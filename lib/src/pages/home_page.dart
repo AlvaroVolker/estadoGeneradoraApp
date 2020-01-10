@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -130,103 +129,98 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _textGeneration() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Text(
+              "Entregando",
+              style: TextStyle(fontWeight: FontWeight.w300),
+              textAlign: TextAlign.start,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Row(
                 children: <Widget>[
+                  Text('2270,80',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20)),
                   Text(
-                    "Entregando",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.start,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Row(
-                      children: <Widget>[
-                        Text('2270,80',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
-                        Text(
-                          ' MWh',
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Capacidad',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text('11233',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
+                    ' MWh',
+                    style: TextStyle(color: Colors.grey),
+                  )
                 ],
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Capacidad',
+              textAlign: TextAlign.right,
+              style: TextStyle(fontWeight: FontWeight.w300),
+            ),
+            Row(
+              children: <Widget>[
+                Text('11233',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20)),
+                Text(
+                  ' MWh',
+                  style: TextStyle(color: Colors.grey),
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 
   Widget _containerGeneration() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Container(
-                width: 250,
-                height: 170,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child:
-                          Container(height: 500, width: 500, child: _chart()),
-                    )
-                  ],
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: new Row(
+          children: <Widget>[
+            Expanded(
+              flex: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Container(
+                  height: 240,
+                  width: 190,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: _chart(),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 0, right: 20),
-              child: new Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[_textGeneration()],
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Container(
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top:30, right: 10),
+                    child: _textGeneration(),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -242,9 +236,10 @@ class MyAppState extends State<HomePage> {
     return SfCircularChart(
         legend: Legend(
             isResponsive: true,
-            textStyle: ChartTextStyle(fontWeight: FontWeight.w300),
+            textStyle: ChartTextStyle(fontWeight: FontWeight.w300, fontSize: 10),
             isVisible: true,
-            position: LegendPosition.left,
+            position: LegendPosition.bottom,
+            overflowMode: LegendItemOverflowMode.wrap,
             iconWidth: 15),
         series: <CircularSeries>[
           RadialBarSeries<ChartData, String>(
@@ -253,7 +248,7 @@ class MyAppState extends State<HomePage> {
               pointColorMapper: (ChartData data, _) => data.color,
               cornerStyle: CornerStyle.bothFlat,
               dataSource: chartData,
-              radius: '90%',
+              radius: '100%',
               innerRadius: '30%',
               xValueMapper: (ChartData data, _) => data.x,
               yValueMapper: (ChartData data, _) => data.y,
