@@ -33,7 +33,7 @@ class MyAppState extends State<HomePage> {
           children: <Widget>[
             _crearAppBar(),
             _pagesNavigation(),
-            _containerGraph()
+            _containerGeneration()
           ],
         ),
       ),
@@ -90,7 +90,7 @@ class MyAppState extends State<HomePage> {
                 fontWeight: FontWeight.w400,
                 fontSize: 27)),
         Padding(
-          padding: const EdgeInsets.only(left: 2, top: 8),
+          padding: const EdgeInsets.only(left: 5, top: 8),
           child: Text('Favoritos',
               style: TextStyle(color: Colors.grey, fontSize: 15)),
         )
@@ -158,14 +158,7 @@ class MyAppState extends State<HomePage> {
     );
   }
 
-  Widget _containerGraph() {
-    final List<ChartData> chartData = [
-      ChartData('Colombia', 48, Color.fromRGBO(222, 219, 23, 0)),
-      ChartData('Brasil', 51, Color.fromRGBO(109, 176, 97, 0)),
-      ChartData('Argentina', 41, Color.fromRGBO(51, 170, 205, 0)),
-      ChartData('Chile', 20, Color.fromRGBO(252, 111, 95, 0)),
-    ];
-
+  Widget _containerGeneration() {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: new Row(
@@ -182,43 +175,8 @@ class MyAppState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
-                      child: Container(
-                        height: 500,
-                        width: 500,
-                        child: SfCircularChart(
-                            legend: Legend(
-                                isResponsive: true,
-                                textStyle:
-                                    ChartTextStyle(fontWeight: FontWeight.w300),
-                                isVisible: true,
-                                position: LegendPosition.left,
-                                iconWidth: 15),
-                            series: <CircularSeries>[
-                              RadialBarSeries<ChartData, String>(
-                                  enableSmartLabels: true,
-                                  maximumValue: 70,
-                                  pointColorMapper: (ChartData data, _) =>
-                                      data.color,
-                                  cornerStyle: CornerStyle.bothFlat,
-                                  dataSource: chartData,
-                                  radius: '90%',
-                                  innerRadius: '30%',
-                                  xValueMapper: (ChartData data, _) => data.x,
-                                  yValueMapper: (ChartData data, _) => data.y,
-                                  dataLabelMapper: (ChartData data, _) =>
-                                      data.x,
-                                  dataLabelSettings: DataLabelSettings(
-                                      isVisible: false,
-                                      labelPosition:
-                                          ChartDataLabelPosition.inside,
-                                      textStyle: ChartTextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w300),
-                                      connectorLineSettings:
-                                          ConnectorLineSettings(
-                                              type: ConnectorType.curve)))
-                            ]),
-                      ),
+                      child:
+                          Container(height: 500, width: 500, child: _chart()),
                     )
                   ],
                 ),
@@ -240,6 +198,43 @@ class MyAppState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Widget _chart() {
+    final List<ChartData> chartData = [
+      ChartData('Colombia', 48, Color.fromRGBO(222, 219, 23, 0)),
+      ChartData('Brasil', 51, Color.fromRGBO(109, 176, 97, 0)),
+      ChartData('Argentina', 41, Color.fromRGBO(51, 170, 205, 0)),
+      ChartData('Chile', 20, Color.fromRGBO(252, 111, 95, 0)),
+    ];
+
+    return SfCircularChart(
+        legend: Legend(
+            isResponsive: true,
+            textStyle: ChartTextStyle(fontWeight: FontWeight.w300),
+            isVisible: true,
+            position: LegendPosition.left,
+            iconWidth: 15),
+        series: <CircularSeries>[
+          RadialBarSeries<ChartData, String>(
+              enableSmartLabels: true,
+              maximumValue: 70,
+              pointColorMapper: (ChartData data, _) => data.color,
+              cornerStyle: CornerStyle.bothFlat,
+              dataSource: chartData,
+              radius: '90%',
+              innerRadius: '30%',
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y,
+              dataLabelMapper: (ChartData data, _) => data.x,
+              dataLabelSettings: DataLabelSettings(
+                  isVisible: false,
+                  labelPosition: ChartDataLabelPosition.inside,
+                  textStyle:
+                      ChartTextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+                  connectorLineSettings:
+                      ConnectorLineSettings(type: ConnectorType.curve)))
+        ]);
   }
 }
 
