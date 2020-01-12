@@ -15,7 +15,7 @@ class MyAppState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData.light(),
       home: Container(
         child: Scaffold(
           body: _body(),
@@ -99,26 +99,6 @@ class MyAppState extends State<HomePage> {
                     child: Text('Favoritos',
                         style: TextStyle(color: Colors.grey, fontSize: 15)),
                   ),
-                  Expanded(
-                    flex: 12,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ButtonTheme(
-                          alignedDropdown: true,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            items: <DropdownMenuItem>[
-                              new DropdownMenuItem(
-                                child: new Text('Hola'),
-                              )
-                            ],
-                            onChanged: (value) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
                 ]),
               ),
             ],
@@ -213,7 +193,7 @@ class MyAppState extends State<HomePage> {
                 child: new Container(
                   height: 200,
                   child: Padding(
-                    padding: const EdgeInsets.only(top:30, right: 10),
+                    padding: const EdgeInsets.only(top: 30, right: 10),
                     child: _textGeneration(),
                   ),
                 ),
@@ -236,7 +216,8 @@ class MyAppState extends State<HomePage> {
     return SfCircularChart(
         legend: Legend(
             isResponsive: true,
-            textStyle: ChartTextStyle(fontWeight: FontWeight.w300, fontSize: 10),
+            textStyle:
+                ChartTextStyle(fontWeight: FontWeight.w300, fontSize: 10),
             isVisible: true,
             position: LegendPosition.bottom,
             overflowMode: LegendItemOverflowMode.wrap,
@@ -246,7 +227,7 @@ class MyAppState extends State<HomePage> {
               enableSmartLabels: true,
               maximumValue: 70,
               pointColorMapper: (ChartData data, _) => data.color,
-              cornerStyle: CornerStyle.bothFlat,
+              cornerStyle: CornerStyle.endCurve,
               dataSource: chartData,
               radius: '100%',
               innerRadius: '30%',
