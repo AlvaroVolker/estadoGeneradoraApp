@@ -207,7 +207,7 @@ class MyAppState extends State<HomePage> {
                   children: <Widget>[
                     Expanded(
                       child:
-                          Container(height: 500, width: 500, child: _chart()),
+                          Container(color: Colors.blueGrey, width: 500, child: _chart()),
                     )
                   ],
                 ),
@@ -244,16 +244,17 @@ class MyAppState extends State<HomePage> {
             isResponsive: true,
             textStyle: ChartTextStyle(fontWeight: FontWeight.w300),
             isVisible: true,
-            position: LegendPosition.left,
+            position: LegendPosition.bottom,
+            overflowMode: LegendItemOverflowMode.wrap,
             iconWidth: 15),
         series: <CircularSeries>[
           RadialBarSeries<ChartData, String>(
               enableSmartLabels: true,
               maximumValue: 70,
               pointColorMapper: (ChartData data, _) => data.color,
-              cornerStyle: CornerStyle.bothFlat,
+              cornerStyle: CornerStyle.endCurve,
               dataSource: chartData,
-              radius: '90%',
+              radius: '100%',
               innerRadius: '30%',
               xValueMapper: (ChartData data, _) => data.x,
               yValueMapper: (ChartData data, _) => data.y,
