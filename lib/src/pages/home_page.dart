@@ -3,17 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return MyAppState();
   }
+
+  
 }
 
 class MyAppState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
@@ -267,6 +271,17 @@ class MyAppState extends State<HomePage> {
                       ConnectorLineSettings(type: ConnectorType.curve)))
         ]);
   }
+
+
+Widget _chartBar(){
+  return new charts.BarChart(
+      seriesList,
+      animate: animate,
+      barGroupingType: charts.BarGroupingType.stacked,
+      vertical: false,
+    );
+}
+
 }
 
 class ChartData {
