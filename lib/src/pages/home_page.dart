@@ -273,14 +273,14 @@ class MyAppState extends State<HomePage> {
   }
 
 
-Widget _chartBar(){
-  return new charts.BarChart(
-      seriesList,
-      animate: animate,
-      barGroupingType: charts.BarGroupingType.stacked,
-      vertical: false,
-    );
-}
+// Widget _chartBar(){
+//   return new charts.BarChart(
+//       seriesList,
+//       animate: animate,
+//       barGroupingType: charts.BarGroupingType.stacked,
+//       vertical: false,
+//     );
+// }
 
 }
 
