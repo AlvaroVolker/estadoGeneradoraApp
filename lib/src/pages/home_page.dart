@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -16,7 +17,7 @@ class MyAppState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData.light(),
       home: Container(
         child: Scaffold(
           body: _body(),
@@ -100,26 +101,6 @@ class MyAppState extends State<HomePage> {
                     child: Text('Favoritos',
                         style: TextStyle(color: Colors.grey, fontSize: 15)),
                   ),
-                  Expanded(
-                    flex: 12,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ButtonTheme(
-                          alignedDropdown: true,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            items: <DropdownMenuItem>[
-                              new DropdownMenuItem(
-                                child: new Text('Hola'),
-                              )
-                            ],
-                            onChanged: (value) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
                 ]),
               ),
             ],
@@ -193,35 +174,25 @@ class MyAppState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             flex: 0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: new Container(
-                width: 250,
-                height: 170,
+                width: 270,
+                height: 270,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
                       child:
-                          Container(color: Colors.blueGrey, width: 500, child: _chart()),
-                    )
+                          Container(child: MainBarChart()),
+                    ),
+                    // Expanded(
+                    //   child:
+                    //       Container(width: 250,child: _textGeneration()),
+                    // )
                   ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 0, right: 20),
-              child: new Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[_textGeneration()],
                 ),
               ),
             ),
@@ -268,7 +239,10 @@ class MyAppState extends State<HomePage> {
                       ConnectorLineSettings(type: ConnectorType.curve)))
         ]);
   }
+
+
 }
+
 
 class ChartData {
   ChartData(this.x, this.y, [this.color]);
