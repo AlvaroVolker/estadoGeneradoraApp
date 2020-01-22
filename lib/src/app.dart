@@ -9,7 +9,6 @@ class MyApp extends StatelessWidget {
       // routes: {
       //   "/": (_) => new WebviewScaffold(
       //     url: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
-
       //   )
       // },
       debugShowCheckedModeBanner: false,
