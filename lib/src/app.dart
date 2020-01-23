@@ -6,11 +6,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(context) {
     return MaterialApp(
-      // routes: {
-      //   "/": (_) => new WebviewScaffold(
-      //     url: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
-      //   )
-      // },
+       routes: {
+         "/": (_) => new WebviewScaffold(
+           url: 'https://login.microsoftonline.com/common/',
+         )
+       },
       debugShowCheckedModeBanner: false,
       home: Center(
         child: HomePage(),

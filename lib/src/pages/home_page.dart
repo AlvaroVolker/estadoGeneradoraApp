@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
 import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,8 +14,18 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
+
+  static final Config config = new Config("6be806cd-f6f6-4b43-a806-81f0012743f9", "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d", "", "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
+  final AadOAuth oAuth = AadOAuth(config);
+
   @override
   Widget build(BuildContext context) {
+
+    //adjust window size for login
+    var screenSize = MediaQuery.of(context).size;
+    var rectSize = Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height-25);
+    oAuth.setWebViewScreenSize(rectSize);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
@@ -109,65 +121,65 @@ class MyAppState extends State<HomePage> {
     ));
   }
 
-  Widget _textGeneration() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "Entregando",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.start,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Row(
-                      children: <Widget>[
-                        Text('2270,80',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
-                        Text(
-                          ' MWh',
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Capacidad',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text('11233',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _textGeneration() {
+  //   return Container(
+  //     child: Column(
+  //       children: <Widget>[
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.end,
+  //           children: <Widget>[
+  //             Column(
+  //               children: <Widget>[
+  //                 Text(
+  //                   "Entregando",
+  //                   style: TextStyle(fontWeight: FontWeight.w300),
+  //                   textAlign: TextAlign.start,
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.all(3.0),
+  //                   child: Row(
+  //                     children: <Widget>[
+  //                       Text('2270,80',
+  //                           style: TextStyle(
+  //                               color: Colors.black,
+  //                               fontWeight: FontWeight.bold,
+  //                               fontSize: 20)),
+  //                       Text(
+  //                         ' MWh',
+  //                         style: TextStyle(color: Colors.grey),
+  //                       )
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 SizedBox(
+  //                   height: 30,
+  //                 ),
+  //                 Text(
+  //                   'Capacidad',
+  //                   textAlign: TextAlign.right,
+  //                   style: TextStyle(fontWeight: FontWeight.w300),
+  //                 ),
+  //                 Row(
+  //                   children: <Widget>[
+  //                     Text('11233',
+  //                         style: TextStyle(
+  //                             color: Colors.black,
+  //                             fontWeight: FontWeight.bold,
+  //                             fontSize: 20)),
+  //                     Text(
+  //                       ' MWh',
+  //                       style: TextStyle(color: Colors.grey),
+  //                     )
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _containerGeneration() {
     return Padding(
@@ -200,45 +212,6 @@ class MyAppState extends State<HomePage> {
       ),
     );
   }
-
-  // Widget _chart() {
-  //   final List<ChartData> chartData = [
-  //     ChartData('Colombia', 48, Color.fromRGBO(222, 219, 23, 0)),
-  //     ChartData('Brasil', 51, Color.fromRGBO(109, 176, 97, 0)),
-  //     ChartData('Argentina', 41, Color.fromRGBO(51, 170, 205, 0)),
-  //     ChartData('Chile', 20, Color.fromRGBO(252, 111, 95, 0)),
-  //   ];
-
-  //   return SfCircularChart(
-  //       legend: Legend(
-  //           isResponsive: true,
-  //           textStyle: ChartTextStyle(fontWeight: FontWeight.w300),
-  //           isVisible: true,
-  //           position: LegendPosition.bottom,
-  //           overflowMode: LegendItemOverflowMode.wrap,
-  //           iconWidth: 15),
-  //       series: <CircularSeries>[
-  //         RadialBarSeries<ChartData, String>(
-  //             enableSmartLabels: true,
-  //             maximumValue: 70,
-  //             pointColorMapper: (ChartData data, _) => data.color,
-  //             cornerStyle: CornerStyle.endCurve,
-  //             dataSource: chartData,
-  //             radius: '100%',
-  //             innerRadius: '30%',
-  //             xValueMapper: (ChartData data, _) => data.x,
-  //             yValueMapper: (ChartData data, _) => data.y,
-  //             dataLabelMapper: (ChartData data, _) => data.x,
-  //             dataLabelSettings: DataLabelSettings(
-  //                 isVisible: false,
-  //                 labelPosition: ChartDataLabelPosition.inside,
-  //                 textStyle:
-  //                     ChartTextStyle(fontSize: 12, fontWeight: FontWeight.w300),
-  //                 connectorLineSettings:
-  //                     ConnectorLineSettings(type: ConnectorType.curve)))
-  //       ]);
-  // }
-
 
 }
 
