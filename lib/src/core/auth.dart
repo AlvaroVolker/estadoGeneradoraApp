@@ -11,7 +11,8 @@ final Config config = new Config(
 
 final AadOAuth oAuth = new AadOAuth(config);
 
-class AuthService{
+var login = oAuth.login();
 
+class AuthService{
 }
 
