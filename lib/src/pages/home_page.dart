@@ -104,7 +104,7 @@ class MyAppState extends State<HomePage> {
                 child: Row(children: <Widget>[
                   Text('Generación',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.black54,
                           fontWeight: FontWeight.w400,
                           fontSize: 27)),
                   Padding(
