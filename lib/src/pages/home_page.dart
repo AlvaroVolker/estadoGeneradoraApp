@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:estadogeneradoraapp/src/providers/detalleGeneracionSBU.dart';
 import 'package:http/http.dart' as http;
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
@@ -17,41 +18,26 @@ class HomePage extends StatefulWidget {
 
 class MyAppState extends State<HomePage> {
 
-  Future<List<ListaDetalleGeneracion>> _getData() async {
-    var data = await http.get('https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1');
-
-    var jsonData = json.decode(data.body);
-
-    List<ListaDetalleGeneracion> detalle = [];
-
-    for(var u in jsonData){
-
-      ListaDetalleGeneracion listaDetalle = ListaDetalleGeneracion(
-          u['Nombre'],
-          u['GeneracionActual'],
-          u['CapacidadUsada'],
-          u['CapacidadInstalada'],
-          u['FechaActualizacion']);
-
-          detalle.add(listaDetalle);
-
-    }
-
-    print(detalle.length);
-
-    return detalle;
-
+ @override
+  void initState() {
+    super.initState();
+    detalleGeneracion.getData;
+    
   }
 
-  static final Config config = new Config("6be806cd-f6f6-4b43-a806-81f0012743f9", "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d", "", "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
+  static final Config config = new Config(
+      "6be806cd-f6f6-4b43-a806-81f0012743f9",
+      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
+      "",
+      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
   final AadOAuth oAuth = AadOAuth(config);
 
   @override
   Widget build(BuildContext context) {
-
     //adjust window size for login
     var screenSize = MediaQuery.of(context).size;
-    var rectSize = Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height-25);
+    var rectSize =
+        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
     oAuth.setWebViewScreenSize(rectSize);
 
     return MaterialApp(
@@ -224,8 +210,7 @@ class MyAppState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      child:
-                          Container(child: MainBarChart()),
+                      child: Container(child: MainBarChart()),
                     ),
                     // Expanded(
                     //   child:
@@ -240,9 +225,7 @@ class MyAppState extends State<HomePage> {
       ),
     );
   }
-
 }
-
 
 class ChartData {
   ChartData(this.x, this.y, [this.color]);
