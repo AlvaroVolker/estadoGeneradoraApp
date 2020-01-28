@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:http/http.dart' as http;
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +16,32 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
+
+  Future<List<ListaDetalleGeneracion>> _getData() async {
+    var data = await http.get('https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1');
+
+    var jsonData = json.decode(data.body);
+
+    List<ListaDetalleGeneracion> detalle = [];
+
+    for(var u in jsonData){
+
+      ListaDetalleGeneracion listaDetalle = ListaDetalleGeneracion(
+          u['Nombre'],
+          u['GeneracionActual'],
+          u['CapacidadUsada'],
+          u['CapacidadInstalada'],
+          u['FechaActualizacion']);
+
+          detalle.add(listaDetalle);
+
+    }
+
+    print(detalle.length);
+
+    return detalle;
+
+  }
 
   static final Config config = new Config("6be806cd-f6f6-4b43-a806-81f0012743f9", "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d", "", "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
   final AadOAuth oAuth = AadOAuth(config);
