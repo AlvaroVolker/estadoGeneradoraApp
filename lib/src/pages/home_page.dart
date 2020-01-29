@@ -18,14 +18,18 @@ class HomePage extends StatefulWidget {
 class MyAppState extends State<HomePage> {
   Timer timer;
 
+  Future datos;
+
   @override
   void initState() {
     super.initState();
     timer = new Timer.periodic(
-        new Duration(seconds: 10), (t) => detalleGeneracion.getData());
-    detalleGeneracion.getData().then((data) {
-       print(data.nombre);
-    });
+        new Duration(minutes: 1), (t) => datos = _getData());
+  }
+
+
+  _getData() async {
+    return await detalleGeneracion.getData();
   }
 
   @override
@@ -126,15 +130,18 @@ class MyAppState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, top: 20),
                 child: Row(children: <Widget>[
-                  Text('Generación',
+                  Text('generación',
                       style: TextStyle(
                           color: Colors.black54,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           fontSize: 27)),
                   Padding(
                     padding: const EdgeInsets.only(left: 5, top: 8),
-                    child: Text('Favoritos',
-                        style: TextStyle(color: Colors.grey, fontSize: 15)),
+                    child: Text('favoritos',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400)),
                   ),
                 ]),
               ),
@@ -149,7 +156,10 @@ class MyAppState extends State<HomePage> {
     return new CircularPercentIndicator(
         center: Text(
           '59%',
-          style: TextStyle(color: Color.fromRGBO(36, 102, 13, 1), fontSize: 27, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Color.fromRGBO(36, 102, 13, 1),
+              fontSize: 27,
+              fontWeight: FontWeight.bold),
         ),
         radius: 120,
         percent: 0.59,
@@ -159,8 +169,40 @@ class MyAppState extends State<HomePage> {
         progressColor: Color.fromRGBO(36, 102, 13, 1));
   }
 
-  Widget _textGeneration() {
-    return Container(
+  Widget _containerGeneration() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: new Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+                child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _progressIndicator(),
+            )),
+          ),
+          Container(
+              child: Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: _dataGeneration(),
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget _dataGeneration() {
+    return FutureBuilder(
+      future: datos,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return Icon(Icons.mood_bad);
+          case ConnectionState.active:
+          case ConnectionState.waiting:
+            return Icon(Icons.watch_later);
+          case ConnectionState.done:
+          return Container(
       child: Column(
         children: <Widget>[
           Row(
@@ -169,7 +211,7 @@ class MyAppState extends State<HomePage> {
               Column(
                 children: <Widget>[
                   Text(
-                    "Entregando",
+                    "entregando",
                     style: TextStyle(fontWeight: FontWeight.w300),
                     textAlign: TextAlign.start,
                   ),
@@ -177,7 +219,7 @@ class MyAppState extends State<HomePage> {
                     padding: const EdgeInsets.all(3.0),
                     child: Row(
                       children: <Widget>[
-                        Text('2270,80',
+                        Text(snapshot.data.generacionActual.toString(),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -193,13 +235,13 @@ class MyAppState extends State<HomePage> {
                     height: 30,
                   ),
                   Text(
-                    'Capacidad',
+                    'capacidad',
                     textAlign: TextAlign.right,
                     style: TextStyle(fontWeight: FontWeight.w300),
                   ),
                   Row(
                     children: <Widget>[
-                      Text('11233',
+                      Text(snapshot.data.capacidadInstalada.toString(),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -217,29 +259,10 @@ class MyAppState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  Widget _containerGeneration() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 40),
-      child: new Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: _progressIndicator(),
-                )),
-          ),
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 40),
-                child: _textGeneration(),
-              )),
-          ),
-        ],
-      ),
+          default:
+            return Text('default');
+        }
+      }
     );
   }
 }
