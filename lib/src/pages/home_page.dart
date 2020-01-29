@@ -1,10 +1,12 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:estadogeneradoraapp/src/providers/detalleGeneracionSBU.dart';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
-import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
+//import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,12 +16,22 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
+  Timer timer;
 
- @override
+  @override
   void initState() {
     super.initState();
-    detalleGeneracion.getData();
-    
+    timer = new Timer.periodic(
+        new Duration(seconds: 10), (t) => detalleGeneracion.getData());
+    detalleGeneracion.getData().then((data) {
+       print(data.nombre);
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   static final Config config = new Config(
@@ -80,6 +92,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _crearBottomBar() {
     return BottomAppBar(
+      color: Colors.white,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -132,91 +145,98 @@ class MyAppState extends State<HomePage> {
     ));
   }
 
-  // Widget _textGeneration() {
-  //   return Container(
-  //     child: Column(
-  //       children: <Widget>[
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.end,
-  //           children: <Widget>[
-  //             Column(
-  //               children: <Widget>[
-  //                 Text(
-  //                   "Entregando",
-  //                   style: TextStyle(fontWeight: FontWeight.w300),
-  //                   textAlign: TextAlign.start,
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(3.0),
-  //                   child: Row(
-  //                     children: <Widget>[
-  //                       Text('2270,80',
-  //                           style: TextStyle(
-  //                               color: Colors.black,
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize: 20)),
-  //                       Text(
-  //                         ' MWh',
-  //                         style: TextStyle(color: Colors.grey),
-  //                       )
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 SizedBox(
-  //                   height: 30,
-  //                 ),
-  //                 Text(
-  //                   'Capacidad',
-  //                   textAlign: TextAlign.right,
-  //                   style: TextStyle(fontWeight: FontWeight.w300),
-  //                 ),
-  //                 Row(
-  //                   children: <Widget>[
-  //                     Text('11233',
-  //                         style: TextStyle(
-  //                             color: Colors.black,
-  //                             fontWeight: FontWeight.bold,
-  //                             fontSize: 20)),
-  //                     Text(
-  //                       ' MWh',
-  //                       style: TextStyle(color: Colors.grey),
-  //                     )
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget _progressIndicator() {
+    return new CircularPercentIndicator(
+        center: Text(
+          '59%',
+          style: TextStyle(color: Color.fromRGBO(36, 102, 13, 1), fontSize: 27, fontWeight: FontWeight.bold),
+        ),
+        radius: 120,
+        percent: 0.59,
+        animation: true,
+        backgroundColor: Color.fromRGBO(236, 236, 236, 1),
+        lineWidth: 13,
+        progressColor: Color.fromRGBO(36, 102, 13, 1));
+  }
+
+  Widget _textGeneration() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text(
+                    "Entregando",
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                    textAlign: TextAlign.start,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text('2270,80',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
+                        Text(
+                          ' MWh',
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Capacidad',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(fontWeight: FontWeight.w300),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text('11233',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                      Text(
+                        ' MWh',
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _containerGeneration() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 40),
       child: new Row(
         children: <Widget>[
           Expanded(
-            flex: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Container(
-                width: 270,
-                height: 270,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(child: MainBarChart()),
-                    ),
-                    // Expanded(
-                    //   child:
-                    //       Container(width: 250,child: _textGeneration()),
-                    // )
-                  ],
-                ),
-              ),
-            ),
+            child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: _progressIndicator(),
+                )),
+          ),
+          Expanded(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 40),
+                child: _textGeneration(),
+              )),
           ),
         ],
       ),
