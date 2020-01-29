@@ -1,10 +1,7 @@
-import 'dart:convert';
 import 'dart:ui';
 import 'package:estadogeneradoraapp/src/providers/detalleGeneracionSBU.dart';
-import 'package:http/http.dart' as http;
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
-import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:estadogeneradoraapp/src/pages/mainbarchart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,7 +18,7 @@ class MyAppState extends State<HomePage> {
  @override
   void initState() {
     super.initState();
-    detalleGeneracion.getData;
+    detalleGeneracion.getData();
     
   }
 

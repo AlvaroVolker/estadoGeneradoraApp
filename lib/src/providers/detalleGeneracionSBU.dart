@@ -26,14 +26,8 @@ class _DetalleGeneracionProvider{
           var detalleGen = jsonData['ListaDetalleComposite'];
 
           for(var u in detalleGen){
-
-             nombre = u['Nombre'].toString();
-             capacidadInstalada =double.parse(u['CapacidadInstalada'].toString());
-             capacidadUsada =  double.parse(u['CapacidadUsada'].toString());
-             fechaActualizacion = u['FechaActualizacion'].toString();
-             generacionActual = double.parse(u['GeneracionActual'].toString());
-
-            DetalleGeneracion detail = new DetalleGeneracion(
+             jsonDataAsign(u);
+              DetalleGeneracion detail = new DetalleGeneracion(
               nombre: nombre,
               capacidadInstalada: capacidadInstalada,
               capacidadUsada: capacidadUsada,
@@ -43,6 +37,7 @@ class _DetalleGeneracionProvider{
             detailGeneracion.listaDetalleGeneracion.add(detail);
           }
       }
+      print(detailGeneracion);
       return detailGeneracion;
   }
 
