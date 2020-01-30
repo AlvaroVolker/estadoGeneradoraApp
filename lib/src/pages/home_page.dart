@@ -197,8 +197,8 @@ class MyAppState extends State<HomePage> {
 
   Widget _progressIndicator(AsyncSnapshot snapshot) {
     return new CircularPercentIndicator(
-      arcType: ArcType.FULL,
-      reverse: true,
+        arcType: ArcType.FULL,
+        reverse: true,
         center: Text(
           snapshot.data.capacidadUsada + "%",
           style: TextStyle(
