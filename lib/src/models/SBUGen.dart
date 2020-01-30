@@ -1,3 +1,4 @@
+
 class DetalleGeneracion{
 
   final String nombre;

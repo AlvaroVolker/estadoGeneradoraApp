@@ -17,15 +17,12 @@ class HomePage extends StatefulWidget {
 
 class MyAppState extends State<HomePage> {
   Timer timer;
-
   Future datos;
 
   @override
   void initState() {
     super.initState();
     datos = _getData();
-    timer =
-        new Timer.periodic(new Duration(minutes: 1), (t) => datos = _getData());
   }
 
   _getData() async {
@@ -45,7 +42,7 @@ class MyAppState extends State<HomePage> {
       "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
   final AadOAuth oAuth = AadOAuth(config);
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var rectSize =
@@ -152,126 +149,127 @@ class MyAppState extends State<HomePage> {
     ));
   }
 
-  Widget _listBarChart(){
+  Widget _listBarChart() {
     return Expanded(
       flex: 1,
-          child: Container(
-            margin: EdgeInsets.only(top: 20),
-            child: ListView(
-              children: <Widget>[
-              ],
-            ),
-            ),
+      child: Container(
+        margin: EdgeInsets.only(top: 20),
+        child: ListView(
+          children: <Widget>[],
+        ),
+      ),
     );
-
   }
 
   Widget _containerGeneration() {
     return FutureBuilder(
-      future: datos,
-      builder: (BuildContext context, AsyncSnapshot snapshot){
-        if(snapshot.data != null){
-         return Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: new Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: _progressIndicator(snapshot),
-              )),
-            ),
-            Container(
-                child: Padding(
-              padding: const EdgeInsets.only(right: 40),
-              child: _dataGeneration(snapshot),
-            )),
-          ],
-        ),
-      );
-       }
-       return Padding(
-         padding: const EdgeInsets.only(top:70),
-         child: Center(child: LinearProgressIndicator()),
-       );
-      }
-    );
+        future: datos,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: new Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: _progressIndicator(snapshot),
+                    )),
+                  ),
+                  Container(
+                      child: Padding(
+                    padding: const EdgeInsets.only(right: 40),
+                    child: _dataGeneration(snapshot),
+                  )),
+                ],
+              ),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.only(top: 70),
+            child: Center(
+                child: LinearProgressIndicator(
+                    backgroundColor: Colors.deepPurpleAccent)),
+          );
+        });
   }
 
   Widget _progressIndicator(AsyncSnapshot snapshot) {
-          return new CircularPercentIndicator(
-              center: Text(
-                snapshot.data.capacidadUsada + "%",
-                style: TextStyle(
-                    color: Color.fromRGBO(36, 102, 13, 1),
-                    fontSize: 27,
-                    fontWeight: FontWeight.bold),
-              ),
-              radius: 120,
-              percent: double.parse(snapshot.data.capacidadUsada)/100,
-              animation: true,
-              backgroundColor: Color.fromRGBO(236, 236, 236, 1),
-              lineWidth: 13,
-              progressColor: Color.fromRGBO(36, 102, 13, 1));
+    return new CircularPercentIndicator(
+        animateFromLastPercent: true,
+        addAutomaticKeepAlive: true,
+        center: Text(
+          snapshot.data.capacidadUsada + "%",
+          style: TextStyle(
+              color: Color.fromRGBO(36, 102, 13, 1),
+              fontSize: 27,
+              fontWeight: FontWeight.bold),
+        ),
+        radius: 120,
+        percent: double.parse(snapshot.data.capacidadUsada) / 100,
+        animation: true,
+        backgroundColor: Color.fromRGBO(236, 236, 236, 1),
+        lineWidth: 13,
+        progressColor: Color.fromRGBO(36, 102, 13, 1));
   }
 
   Widget _dataGeneration(AsyncSnapshot snapshot) {
-          return Container(
-              child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Column(
+    return Container(
+        child: Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text(
+                  "entregando",
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.start,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Row(
                     children: <Widget>[
+                      Text(snapshot.data.generacionActual.toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
                       Text(
-                        "entregando",
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                        textAlign: TextAlign.start,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Row(
-                          children: <Widget>[                          
-                            Text(snapshot.data.generacionActual.toString(),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20)),
-                            Text(
-                              ' MWh',
-                              style: TextStyle(color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        'capacidad',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text(snapshot.data.capacidadInstalada.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20)),
-                          Text(
-                            ' MWh',
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      ),
+                        ' MWh',
+                        style: TextStyle(color: Colors.grey),
+                      )
                     ],
                   ),
-                ],
-              ),
-            ],
-          ));
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'capacidad',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(snapshot.data.capacidadInstalada.toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                    Text(
+                      ' MWh',
+                      style: TextStyle(color: Colors.grey),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ));
   }
 }

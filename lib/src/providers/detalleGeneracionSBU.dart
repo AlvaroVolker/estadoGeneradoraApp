@@ -16,7 +16,8 @@ class _DetalleGeneracionProvider {
 
   Future<DetalleGeneracion> getData() async {
     var response = await http.get(
-        'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1');
+        'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
+        .catchError((error)=> throw (error));
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -30,6 +31,7 @@ class _DetalleGeneracionProvider {
         detailGeneracion.listaDetalleGeneracion.add(detail);
       }
     }
+    
     print(detailGeneracion);
     return detailGeneracion;
   }
@@ -47,10 +49,11 @@ class _DetalleGeneracionProvider {
 
   void jsonDataAsign(jsonData) {
     nombre = jsonData['Nombre'].toString();
-    fechaActualizacion = (jsonData['FechaActualizacion'].toString());
-    generacionActual = double.parse(jsonData['GeneracionActual'].toStringAsFixed(3));
+    fechaActualizacion = jsonData['FechaActualizacion'].toString();
+    generacionActual =
+        double.parse(jsonData['GeneracionActual'].toStringAsFixed(1));
     capacidadInstalada =
-        double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(3));
+        double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(1));
     capacidadUsada = jsonData['CapacidadUsada'].toStringAsFixed(0);
   }
 }
