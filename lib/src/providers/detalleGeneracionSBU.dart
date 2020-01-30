@@ -7,7 +7,7 @@ class _DetalleGeneracionProvider {
   String fechaActualizacion;
   double generacionActual;
   double capacidadInstalada;
-  double capacidadUsada;
+  String capacidadUsada;
   DetalleGeneracion detailGeneracion;
 
   _DetalleGeneracionProvider() {
@@ -48,10 +48,10 @@ class _DetalleGeneracionProvider {
   void jsonDataAsign(jsonData) {
     nombre = jsonData['Nombre'].toString();
     fechaActualizacion = (jsonData['FechaActualizacion'].toString());
-    generacionActual = double.parse(jsonData['GeneracionActual'].toString());
+    generacionActual = double.parse(jsonData['GeneracionActual'].toStringAsFixed(3));
     capacidadInstalada =
-        double.parse(jsonData['CapacidadInstalada'].toString());
-    capacidadUsada = double.parse(jsonData['CapacidadUsada'].toString());
+        double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(3));
+    capacidadUsada = jsonData['CapacidadUsada'].toStringAsFixed(0);
   }
 }
 

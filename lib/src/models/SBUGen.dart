@@ -2,7 +2,7 @@ class DetalleGeneracion{
 
   final String nombre;
   final double capacidadInstalada;
-  final double capacidadUsada;
+  final String capacidadUsada;
   final double generacionActual;
   final String fechaActualizacion;
   List<DetalleGeneracion> listaDetalleGeneracion;
