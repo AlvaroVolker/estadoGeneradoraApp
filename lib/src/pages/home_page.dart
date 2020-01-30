@@ -4,6 +4,7 @@ import 'package:estadogeneradoraapp/src/providers/detalleGeneracionSBU.dart';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -197,8 +198,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _progressIndicator(AsyncSnapshot snapshot) {
     return new CircularPercentIndicator(
-        arcType: ArcType.FULL,
-        reverse: true,
+      startAngle: 0,
         center: Text(
           snapshot.data.capacidadUsada + "%",
           style: TextStyle(
