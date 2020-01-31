@@ -286,8 +286,6 @@ class MyAppState extends State<HomePage> {
                                 100,
                             width: 330,
                             lineHeight: 20,
-                            center: Text(snapshot
-                                .data.listaDetalleGeneracion[index].nombre),
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
                             progressColor: Color.fromRGBO(51, 160, 44, 1),
