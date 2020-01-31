@@ -151,15 +151,60 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _listBarChart() {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        margin: EdgeInsets.only(top: 20),
-        child: ListView(
-          children: <Widget>[],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: datos,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Expanded(
+            flex: 1,
+            child: Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 40, top: 50),
+                child: Container(
+                  child: ListView(
+                    children: <Widget>[
+                      LinearPercentIndicator(
+                        width: 310,
+                        lineHeight: 18,
+                        progressColor: Color.fromRGBO(166, 206, 227, 1),
+                        backgroundColor: Color.fromRGBO(166, 206, 227, 0.3),
+                        linearStrokeCap: LinearStrokeCap.butt,
+                        percent: 0.7,
+                      ),
+                      SizedBox(height: 30),
+                      LinearPercentIndicator(
+                        width: 310,
+                        lineHeight: 18,
+                        progressColor: Color.fromRGBO(253, 105, 105, 1),
+                        backgroundColor: Color.fromRGBO(253, 105, 105, 0.3),
+                        linearStrokeCap: LinearStrokeCap.butt,
+                        percent: 0.3,
+                      ),
+                      SizedBox(height: 30),
+                      LinearPercentIndicator(
+                        width: 310,
+                        lineHeight: 18,
+                        progressColor: Color.fromRGBO(228, 221, 32, 1),
+                        backgroundColor: Color.fromRGBO(228, 221, 32, 0.2),
+                        linearStrokeCap: LinearStrokeCap.butt,
+                        percent: 0.60,
+                      ),
+                      SizedBox(height: 30),
+                      LinearPercentIndicator(
+                        width: 310,
+                        lineHeight: 18,
+                        progressColor: Color.fromRGBO(51, 160, 44, 1),
+                        backgroundColor: Color.fromRGBO(51, 160, 44, 0.3),
+                        linearStrokeCap: LinearStrokeCap.butt,
+                        percent: 0.47,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   Widget _containerGeneration() {
@@ -198,7 +243,8 @@ class MyAppState extends State<HomePage> {
 
   Widget _progressIndicator(AsyncSnapshot snapshot) {
     return new CircularPercentIndicator(
-      startAngle: 0,
+        animateFromLastPercent: true,
+        startAngle: 0,
         center: Text(
           snapshot.data.capacidadUsada + "%",
           style: TextStyle(
