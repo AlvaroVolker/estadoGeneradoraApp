@@ -17,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
-  
   Timer timer;
   Future datos;
 
@@ -71,7 +70,7 @@ class MyAppState extends State<HomePage> {
             _crearAppBar(),
             _pagesNavigation(),
             _containerGeneration(),
-            _listBarChart()
+            _listCountry()
           ],
         ),
       ),
@@ -149,67 +148,6 @@ class MyAppState extends State<HomePage> {
         ),
       ],
     ));
-  }
-
-  Widget _listBarChart() {
-    return FutureBuilder(
-        future: datos,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Expanded(
-            flex: 1,
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40, top: 50),
-                child: Container(
-                  child: ListView(
-                    children: <Widget>[
-                      Text('Argentina', textAlign: TextAlign.start, ),
-                      LinearPercentIndicator(
-                        width: 310,
-                        lineHeight: 18,
-                        progressColor: Color.fromRGBO(166, 206, 227, 1),
-                        backgroundColor: Color.fromRGBO(166, 206, 227, 0.3),
-                        linearStrokeCap: LinearStrokeCap.butt,
-                        percent: 0.7,
-                      ),
-                      SizedBox(height: 30),
-                      Text('Chile'),
-                      LinearPercentIndicator(
-                        width: 310,
-                        lineHeight: 18,
-                        progressColor: Color.fromRGBO(253, 105, 105, 1),
-                        backgroundColor: Color.fromRGBO(253, 105, 105, 0.3),
-                        linearStrokeCap: LinearStrokeCap.butt,
-                        percent: 0.3,
-                      ),
-                      SizedBox(height: 30),
-                      Text('Colombia'),
-                      LinearPercentIndicator(
-                        width: 310,
-                        lineHeight: 18,
-                        progressColor: Color.fromRGBO(228, 221, 32, 1),
-                        backgroundColor: Color.fromRGBO(228, 221, 32, 0.2),
-                        linearStrokeCap: LinearStrokeCap.butt,
-                        percent: 0.60,
-                      ),
-                      SizedBox(height: 30),
-                      Text('Brasil'),
-                      LinearPercentIndicator(
-                        width: 310,
-                        lineHeight: 18,
-                        progressColor: Color.fromRGBO(51, 160, 44, 1),
-                        backgroundColor: Color.fromRGBO(51, 160, 44, 0.2),
-                        linearStrokeCap: LinearStrokeCap.butt,
-                        percent: 0.47
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        });
   }
 
   Widget _containerGeneration() {
@@ -322,5 +260,47 @@ class MyAppState extends State<HomePage> {
         ),
       ],
     ));
+  }
+
+  Widget _listCountry() {
+    return FutureBuilder(
+        future: datos,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            return Expanded(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(35.0),
+                  child: ListView.builder(
+                    itemExtent: 60,
+                    itemCount: snapshot.data.listaDetalleGeneracion.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: <Widget>[
+                          LinearPercentIndicator(
+                            percent: double.parse(snapshot
+                                    .data
+                                    .listaDetalleGeneracion[index]
+                                    .capacidadUsada
+                                    .toString()) /
+                                100,
+                            width: 330,
+                            lineHeight: 20,
+                            center: Text(snapshot.data.listaDetalleGeneracion[index].nombre),
+                            linearStrokeCap: LinearStrokeCap.butt,
+                            animation: true,
+                            progressColor: Color.fromRGBO(51, 160, 44, 1),
+                            backgroundColor: Color.fromRGBO(51, 160, 44, 0.2),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            );
+          }
+          return LinearProgressIndicator();
+        });
   }
 }
