@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
+  
   Timer timer;
   Future datos;
 
@@ -157,12 +158,13 @@ class MyAppState extends State<HomePage> {
           return Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 10),
               child: Padding(
                 padding: const EdgeInsets.only(left: 40, top: 50),
                 child: Container(
                   child: ListView(
                     children: <Widget>[
+                      Text('Argentina', textAlign: TextAlign.start, ),
                       LinearPercentIndicator(
                         width: 310,
                         lineHeight: 18,
@@ -172,6 +174,7 @@ class MyAppState extends State<HomePage> {
                         percent: 0.7,
                       ),
                       SizedBox(height: 30),
+                      Text('Chile'),
                       LinearPercentIndicator(
                         width: 310,
                         lineHeight: 18,
@@ -181,6 +184,7 @@ class MyAppState extends State<HomePage> {
                         percent: 0.3,
                       ),
                       SizedBox(height: 30),
+                      Text('Colombia'),
                       LinearPercentIndicator(
                         width: 310,
                         lineHeight: 18,
@@ -190,13 +194,14 @@ class MyAppState extends State<HomePage> {
                         percent: 0.60,
                       ),
                       SizedBox(height: 30),
+                      Text('Brasil'),
                       LinearPercentIndicator(
                         width: 310,
                         lineHeight: 18,
                         progressColor: Color.fromRGBO(51, 160, 44, 1),
-                        backgroundColor: Color.fromRGBO(51, 160, 44, 0.3),
+                        backgroundColor: Color.fromRGBO(51, 160, 44, 0.2),
                         linearStrokeCap: LinearStrokeCap.butt,
-                        percent: 0.47,
+                        percent: 0.47
                       )
                     ],
                   ),
@@ -246,7 +251,7 @@ class MyAppState extends State<HomePage> {
         animateFromLastPercent: true,
         startAngle: 0,
         center: Text(
-          snapshot.data.capacidadUsada + "%",
+          " " + snapshot.data.capacidadUsada + "%",
           style: TextStyle(
               color: Color.fromRGBO(36, 102, 13, 1),
               fontSize: 27,
