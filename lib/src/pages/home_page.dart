@@ -281,10 +281,9 @@ class MyAppState extends State<HomePage> {
                             percent: double.parse(snapshot
                                     .data
                                     .listaDetalleGeneracion[index]
-                                    .capacidadUsada
-                                    .toString()) /
+                                    .capacidadUsada) /
                                 100,
-                            width: 330,
+                            width: 270,
                             lineHeight: 20,
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
