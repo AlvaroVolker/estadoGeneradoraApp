@@ -287,7 +287,7 @@ class MyAppState extends State<HomePage> {
                             lineHeight: 20,
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
-                            progressColor: Color.fromRGBO(51, 160, 44, 1),
+                            progressColor: Color.fromRGBO(36, 102, 13, 1),
                             backgroundColor: Color.fromRGBO(51, 160, 44, 0.1),
                           ),
                         ],
