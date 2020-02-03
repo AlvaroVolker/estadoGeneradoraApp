@@ -275,20 +275,20 @@ class MyAppState extends State<HomePage> {
                     itemExtent: 60,
                     itemCount: snapshot.data.listaDetalleGeneracion.length,
                     itemBuilder: (BuildContext context, int index) {
+                      var snapshotData =
+                          snapshot.data.listaDetalleGeneracion[index];
                       return Row(
                         children: <Widget>[
                           LinearPercentIndicator(
-                            percent: double.parse(snapshot
-                                    .data
-                                    .listaDetalleGeneracion[index]
-                                    .capacidadUsada) /
-                                100,
+                            percent:
+                                double.parse(snapshotData.capacidadUsada) / 100,
                             width: 270,
                             lineHeight: 20,
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
-                            progressColor: Color.fromRGBO(36, 102, 13, 1),
-                            backgroundColor: Color.fromRGBO(51, 160, 44, 0.1),
+                            progressColor: setProgressColor(snapshotData.nombre),
+                            backgroundColor: setBarColor(snapshotData.nombre),
+                            center:  Text(snapshotData.nombre + " - " + snapshotData.capacidadUsada + "%", style: TextStyle(fontSize: 10, color: Colors.blueGrey)),
                           ),
                         ],
                       );
@@ -300,5 +300,43 @@ class MyAppState extends State<HomePage> {
           }
           return LinearProgressIndicator();
         });
+  }
+
+  Color setProgressColor(String nombre) {
+    switch (nombre) {
+      case "Argentina":
+        return Color.fromRGBO(166, 206, 227, 1);
+        break;
+      case "Colombia":
+        return Color.fromRGBO(249, 231, 159, 1);
+        break;
+      case "Brasil":
+        return Color.fromRGBO(82, 190, 128, 1);
+        break;
+      case "Chile":
+        return Color.fromRGBO(253, 105, 105, 1);
+        break;
+      default:
+        return Color.fromRGBO(36, 102, 13, 1);
+    }
+  }
+
+  Color setBarColor(String nombre) {
+    switch (nombre) {
+      case "Argentina":
+        return Color.fromRGBO(166, 206, 227, 0.2);
+        break;
+      case "Colombia":
+        return Color.fromRGBO(249, 231, 159, 0.2);
+        break;
+      case "Brasil":
+        return Color.fromRGBO(82, 190, 128, 0.2);
+        break;
+      case "Chile":
+        return Color.fromRGBO(253, 105, 105, 0.2);
+        break;
+      default:
+        return Color.fromRGBO(36, 102, 13, 0.2);
+    }
   }
 }
