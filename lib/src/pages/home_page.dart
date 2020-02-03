@@ -70,7 +70,8 @@ class MyAppState extends State<HomePage> {
             _crearAppBar(),
             _pagesNavigation(),
             _containerGeneration(),
-            _listCountry()
+            _listCountry(),
+            _cardActualizacion()
           ],
         ),
       ),
@@ -286,9 +287,16 @@ class MyAppState extends State<HomePage> {
                             lineHeight: 20,
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
-                            progressColor: setProgressColor(snapshotData.nombre),
+                            progressColor:
+                                setProgressColor(snapshotData.nombre),
                             backgroundColor: setBarColor(snapshotData.nombre),
-                            center:  Text(snapshotData.nombre + " - " + snapshotData.capacidadUsada + "%", style: TextStyle(fontSize: 10, color: Colors.blueGrey)),
+                            center: Text(
+                                snapshotData.nombre +
+                                    " - " +
+                                    snapshotData.capacidadUsada +
+                                    "%",
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.blueGrey)),
                           ),
                         ],
                       );
@@ -298,7 +306,32 @@ class MyAppState extends State<HomePage> {
               ),
             );
           }
-          return LinearProgressIndicator();
+          return Text("");
+        });
+  }
+
+  Widget _cardActualizacion() {
+    return FutureBuilder(
+        future: datos,
+        builder: (BuildContext context, AsyncSnapshot snap) {
+
+          if(snap.data != null){
+          return Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Fecha actualizacion: " + snap.data.fechaActualizacion, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w100),),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+          }
+          return Text('');
         });
   }
 
