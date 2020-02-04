@@ -17,8 +17,22 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
-  Timer timer;
+  static final Config config = new Config(
+      "6be806cd-f6f6-4b43-a806-81f0012743f9",
+      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
+      "",
+      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
+
+
   Future datos;
+  final AadOAuth oAuth = AadOAuth(config);
+  Timer timer;
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -28,38 +42,6 @@ class MyAppState extends State<HomePage> {
 
   _getData() async {
     return await detalleGeneracion.getData();
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  static final Config config = new Config(
-      "6be806cd-f6f6-4b43-a806-81f0012743f9",
-      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
-      "",
-      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
-  final AadOAuth oAuth = AadOAuth(config);
-
-  @override
-  Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var rectSize =
-        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
-    oAuth.setWebViewScreenSize(rectSize);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: Container(
-        child: Scaffold(
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
-        ),
-      ),
-    );
   }
 
   Widget _body() {
@@ -371,5 +353,24 @@ class MyAppState extends State<HomePage> {
       default:
         return Color.fromRGBO(36, 102, 13, 0.2);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var rectSize =
+        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
+    oAuth.setWebViewScreenSize(rectSize);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      home: Container(
+        child: Scaffold(
+          body: _body(),
+          bottomNavigationBar: _crearBottomBar(),
+        ),
+      ),
+    );
   }
 }
