@@ -24,7 +24,6 @@ class MyAppState extends State<HomePage> {
       "",
       "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
 
-
   Future datos;
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
@@ -297,22 +296,27 @@ class MyAppState extends State<HomePage> {
     return FutureBuilder(
         future: datos,
         builder: (BuildContext context, AsyncSnapshot snap) {
-
-          if(snap.data != null){
-          return Container(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Fecha actualizacion: " + snap.data.fechaActualizacion, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w100),),
+          if (snap.data != null) {
+            return Container(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Fecha actualizacion: " +
+                              snap.data.fechaActualizacion,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w100),
+                        ),
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          );
+                  )
+                ],
+              ),
+            );
           }
           return Text('');
         });
