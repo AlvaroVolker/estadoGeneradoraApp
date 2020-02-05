@@ -17,7 +17,7 @@ class _DetalleGeneracionProvider {
   Future<DetalleGeneracion> getData() async {
     var response = await http.get(
         'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
-        .catchError((error)=> throw (error));
+        .catchError((error) => throw (error));
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);

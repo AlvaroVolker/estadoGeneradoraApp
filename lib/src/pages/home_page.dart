@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -265,18 +266,26 @@ class MyAppState extends State<HomePage> {
                           LinearPercentIndicator(
                             percent:
                                 double.parse(snapshotData.capacidadUsada) / 100,
-                            width: 270,
                             lineHeight: 20,
+                            width: MediaQuery.of(context).size.width - 140,
+                            trailing: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(int.parse(snapshotData.capacidadUsada) <
+                                          50
+                                      ? Icons.arrow_drop_down
+                                      : Icons.arrow_drop_up),
+                                  Text(snapshotData.capacidadUsada + "%"),
+                                ],
+                              ),
+                            ),
                             linearStrokeCap: LinearStrokeCap.butt,
                             animation: true,
                             progressColor:
                                 setProgressColor(snapshotData.nombre),
                             backgroundColor: setBarColor(snapshotData.nombre),
-                            center: Text(
-                                snapshotData.nombre +
-                                    " - " +
-                                    snapshotData.capacidadUsada +
-                                    "%",
+                            center: Text(snapshotData.nombre,
                                 style: TextStyle(
                                     fontSize: 10, color: Colors.blueGrey)),
                           ),
@@ -288,7 +297,7 @@ class MyAppState extends State<HomePage> {
               ),
             );
           }
-          return Text("");
+          return LinearPercentIndicator();
         });
   }
 
@@ -318,7 +327,7 @@ class MyAppState extends State<HomePage> {
               ),
             );
           }
-          return Text('');
+          return LinearPercentIndicator();
         });
   }
 
