@@ -15,8 +15,9 @@ class _DetalleGeneracionProvider {
   }
 
   Future<DetalleGeneracion> getData() async {
-    var response = await http.get(
-        'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
+    var response = await http
+        .get(
+            'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
         .catchError((error) => throw (error));
 
     if (response.statusCode == 200) {
@@ -31,7 +32,7 @@ class _DetalleGeneracionProvider {
         detailGeneracion.listaDetalleGeneracion.add(detail);
       }
     }
-    
+
     print(detailGeneracion);
     return detailGeneracion;
   }

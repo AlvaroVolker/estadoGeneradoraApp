@@ -209,7 +209,7 @@ class MyAppState extends State<HomePage> {
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 20)),
+                              fontSize: 18)),
                       Text(
                         ' MWh',
                         style: TextStyle(color: Colors.grey),
@@ -231,7 +231,7 @@ class MyAppState extends State<HomePage> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20)),
+                            fontSize: 18)),
                     Text(
                       ' MWh',
                       style: TextStyle(color: Colors.grey),
@@ -266,7 +266,7 @@ class MyAppState extends State<HomePage> {
                           LinearPercentIndicator(
                             percent:
                                 double.parse(snapshotData.capacidadUsada) / 100,
-                            lineHeight: 20,
+                            lineHeight: 23,
                             width: MediaQuery.of(context).size.width - 140,
                             trailing: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -276,7 +276,8 @@ class MyAppState extends State<HomePage> {
                                           50
                                       ? Icons.arrow_drop_down
                                       : Icons.arrow_drop_up),
-                                  Text(snapshotData.capacidadUsada + "%"),
+                                  Text(snapshotData.capacidadUsada + "%",
+                                      style: TextStyle(fontSize: 11.5)),
                                 ],
                               ),
                             ),
@@ -287,7 +288,7 @@ class MyAppState extends State<HomePage> {
                             backgroundColor: setBarColor(snapshotData.nombre),
                             center: Text(snapshotData.nombre,
                                 style: TextStyle(
-                                    fontSize: 10, color: Colors.blueGrey)),
+                                    fontSize: 12, color: Colors.black54)),
                           ),
                         ],
                       );
@@ -313,12 +314,17 @@ class MyAppState extends State<HomePage> {
                     child: Card(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Fecha actualizacion: " +
-                              snap.data.fechaActualizacion,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w100),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              snap.data.fechaActualizacion + " ",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w300),
+                            ),
+                            Icon(Icons.update, size: 18, color: Colors.grey)
+                          ],
                         ),
                       ),
                     ),
@@ -340,10 +346,10 @@ class MyAppState extends State<HomePage> {
         return Color.fromRGBO(249, 231, 159, 1);
         break;
       case "Brasil":
-        return Color.fromRGBO(82, 190, 128, 1);
+        return Color.fromRGBO(82, 190, 128, 0.8);
         break;
       case "Chile":
-        return Color.fromRGBO(253, 105, 105, 1);
+        return Color.fromRGBO(253, 105, 105, 0.7);
         break;
       default:
         return Color.fromRGBO(36, 102, 13, 1);
