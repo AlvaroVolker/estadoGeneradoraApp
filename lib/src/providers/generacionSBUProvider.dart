@@ -3,6 +3,7 @@ import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:http/http.dart' as http;
 
 class _DetalleGeneracionProvider {
+  int id;
   String nombre;
   String fechaActualizacion;
   double generacionActual;
@@ -39,6 +40,7 @@ class _DetalleGeneracionProvider {
 
   DetalleGeneracion createNewModel() {
     DetalleGeneracion detail = new DetalleGeneracion(
+      id: id,
       nombre: nombre,
       capacidadInstalada: capacidadInstalada,
       capacidadUsada: capacidadUsada,
@@ -49,6 +51,7 @@ class _DetalleGeneracionProvider {
   }
 
   void jsonDataAsign(jsonData) {
+    id = jsonData['Id'];
     nombre = jsonData['Nombre'].toString();
     fechaActualizacion = jsonData['FechaActualizacion'].toString();
     generacionActual =

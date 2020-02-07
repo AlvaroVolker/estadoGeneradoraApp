@@ -41,24 +41,52 @@ class MyAppState extends State<HomePage> {
     datos = _getData();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var rectSize =
+        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
+    oAuth.setWebViewScreenSize(rectSize);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      home: Container(
+        child: Scaffold(
+          body: _body(),
+          bottomNavigationBar: _crearBottomBar(),
+        ),
+      ),
+    );
+  }
+
   _getData() async {
     return await detalleGeneracion.getData();
   }
 
   Widget _body() {
-    return SafeArea(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            _crearAppBar(),
-            _pagesNavigation(),
-            _containerGeneration(),
-            _listCountry(),
-            _cardActualizacion()
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: datos,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            return SafeArea(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    _crearAppBar(),
+                    _pagesNavigation(),
+                    _containerGeneration(snapshot),
+                    _listCountry(snapshot),
+                    _cardActualizacion(snapshot)
+                  ],
+                ),
+              ),
+            );
+          }
+          return Center(
+              child:
+                  LinearProgressIndicator(backgroundColor: Colors.deepPurple));
+        });
   }
 
   Widget _crearAppBar() {
@@ -110,9 +138,9 @@ class MyAppState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 20, top: 20),
+                padding: const EdgeInsets.only(left: 20, top: 12),
                 child: Row(children: <Widget>[
-                  Text('generación',
+                  Text('Generación',
                       style: TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.w600,
@@ -134,38 +162,26 @@ class MyAppState extends State<HomePage> {
     ));
   }
 
-  Widget _containerGeneration() {
-    return FutureBuilder(
-        future: datos,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: new Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                        child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: _progressIndicator(snapshot),
-                    )),
-                  ),
-                  Container(
-                      child: Padding(
-                    padding: const EdgeInsets.only(right: 40),
-                    child: _dataGeneration(snapshot),
-                  )),
-                ],
-              ),
-            );
-          }
-          return Padding(
-            padding: const EdgeInsets.only(top: 70),
-            child: Center(
-                child: LinearProgressIndicator(
-                    backgroundColor: Colors.deepPurpleAccent)),
-          );
-        });
+  Widget _containerGeneration(AsyncSnapshot snapshot) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 37),
+      child: new Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+                child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _progressIndicator(snapshot),
+            )),
+          ),
+          Container(
+              child: Padding(
+            padding: const EdgeInsets.only(right: 40),
+            child: _dataGeneration(snapshot),
+          )),
+        ],
+      ),
+    );
   }
 
   Widget _progressIndicator(AsyncSnapshot snapshot) {
@@ -246,151 +262,100 @@ class MyAppState extends State<HomePage> {
     ));
   }
 
-  Widget _listCountry() {
-    return FutureBuilder(
-        future: datos,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
-            return Expanded(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(35.0),
-                  child: ListView.builder(
-                    itemExtent: 60,
-                    itemCount: snapshot.data.listaDetalleGeneracion.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var snapshotData =
-                          snapshot.data.listaDetalleGeneracion[index];
-                      return Row(
-                        children: <Widget>[
-                          LinearPercentIndicator(
-                            percent:
-                                double.parse(snapshotData.capacidadUsada) / 100,
-                            lineHeight: 23,
-                            width: MediaQuery.of(context).size.width - 140,
-                            trailing: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(int.parse(snapshotData.capacidadUsada) <
-                                          50
-                                      ? Icons.arrow_drop_down
-                                      : Icons.arrow_drop_up),
-                                  Text(snapshotData.capacidadUsada + "%",
-                                      style: TextStyle(fontSize: 11.5)),
-                                ],
-                              ),
-                            ),
-                            linearStrokeCap: LinearStrokeCap.butt,
-                            animation: true,
-                            progressColor:
-                                setProgressColor(snapshotData.nombre),
-                            backgroundColor: setBarColor(snapshotData.nombre),
-                            center: Text(snapshotData.nombre,
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black54)),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-            );
-          }
-          return LinearPercentIndicator();
-        });
-  }
-
-  Widget _cardActualizacion() {
-    return FutureBuilder(
-        future: datos,
-        builder: (BuildContext context, AsyncSnapshot snap) {
-          if (snap.data != null) {
-            return Container(
-              child: Row(
+  Widget _listCountry(AsyncSnapshot snapshot) {
+    return Expanded(
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(35.0),
+          child: ListView.builder(
+            itemExtent: 60,
+            itemCount: snapshot.data.listaDetalleGeneracion.length,
+            itemBuilder: (BuildContext context, int index) {
+              var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+              var capacUsada = double.parse(snapshotData.capacidadUsada);
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Expanded(
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              snap.data.fechaActualizacion + " ",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.w300),
-                            ),
-                            Icon(Icons.update, size: 18, color: Colors.grey)
-                          ],
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text('hola'),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        CircularPercentIndicator(
+                          percent: capacUsada / 100,
+                          animation: true,
+                          lineWidth: 2,
+                          center: Text(snapshotData.capacidadUsada + "%", style: TextStyle(fontSize: 10),),
+                          progressColor: setProgressColor(capacUsada),
+                          backgroundColor: setBarColor(capacUsada), radius: 30,
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text('hola'),
+                      ],
                     ),
                   )
                 ],
-              ),
-            );
-          }
-          return LinearPercentIndicator();
-        });
-  }
-
-  Color setProgressColor(String nombre) {
-    switch (nombre) {
-      case "Argentina":
-        return Color.fromRGBO(166, 206, 227, 1);
-        break;
-      case "Colombia":
-        return Color.fromRGBO(249, 231, 159, 1);
-        break;
-      case "Brasil":
-        return Color.fromRGBO(82, 190, 128, 0.8);
-        break;
-      case "Chile":
-        return Color.fromRGBO(253, 105, 105, 0.7);
-        break;
-      default:
-        return Color.fromRGBO(36, 102, 13, 1);
-    }
-  }
-
-  Color setBarColor(String nombre) {
-    switch (nombre) {
-      case "Argentina":
-        return Color.fromRGBO(166, 206, 227, 0.2);
-        break;
-      case "Colombia":
-        return Color.fromRGBO(249, 231, 159, 0.2);
-        break;
-      case "Brasil":
-        return Color.fromRGBO(82, 190, 128, 0.2);
-        break;
-      case "Chile":
-        return Color.fromRGBO(253, 105, 105, 0.2);
-        break;
-      default:
-        return Color.fromRGBO(36, 102, 13, 0.2);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var rectSize =
-        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
-    oAuth.setWebViewScreenSize(rectSize);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: Container(
-        child: Scaffold(
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
+              );
+            },
+          ),
         ),
       ),
     );
+  }
+
+  Widget _cardActualizacion(AsyncSnapshot snapshot) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      snapshot.data.fechaActualizacion + " ",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                    ),
+                    Icon(Icons.update, size: 18, color: Colors.grey)
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Color setProgressColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(253, 105, 105, 1);
+      return Color.fromRGBO(249, 231, 159, 1);
+    } else {
+      return Color.fromRGBO(36, 102, 13, 1);
+    }
+  }
+
+  Color setBarColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(253, 105, 105, 0.1);
+      return Color.fromRGBO(249, 231, 159, 0.2);
+    } else {
+      return Color.fromRGBO(36, 102, 13, 0.1);
+    }
   }
 }
