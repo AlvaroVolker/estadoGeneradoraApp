@@ -284,7 +284,7 @@ class MyAppState extends State<HomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: new Column(
                           children: <Widget>[
-                            Text('hola'),
+                            Text(snapshotData.nombre),
                           ],
                         ),
                       ),
