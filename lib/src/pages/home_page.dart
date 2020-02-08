@@ -264,50 +264,60 @@ class MyAppState extends State<HomePage> {
 
   Widget _listCountry(AsyncSnapshot snapshot) {
     return Expanded(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(35.0),
-          child: ListView.builder(
-            itemExtent: 60,
-            itemCount: snapshot.data.listaDetalleGeneracion.length,
-            itemBuilder: (BuildContext context, int index) {
-              var snapshotData = snapshot.data.listaDetalleGeneracion[index];
-              var capacUsada = double.parse(snapshotData.capacidadUsada);
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Text('hola'),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        CircularPercentIndicator(
-                          percent: capacUsada / 100,
-                          animation: true,
-                          lineWidth: 2,
-                          center: Text(snapshotData.capacidadUsada + "%", style: TextStyle(fontSize: 10),),
-                          progressColor: setProgressColor(capacUsada),
-                          backgroundColor: setBarColor(capacUsada), radius: 30,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: ListView.builder(
+          itemExtent: 60,
+          itemCount: snapshot.data.listaDetalleGeneracion.length,
+          itemBuilder: (BuildContext context, int index) {
+            var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+            var capacUsada = double.parse(snapshotData.capacidadUsada);
+            return new Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  color: Color.fromRGBO(244, 255, 255, 1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: new Column(
+                          children: <Widget>[
+                            Text('hola'),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      new Column(
+                        children: <Widget>[
+                          CircularPercentIndicator(
+                            percent: capacUsada / 100,
+                            animation: true,
+                            lineWidth: 2,
+                            center: Text(
+                              snapshotData.capacidadUsada + "%",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            progressColor: setProgressColor(capacUsada),
+                            backgroundColor: setBarColor(capacUsada),
+                            radius: 30,
+                          ),
+                        ],
+                      ),
+                      new Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text('hola'),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Text('hola'),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
