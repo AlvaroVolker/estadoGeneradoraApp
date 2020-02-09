@@ -311,7 +311,7 @@ class MyAppState extends State<HomePage> {
                                     ? Icons.arrow_drop_down
                                     : Icons.arrow_drop_up),
                                 Text(
-                                  snapshotData.capacidadUsada.toString() + "%",
+                                  snapshotData.capacidadUsada.toString() + " %",
                                   style: TextStyle(
                                       backgroundColor:  setBarColor(double.parse(
                                           snapshotData.capacidadUsada))),
