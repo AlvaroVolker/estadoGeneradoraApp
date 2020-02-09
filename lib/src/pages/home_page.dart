@@ -183,23 +183,41 @@ class MyAppState extends State<HomePage> {
     );
   }
 
+  final Shader linearGradient = LinearGradient(colors: [
+    const Color.fromRGBO(41, 205, 235, 0.5),
+    const Color.fromRGBO(49, 79, 251, 0.5),
+    const Color.fromRGBO(158, 112, 255, 0.5),
+    const Color.fromRGBO(142, 255, 112, 0.5)
+  ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   Widget _progressIndicator(AsyncSnapshot snapshot) {
     return new CircularPercentIndicator(
-        animateFromLastPercent: true,
-        startAngle: 0,
-        center: Text(
-          " " + snapshot.data.capacidadUsada + "%",
-          style: TextStyle(
-              color: Color.fromRGBO(36, 102, 13, 1),
-              fontSize: 27,
-              fontWeight: FontWeight.bold),
-        ),
-        radius: 120,
-        percent: double.parse(snapshot.data.capacidadUsada) / 100,
-        animation: true,
-        backgroundColor: Color.fromRGBO(236, 236, 236, 1),
-        lineWidth: 13,
-        progressColor: Color.fromRGBO(36, 102, 13, 1));
+      animateFromLastPercent: true,
+      startAngle: 0,
+      center: Text(
+        " " + snapshot.data.capacidadUsada + "%",
+        style: TextStyle(
+            foreground: Paint()..shader = linearGradient,
+            fontSize: 27,
+            fontWeight: FontWeight.bold),
+      ),
+      radius: 120,
+      linearGradient: LinearGradient(
+        colors: [
+          const Color.fromRGBO(158, 112, 255, 0.5),
+          const Color.fromRGBO(49, 79, 251, 0.5),
+          const Color.fromRGBO(41, 205, 235, 0.5),
+          const Color.fromRGBO(142, 255, 112, 0.5),
+        ],
+        begin: Alignment.topRight,
+        end: Alignment.topLeft,
+      ),
+      percent: double.parse(snapshot.data.capacidadUsada) / 100,
+      animation: true,
+      backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
+      lineWidth: 13,
+      // progressColor: Color.fromRGBO(36, 102, 13, 1)
+    );
   }
 
   Widget _dataGeneration(AsyncSnapshot snapshot) {
@@ -264,9 +282,9 @@ class MyAppState extends State<HomePage> {
   Widget _listCountry(AsyncSnapshot snapshot) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: const EdgeInsets.only(top: 50),
         child: ListView.builder(
-          itemExtent: 70,
+          itemExtent: 90,
           itemCount: snapshot.data.listaDetalleGeneracion.length,
           itemBuilder: (BuildContext context, int index) {
             var snapshotData = snapshot.data.listaDetalleGeneracion[index];
@@ -276,52 +294,54 @@ class MyAppState extends State<HomePage> {
               child: new Container(
                 child: FlatButton(
                   onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new Column(
-                          children: <Widget>[
-                            LinearPercentIndicator(
-                              percent: capacUsada / 100,
-                              animation: true,
-                              width: MediaQuery.of(context).size.width - 170,
-                              linearStrokeCap: LinearStrokeCap.butt,
-                              lineHeight: 20,
-                              center: Text(
-                                snapshotData.nombre,
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black54),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new Column(
+                            children: <Widget>[
+                              LinearPercentIndicator(
+                                percent: capacUsada / 100,
+                                animation: true,
+                                width: MediaQuery.of(context).size.width - 230,
+                                linearStrokeCap: LinearStrokeCap.butt,
+                                lineHeight: 20,
+                                leading: Text(snapshotData.nombre),
+                                progressColor: setProgressColor(capacUsada),
+                                backgroundColor: setBarColor(capacUsada),
                               ),
-                              progressColor: setProgressColor(capacUsada),
-                              backgroundColor: setBarColor(capacUsada),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      new Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(double.parse(snapshotData.capacidadUsada) <
-                                        50
-                                    ? Icons.arrow_drop_down
-                                    : Icons.arrow_drop_up),
-                                Text(
-                                  snapshotData.capacidadUsada.toString() + " %",
-                                  style: TextStyle(
-                                      backgroundColor:  setBarColor(double.parse(
-                                          snapshotData.capacidadUsada))),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                        new Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Icon(double.parse(
+                                              snapshotData.capacidadUsada) <
+                                          50
+                                      ? Icons.arrow_drop_down
+                                      : Icons.arrow_drop_up),
+                                  Text(
+                                    snapshotData.capacidadUsada.toString() +
+                                        " %",
+                                    style: TextStyle(
+                                        backgroundColor: setBarColor(
+                                            double.parse(
+                                                snapshotData.capacidadUsada))),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
