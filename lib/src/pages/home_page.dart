@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -142,7 +141,7 @@ class MyAppState extends State<HomePage> {
                 child: Row(children: <Widget>[
                   Text('Generación',
                       style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontWeight: FontWeight.w600,
                           fontSize: 27)),
                   Padding(
@@ -267,48 +266,58 @@ class MyAppState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 40),
         child: ListView.builder(
-          itemExtent: 60,
+          itemExtent: 70,
           itemCount: snapshot.data.listaDetalleGeneracion.length,
           itemBuilder: (BuildContext context, int index) {
             var snapshotData = snapshot.data.listaDetalleGeneracion[index];
             var capacUsada = double.parse(snapshotData.capacidadUsada);
-            return new Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  color: Color.fromRGBO(244, 255, 255, 1),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new Container(
+                child: FlatButton(
+                  onPressed: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new Padding(
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: new Column(
                           children: <Widget>[
-                            Text(snapshotData.nombre),
+                            LinearPercentIndicator(
+                              percent: capacUsada / 100,
+                              animation: true,
+                              width: MediaQuery.of(context).size.width - 170,
+                              linearStrokeCap: LinearStrokeCap.butt,
+                              lineHeight: 20,
+                              center: Text(
+                                snapshotData.nombre,
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black54),
+                              ),
+                              progressColor: setProgressColor(capacUsada),
+                              backgroundColor: setBarColor(capacUsada),
+                            ),
                           ],
                         ),
                       ),
-                      new Column(
-                        children: <Widget>[
-                          CircularPercentIndicator(
-                            percent: capacUsada / 100,
-                            animation: true,
-                            lineWidth: 2,
-                            center: Text(
-                              snapshotData.capacidadUsada + "%",
-                              style: TextStyle(fontSize: 10),
-                            ),
-                            progressColor: setProgressColor(capacUsada),
-                            backgroundColor: setBarColor(capacUsada),
-                            radius: 30,
-                          ),
-                        ],
-                      ),
                       new Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Column(
                           children: <Widget>[
-                            Text('hola'),
+                            Row(
+                              children: <Widget>[
+                                Icon(double.parse(snapshotData.capacidadUsada) <
+                                        50
+                                    ? Icons.arrow_drop_down
+                                    : Icons.arrow_drop_up),
+                                Text(
+                                  snapshotData.capacidadUsada.toString() + "%",
+                                  style: TextStyle(
+                                      backgroundColor:  setBarColor(double.parse(
+                                          snapshotData.capacidadUsada))),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       )
