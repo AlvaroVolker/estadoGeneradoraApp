@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/pages/country_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -293,52 +294,60 @@ class MyAppState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: new Container(
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CountryPage(id: snapshotData.id),
+                    ));
+                  },
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(top: 5),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: new Column(
-                            children: <Widget>[
-                              LinearPercentIndicator(
-                                percent: capacUsada / 100,
-                                animation: true,
-                                width: MediaQuery.of(context).size.width - 230,
-                                linearStrokeCap: LinearStrokeCap.butt,
-                                lineHeight: 20,
-                                leading: Text(snapshotData.nombre),
-                                progressColor: setProgressColor(capacUsada),
-                                backgroundColor: setBarColor(capacUsada),
-                              ),
-                            ],
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              snapshotData.nombre,
+                              style: TextStyle(color: Colors.black54),
+                            )
+                          ],
                         ),
-                        new Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Icon(double.parse(
-                                              snapshotData.capacidadUsada) <
-                                          50
-                                      ? Icons.arrow_drop_down
-                                      : Icons.arrow_drop_up),
-                                  Text(
-                                    snapshotData.capacidadUsada.toString() +
-                                        " %",
-                                    style: TextStyle(
-                                        backgroundColor: setBarColor(
-                                            double.parse(
-                                                snapshotData.capacidadUsada))),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                        new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            LinearPercentIndicator(
+                              percent: capacUsada / 100,
+                              width: MediaQuery.of(context).size.width - 220,
+                              linearStrokeCap: LinearStrokeCap.butt,
+                              lineHeight: 20,
+                              progressColor: setProgressColor(capacUsada),
+                              backgroundColor: setBarColor(capacUsada),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                    double.parse(snapshotData.capacidadUsada) <
+                                            50
+                                        ? Icons.arrow_drop_down
+                                        : Icons.arrow_drop_up,
+                                    color: Colors.black54),
+                                Text(
+                                  snapshotData.capacidadUsada.toString() + " %",
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      backgroundColor: setBarColor(double.parse(
+                                          snapshotData.capacidadUsada))),
+                                ),
+                              ],
+                            )
+                          ],
                         )
                       ],
                     ),
