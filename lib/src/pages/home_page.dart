@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
-import 'package:estadogeneradoraapp/src/pages/country_page.dart';
+import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 import '../providers/generacionSBUProvider.dart';
 
@@ -25,20 +24,23 @@ class MyAppState extends State<HomePage> {
       "",
       "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
 
-  Future datos;
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
-    datos = _getData();
+    setState(() {
+      _getData();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -51,13 +53,23 @@ class MyAppState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: Container(
-        child: Scaffold(
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
+      home: RefreshIndicator(
+        onRefresh: _refresh,
+        key: _refreshIndicatorKey,
+        child: Container(
+          child: Scaffold(
+            body: _body(),
+            bottomNavigationBar: _crearBottomBar(),
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _refresh() {
+    return detalleGeneracion.getData().then((dynamic) {
+      setState(() => _getData());
+    });
   }
 
   _getData() async {
@@ -66,7 +78,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _body() {
     return FutureBuilder(
-        future: datos,
+        future: _getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
             return SafeArea(
@@ -76,7 +88,7 @@ class MyAppState extends State<HomePage> {
                     _crearAppBar(),
                     _pagesNavigation(),
                     _containerGeneration(snapshot),
-                    _listCountry(snapshot),
+                    CountryList(snapshot: snapshot),
                     _cardActualizacion(snapshot)
                   ],
                 ),
@@ -171,7 +183,7 @@ class MyAppState extends State<HomePage> {
             child: Container(
                 child: Padding(
               padding: const EdgeInsets.only(left: 20),
-              child: _progressIndicator(snapshot),
+              child: CircleBar(snapshot: snapshot),
             )),
           ),
           Container(
@@ -181,43 +193,6 @@ class MyAppState extends State<HomePage> {
           )),
         ],
       ),
-    );
-  }
-
-  final Shader linearGradient = LinearGradient(colors: [
-    const Color.fromRGBO(41, 205, 235, 0.5),
-    const Color.fromRGBO(49, 79, 251, 0.5),
-    const Color.fromRGBO(158, 112, 255, 0.5),
-    const Color.fromRGBO(142, 255, 112, 0.5)
-  ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
-
-  Widget _progressIndicator(AsyncSnapshot snapshot) {
-    return new CircularPercentIndicator(
-      animateFromLastPercent: true,
-      startAngle: 0,
-      center: Text(
-        " " + snapshot.data.capacidadUsada + "%",
-        style: TextStyle(
-            foreground: Paint()..shader = linearGradient,
-            fontSize: 27,
-            fontWeight: FontWeight.bold),
-      ),
-      radius: 120,
-      linearGradient: LinearGradient(
-        colors: [
-          const Color.fromRGBO(158, 112, 255, 0.5),
-          const Color.fromRGBO(49, 79, 251, 0.5),
-          const Color.fromRGBO(41, 205, 235, 0.5),
-          const Color.fromRGBO(142, 255, 112, 0.5),
-        ],
-        begin: Alignment.topRight,
-        end: Alignment.topLeft,
-      ),
-      percent: double.parse(snapshot.data.capacidadUsada) / 100,
-      animation: true,
-      backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
-      lineWidth: 13,
-      // progressColor: Color.fromRGBO(36, 102, 13, 1)
     );
   }
 
@@ -278,87 +253,6 @@ class MyAppState extends State<HomePage> {
         ),
       ],
     ));
-  }
-
-  Widget _listCountry(AsyncSnapshot snapshot) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: ListView.builder(
-          itemExtent: 90,
-          itemCount: snapshot.data.listaDetalleGeneracion.length,
-          itemBuilder: (BuildContext context, int index) {
-            var snapshotData = snapshot.data.listaDetalleGeneracion[index];
-            var capacUsada = double.parse(snapshotData.capacidadUsada);
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Container(
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CountryPage(id: snapshotData.id),
-                    ));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              snapshotData.nombre,
-                              style: TextStyle(color: Colors.black54),
-                            )
-                          ],
-                        ),
-                        new Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            LinearPercentIndicator(
-                              percent: capacUsada / 100,
-                              width: MediaQuery.of(context).size.width - 220,
-                              linearStrokeCap: LinearStrokeCap.butt,
-                              lineHeight: 20,
-                              progressColor: setProgressColor(capacUsada),
-                              backgroundColor: setBarColor(capacUsada),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                    double.parse(snapshotData.capacidadUsada) <
-                                            50
-                                        ? Icons.arrow_drop_down
-                                        : Icons.arrow_drop_up,
-                                    color: Colors.black54),
-                                Text(
-                                  snapshotData.capacidadUsada.toString() + " %",
-                                  style: TextStyle(
-                                      color: Colors.black54,
-                                      backgroundColor: setBarColor(double.parse(
-                                          snapshotData.capacidadUsada))),
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
   }
 
   Widget _cardActualizacion(AsyncSnapshot snapshot) {

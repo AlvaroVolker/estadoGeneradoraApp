@@ -33,8 +33,6 @@ class _DetalleGeneracionProvider {
         detailGeneracion.listaDetalleGeneracion.add(detail);
       }
     }
-
-    print(detailGeneracion);
     return detailGeneracion;
   }
 

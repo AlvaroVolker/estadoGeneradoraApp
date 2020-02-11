@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(CountryPage());
-
-class CountryPage extends StatelessWidget {
+class CountryPage extends StatefulWidget {
   final int id;
 
   CountryPage({
@@ -11,17 +9,36 @@ class CountryPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CountryPageState createState() => _CountryPageState();
+}
+
+
+class _CountryPageState extends State<CountryPage> {
+  dynamic datos;
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Text(id.toString()),
+    return FutureBuilder(
+      future: datos,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        return MaterialApp(
+        title: 'Material App',
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Container(
+              child: Text(widget.id.toString()),
+            ),
           ),
         ),
-      ),
+      );
+      }
     );
+  }
+
+  Widget circleProgressBar(){
+
+    
+
   }
 }
