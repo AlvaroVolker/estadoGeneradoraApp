@@ -12,7 +12,6 @@ class CountryPage extends StatefulWidget {
   _CountryPageState createState() => _CountryPageState();
 }
 
-
 class _CountryPageState extends State<CountryPage> {
   dynamic datos;
 

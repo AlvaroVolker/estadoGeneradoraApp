@@ -14,7 +14,7 @@ class CountryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 35),
+        padding: const EdgeInsets.only(top: 40),
         child: Container(
           child: ListView.separated(
             itemCount: snapshot.data.listaDetalleGeneracion.length,

@@ -82,16 +82,27 @@ class MyAppState extends State<HomePage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
             return SafeArea(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    _crearAppBar(),
-                    _pagesNavigation(),
-                    _containerGeneration(snapshot),
-                    CountryList(snapshot: snapshot),
-                    _cardActualizacion(snapshot)
-                  ],
-                ),
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            _crearAppBar(),
+                            Padding(
+                              padding: const EdgeInsets.only(top:40),
+                              child: _pagesNavigation(),
+                            ),
+                            _containerGeneration(snapshot),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  CountryList(snapshot: snapshot),
+                  _cardActualizacion(snapshot)
+                ],
               ),
             );
           }
@@ -103,15 +114,12 @@ class MyAppState extends State<HomePage> {
 
   Widget _crearAppBar() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        IconButton(
-          icon: CircleAvatar(
-            child: Text('SL'),
-            backgroundColor: Colors.blueGrey,
-          ),
-          onPressed: () {},
-        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 20),
+          child: Icon(FontAwesomeIcons.gripLines),
+        )
       ],
     );
   }
@@ -156,13 +164,13 @@ class MyAppState extends State<HomePage> {
                       style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.w600,
-                          fontSize: 27)),
+                          fontSize: 29)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, top: 8),
+                    padding: const EdgeInsets.only(left: 8, top: 8),
                     child: Text('favoritos',
                         style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 15,
+                            fontSize: 17,
                             fontWeight: FontWeight.w400)),
                   ),
                 ]),
