@@ -7,6 +7,7 @@ import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
 
 import '../providers/generacionSBUProvider.dart';
 
@@ -57,10 +58,7 @@ class MyAppState extends State<HomePage> {
         onRefresh: _refresh,
         key: _refreshIndicatorKey,
         child: Container(
-          child: Scaffold(
-            body: _body(),
-            bottomNavigationBar: _crearBottomBar(),
-          ),
+          child: Scaffold(body: _body()),
         ),
       ),
     );
@@ -89,9 +87,9 @@ class MyAppState extends State<HomePage> {
                       Container(
                         child: Column(
                           children: <Widget>[
-                            _crearAppBar(),
+                            _crearAppBar(snapshot),
                             Padding(
-                              padding: const EdgeInsets.only(top:40),
+                              padding: const EdgeInsets.only(top: 30),
                               child: _pagesNavigation(),
                             ),
                             _containerGeneration(snapshot),
@@ -101,18 +99,20 @@ class MyAppState extends State<HomePage> {
                     ],
                   ),
                   CountryList(snapshot: snapshot),
-                  _cardActualizacion(snapshot)
+                  _crearBottomBar()
                 ],
               ),
             );
           }
           return Center(
-              child:
-                  LinearProgressIndicator(backgroundColor: Colors.deepPurple));
+            child: GradientProgressIndicator(
+              gradient: Gradients.cosmicFusion,
+            ),
+          );
         });
   }
 
-  Widget _crearAppBar() {
+  Widget _crearAppBar(AsyncSnapshot<dynamic> snapshot) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -213,10 +213,16 @@ class MyAppState extends State<HomePage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text(
-                  "entregando",
-                  style: TextStyle(fontWeight: FontWeight.w300),
-                  textAlign: TextAlign.start,
+                Container(
+                  width: 100,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Entregando",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(3.0),
@@ -225,8 +231,8 @@ class MyAppState extends State<HomePage> {
                       Text(snapshot.data.generacionActual.toString(),
                           style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18)),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17)),
                       Text(
                         ' MWh',
                         style: TextStyle(color: Colors.grey),
@@ -237,18 +243,25 @@ class MyAppState extends State<HomePage> {
                 SizedBox(
                   height: 30,
                 ),
-                Text(
-                  'capacidad',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontWeight: FontWeight.w300),
+                Container(
+                  width: 100,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Capacidad',
+                      textAlign: TextAlign.right,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+                    ),
+                  ),
                 ),
                 Row(
                   children: <Widget>[
                     Text(snapshot.data.capacidadInstalada.toString(),
                         style: TextStyle(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18)),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17)),
                     Text(
                       ' MWh',
                       style: TextStyle(color: Colors.grey),
@@ -261,51 +274,5 @@ class MyAppState extends State<HomePage> {
         ),
       ],
     ));
-  }
-
-  Widget _cardActualizacion(AsyncSnapshot snapshot) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      snapshot.data.fechaActualizacion + " ",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
-                    ),
-                    Icon(Icons.update, size: 18, color: Colors.grey)
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Color setProgressColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(253, 105, 105, 1);
-      return Color.fromRGBO(249, 231, 159, 1);
-    } else {
-      return Color.fromRGBO(36, 102, 13, 1);
-    }
-  }
-
-  Color setBarColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(253, 105, 105, 0.1);
-      return Color.fromRGBO(249, 231, 159, 0.2);
-    } else {
-      return Color.fromRGBO(36, 102, 13, 0.1);
-    }
   }
 }
