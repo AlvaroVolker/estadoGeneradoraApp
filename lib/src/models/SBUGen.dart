@@ -1,4 +1,3 @@
-
 class DetalleGeneracion{
 
   final int id;

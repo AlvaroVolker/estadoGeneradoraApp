@@ -54,20 +54,14 @@ class MyAppState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: RefreshIndicator(
-        onRefresh: _refresh,
-        key: _refreshIndicatorKey,
-        child: Container(
-          child: Scaffold(body: _body()),
+      home: Container(
+        child: Scaffold(
+          appBar: _crearAppBar(),
+          body: _body(),
+          bottomNavigationBar: _crearBottomBar(),
         ),
       ),
     );
-  }
-
-  Future<void> _refresh() {
-    return detalleGeneracion.getData().then((dynamic) {
-      setState(() => _getData());
-    });
   }
 
   _getData() async {
@@ -84,22 +78,18 @@ class MyAppState extends State<HomePage> {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Container(
-                        child: Column(
-                          children: <Widget>[
-                            _crearAppBar(snapshot),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: _pagesNavigation(),
-                            ),
-                            _containerGeneration(snapshot),
-                          ],
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            children: <Widget>[
+                              _pagesNavigation(),
+                              _containerGeneration(snapshot),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  CountryList(snapshot: snapshot),
-                  _crearBottomBar()
                 ],
               ),
             );
@@ -112,15 +102,16 @@ class MyAppState extends State<HomePage> {
         });
   }
 
-  Widget _crearAppBar(AsyncSnapshot<dynamic> snapshot) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
-          child: Icon(FontAwesomeIcons.gripLines),
-        )
-      ],
+  Widget _crearAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Row(
+        children: <Widget>[
+          SizedBox(width: 32.0),
+          Icon(FontAwesomeIcons.gripLines, color: Colors.black)
+        ],
+      ),
     );
   }
 
@@ -151,55 +142,72 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _pagesNavigation() {
-    return Container(
-        child: Row(
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 12),
-                child: Row(children: <Widget>[
-                  Text('Generación',
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 29)),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 8),
-                    child: Text('favoritos',
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: Container(
+          child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 12),
+                  child: Row(children: <Widget>[
+                    Text('Generación',
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                ]),
-              ),
-            ],
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 29)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 8),
+                      child: Text('favoritos',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400)),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      )),
+    );
   }
 
   Widget _containerGeneration(AsyncSnapshot snapshot) {
     return Padding(
       padding: const EdgeInsets.only(top: 37),
-      child: new Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-                child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: CircleBar(snapshot: snapshot),
-            )),
-          ),
-          Container(
-              child: Padding(
-            padding: const EdgeInsets.only(right: 40),
-            child: _dataGeneration(snapshot),
-          )),
-        ],
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 0,
+              child: Container(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 60),
+                      child: CircleBar(snapshot: snapshot),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50),
+                      child: _dataGeneration(snapshot),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Column(
+              children: <Widget>[
+                CountryList(snapshot: snapshot),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
