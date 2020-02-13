@@ -13,90 +13,90 @@ class CountryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top:30),
       child: Container(
-        height: 350.0,
-        child: ListView.separated(
-          itemCount: snapshot.data.listaDetalleGeneracion.length,
-          itemBuilder: (BuildContext context, int index) {
-            var snapshotData = snapshot.data.listaDetalleGeneracion[index];
-            var capacUsada = double.parse(snapshotData.capacidadUsada);
-            return FlatButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CountryPage(id: snapshotData.id),
-                ));
-              },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Container(
-                    width: 70,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            snapshotData.nombre,
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                              "NMC: " +
-                                  snapshotData.capacidadInstalada.toString(),
-                              style: TextStyle(
-                                  fontSize: 9, color: Colors.black38)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: LinearPercentIndicator(
-                      addAutomaticKeepAlive: true,
-                      animation: true,
-                      animateFromLastPercent: true,
-                      percent: capacUsada / 100,
-                      width: MediaQuery.of(context).size.width - 250,
-                      linearStrokeCap: LinearStrokeCap.butt,
-                      lineHeight: 20,
-                      progressColor: setProgressColor(capacUsada),
-                      backgroundColor: setBarColor(capacUsada),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                          double.parse(snapshotData.capacidadUsada) < 50
-                              ? Icons.arrow_drop_down
-                              : Icons.arrow_drop_up,
-                          color: Colors.black54,
-                          size: 25),
-                      Text(
-                        snapshotData.capacidadUsada.toString() + " %",
-                        style: TextStyle(
-                            color: Colors.black54,
-                            backgroundColor: setBarColor(
-                                double.parse(snapshotData.capacidadUsada)),
-                            fontSize: 16),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            );
+        height: 300.0,
+      child: ListView.separated(
+        itemCount: snapshot.data.listaDetalleGeneracion.length,
+        itemBuilder: (BuildContext context, int index) {
+        var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+        var capacUsada = double.parse(snapshotData.capacidadUsada);
+        return FlatButton(
+          onPressed: () {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => CountryPage(id: snapshotData.id),
+      ));
           },
-          separatorBuilder: (BuildContext context, int index) =>
-              Expanded(child: const Divider(height: 25)),
+          child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Container(
+          width: 70,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  snapshotData.nombre,
+                  style: TextStyle(color: Colors.black54),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "NMC: " +
+                        snapshotData.capacidadInstalada.toString(),
+                    style: TextStyle(
+                        fontSize: 9, color: Colors.black38)),
+              ),
+            ],
+          ),
         ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: LinearPercentIndicator(
+            addAutomaticKeepAlive: true,
+            animation: true,
+            animateFromLastPercent: true,
+            percent: capacUsada / 100,
+            width: MediaQuery.of(context).size.width - 250,
+            linearStrokeCap: LinearStrokeCap.butt,
+            lineHeight: 20,
+            progressColor: setProgressColor(capacUsada),
+            backgroundColor: setBarColor(capacUsada),
+          ),
+        ),
+        Row(
+          children: <Widget>[
+            Icon(
+                double.parse(snapshotData.capacidadUsada) < 50
+                    ? Icons.arrow_drop_down
+                    : Icons.arrow_drop_up,
+                color: Colors.black54,
+                size: 25),
+            Text(
+              snapshotData.capacidadUsada.toString() + " %",
+              style: TextStyle(
+                  color: Colors.black54,
+                  backgroundColor: setBarColor(
+                      double.parse(snapshotData.capacidadUsada)),
+                  fontSize: 16),
+            ),
+          ],
+        )
+      ],
+          ),
+        );
+        },
+        separatorBuilder: (BuildContext context, int index) =>
+          const Divider(height: 25),
       ),
+          ),
     );
   }
 

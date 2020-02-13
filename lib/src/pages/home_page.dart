@@ -179,34 +179,36 @@ class MyAppState extends State<HomePage> {
   Widget _containerGeneration(AsyncSnapshot snapshot) {
     return Padding(
       padding: const EdgeInsets.only(top: 37),
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 0,
-              child: Container(
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 60),
-                      child: CircleBar(snapshot: snapshot),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 50),
-                      child: _dataGeneration(snapshot),
-                    ),
-                  ],
+      child: Expanded(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 0,
+                child: Container(
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 60),
+                        child: CircleBar(snapshot: snapshot),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 50),
+                        child: _dataGeneration(snapshot),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            Column(
-              children: <Widget>[
-                CountryList(snapshot: snapshot),
-              ],
-            ),
-          ],
+              SizedBox(height: 20.0),
+              Column(
+                children: <Widget>[
+                  CountryList(snapshot: snapshot),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
