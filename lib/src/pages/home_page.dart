@@ -78,14 +78,12 @@ class MyAppState extends State<HomePage> {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              _pagesNavigation(),
-                              _containerGeneration(snapshot),
-                            ],
-                          ),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            _pagesNavigation(),
+                            _containerGeneration(snapshot),
+                          ],
                         ),
                       ),
                     ],
@@ -183,22 +181,19 @@ class MyAppState extends State<HomePage> {
         child: Container(
           child: Column(
             children: <Widget>[
-              Expanded(
-                flex: 0,
-                child: Container(
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 60),
-                        child: CircleBar(snapshot: snapshot),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 50),
-                        child: _dataGeneration(snapshot),
-                      ),
-                    ],
-                  ),
+              Container(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 60),
+                      child: CircleBar(snapshot: snapshot),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50),
+                      child: _dataGeneration(snapshot),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 20.0),
