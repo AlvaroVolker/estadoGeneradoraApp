@@ -78,7 +78,11 @@ class _PlantaPageState extends State<PlantaPage> {
       leading: Row(
         children: <Widget>[
           SizedBox(width: 20.0),
-          Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38)
+          GestureDetector(
+            child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38), 
+            onTap: (){
+              Navigator.of(context).pushNamed('/');
+            })
         ],
       ),
     );
