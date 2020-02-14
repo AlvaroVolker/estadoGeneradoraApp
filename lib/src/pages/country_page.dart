@@ -1,43 +1,22 @@
+import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:flutter/material.dart';
 
-class CountryPage extends StatefulWidget {
-  final int id;
+class CountryPage extends StatelessWidget {
+  final dynamic snapshot;
 
-  CountryPage({
-    Key key,
-    @required this.id,
-  }) : super(key: key);
-
-  @override
-  _CountryPageState createState() => _CountryPageState();
-}
-
-class _CountryPageState extends State<CountryPage> {
-  dynamic datos;
+  const CountryPage({Key key, @required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: datos,
-      builder: (BuildContext context, AsyncSnapshot snapshot){
-        return MaterialApp(
-        title: 'Material App',
+
+    return Container(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
         home: Scaffold(
-          body: Center(
-            child: Container(
-              child: Text(widget.id.toString()),
-            ),
-          ),
+          body: Center(child: IndexCircleBar(snapshot: snapshot)),
         ),
-      );
-      }
+      ),
     );
-  }
-
-  Widget circleProgressBar(){
-
-    
-
   }
 }

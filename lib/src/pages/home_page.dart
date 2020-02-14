@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/core/routes.dart';
+import 'package:estadogeneradoraapp/src/pages/maquinas_page.dart';
+import 'package:estadogeneradoraapp/src/providers/sbuProvider.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +12,6 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
-import '../providers/generacionSBUProvider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,8 +29,6 @@ class MyAppState extends State<HomePage> {
 
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -52,6 +52,7 @@ class MyAppState extends State<HomePage> {
     oAuth.setWebViewScreenSize(rectSize);
 
     return MaterialApp(
+      onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: Container(
@@ -74,21 +75,13 @@ class MyAppState extends State<HomePage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
             return SafeArea(
-              child: Column(
-                children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        child: Column(
-                          children: <Widget>[
-                            _pagesNavigation(),
-                            _containerGeneration(snapshot),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    _pagesNavigation(),
+                    _containerGeneration(snapshot),
+                  ],
+                ),
               ),
             );
           }
@@ -110,6 +103,29 @@ class MyAppState extends State<HomePage> {
           Icon(FontAwesomeIcons.gripLines, color: Colors.black)
         ],
       ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Color.fromRGBO(234, 242, 248, 1),
+            ),
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MaquinaPage(),
+                ));
+              },
+              child: Text(
+                'Castilla',
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+              ),
+              elevation: 0,
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -141,7 +157,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _pagesNavigation() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 20),
       child: Container(
           child: Row(
         children: <Widget>[
@@ -175,15 +191,15 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _containerGeneration(AsyncSnapshot snapshot) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 37),
-      child: Expanded(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 60),
@@ -196,14 +212,10 @@ class MyAppState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20.0),
-              Column(
-                children: <Widget>[
-                  CountryList(snapshot: snapshot),
-                ],
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 35.0),
+            CountryList(snapshot: snapshot)
+          ],
         ),
       ),
     );

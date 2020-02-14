@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class CircleBar extends StatelessWidget {
-  const CircleBar({
+class IndexCircleBar extends StatelessWidget {
+  const IndexCircleBar({
     Key key,
     @required this.snapshot,
   }) : super(key: key);
@@ -13,9 +13,8 @@ class CircleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Shader linearGradient = LinearGradient(colors: [
       const Color.fromRGBO(41, 205, 235, 0.5),
-      const Color.fromRGBO(49, 79, 251, 0.5),
       const Color.fromRGBO(158, 112, 255, 0.5),
-      const Color.fromRGBO(142, 255, 112, 0.5)
+      const Color.fromRGBO(49, 79, 251, 0.5),
     ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
     return new CircularPercentIndicator(
@@ -24,7 +23,7 @@ class CircleBar extends StatelessWidget {
       animateFromLastPercent: true,
       startAngle: 0,
       center: Text(
-        " " + snapshot.data.capacidadUsada + "%",
+        " " + snapshot.capacidadUsada + "%",
         style: TextStyle(
             foreground: Paint()..shader = linearGradient,
             fontSize: 27,
@@ -41,7 +40,7 @@ class CircleBar extends StatelessWidget {
         begin: Alignment.topRight,
         end: Alignment.topLeft,
       ),
-      percent: double.parse(snapshot.data.capacidadUsada) / 100,
+      percent: double.parse(snapshot.capacidadUsada) / 100,
       animation: true,
       backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
       lineWidth: 13,

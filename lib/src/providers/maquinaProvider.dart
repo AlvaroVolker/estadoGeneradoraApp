@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:http/http.dart' as http;
 
-class _DetalleGeneracionProvider {
+class _DetalleGeneracionMaquinaProvider {
   int id;
   String nombre;
   String fechaActualizacion;
@@ -11,14 +12,16 @@ class _DetalleGeneracionProvider {
   String capacidadUsada;
   DetalleGeneracion detailGeneracion;
 
-  _DetalleGeneracionProvider() {
-    getData();
+  _DetalleGeneracionMaquinaProvider() {
+    getData(id: this.id);
   }
 
-  Future<DetalleGeneracion> getData() async {
+  Future<DetalleGeneracion> getData({id}) async {
+    String url = 'https://test-consolaoperaciones.azurewebsites.net';
+
     var response = await http
         .get(
-            'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
+            '$url/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionPais?paisId=$id')
         .catchError((error) => throw (error));
 
     if (response.statusCode == 200) {
@@ -52,12 +55,24 @@ class _DetalleGeneracionProvider {
     id = jsonData['Id'];
     nombre = jsonData['Nombre'].toString();
     fechaActualizacion = jsonData['FechaActualizacion'].toString();
-    generacionActual =
-        double.parse(jsonData['GeneracionActual'].toStringAsFixed(1));
-    capacidadInstalada =
-        double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(1));
-    capacidadUsada = jsonData['CapacidadUsada'].toStringAsFixed(0);
+    if (!double.parse(jsonData['GeneracionActual'].toString()).isNaN) {
+      generacionActual =
+          double.parse(jsonData['GeneracionActual'].toStringAsFixed(1));
+    } else {
+      generacionActual = 0;
+    }
+    if (!double.parse(jsonData['CapacidadInstalada'].toString()).isNaN) {
+      capacidadInstalada =
+          double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(1));
+    } else {
+      capacidadInstalada = 0;
+    }
+    if (!double.parse(jsonData['CapacidadUsada'].toString()).isNaN) {
+      capacidadUsada = jsonData['CapacidadUsada'].toStringAsFixed(0);
+    } else {
+      capacidadInstalada = 0;
+    }
   }
 }
 
-final detalleGeneracion = new _DetalleGeneracionProvider();
+final detallePais = _DetalleGeneracionMaquinaProvider();

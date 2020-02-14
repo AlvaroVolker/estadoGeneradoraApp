@@ -1,4 +1,3 @@
-import 'package:estadogeneradoraapp/src/pages/country_page.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -12,22 +11,18 @@ class CountryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: Expanded(
-        child: Container(
-          height: 300.0,
-          child: ListView.separated(
-            itemCount: snapshot.data.listaDetalleGeneracion.length,
-            itemBuilder: (BuildContext context, int index) {
-              var snapshotData = snapshot.data.listaDetalleGeneracion[index];
-              var capacUsada = double.parse(snapshotData.capacidadUsada);
-              return FlatButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CountryPage(id: snapshotData.id),
-                  ));
-                },
+    return Expanded(
+      child: Container(
+        child: ListView.separated(
+          itemCount: snapshot.data.listaDetalleGeneracion.length,
+          itemBuilder: (BuildContext context, int index) {
+            var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+            var capacUsada = double.parse(snapshotData.capacidadUsada);
+            return FlatButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/countryPage', arguments: snapshotData);
+              },
+              child: Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,11 +87,11 @@ class CountryList extends StatelessWidget {
                     )
                   ],
                 ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider(height: 25),
-          ),
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(height: 20),
         ),
       ),
     );
