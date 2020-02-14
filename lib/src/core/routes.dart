@@ -1,5 +1,6 @@
 import 'package:estadogeneradoraapp/src/pages/country_page.dart';
 import 'package:estadogeneradoraapp/src/pages/home_page.dart';
+import 'package:estadogeneradoraapp/src/pages/plantas_page.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -10,8 +11,10 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/countryPage':
-          return MaterialPageRoute(builder: (_) => CountryPage(snapshot: args));
-        // return _errorRoute();
+        return MaterialPageRoute(builder: (_) => CountryPage(snapshot: args));
+      case '/plantaPage':
+        return MaterialPageRoute(builder: (_) => PlantaPage());
+      // return _errorRoute();
       default:
         return _errorRoute();
     }

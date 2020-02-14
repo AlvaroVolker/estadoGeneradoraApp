@@ -91,7 +91,7 @@ class CountryList extends StatelessWidget {
             );
           },
           separatorBuilder: (BuildContext context, int index) =>
-              const Divider(height: 20),
+              const Divider(height: 18),
         ),
       ),
     );

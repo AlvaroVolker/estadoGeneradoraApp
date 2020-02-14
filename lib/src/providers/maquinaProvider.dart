@@ -75,4 +75,4 @@ class _DetalleGeneracionMaquinaProvider {
   }
 }
 
-final detallePais = _DetalleGeneracionMaquinaProvider();
+final detalleMaquina = _DetalleGeneracionMaquinaProvider();

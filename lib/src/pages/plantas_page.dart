@@ -1,30 +1,17 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:aad_oauth/aad_oauth.dart';
-import 'package:aad_oauth/model/config.dart';
-import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/providers/sbuProvider.dart';
-import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
+import 'package:estadogeneradoraapp/src/providers/plantaProvider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class HomePage extends StatefulWidget {
+class PlantaPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
-  }
+  _PlantaPageState createState() => _PlantaPageState();
 }
-class MyAppState extends State<HomePage> {
-  static final Config config = new Config(
-      "6be806cd-f6f6-4b43-a806-81f0012743f9",
-      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
-      "",
-      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
 
-  final AadOAuth oAuth = AadOAuth(config);
+class _PlantaPageState extends State<PlantaPage> {
   Timer timer;
 
   @override
@@ -41,29 +28,22 @@ class MyAppState extends State<HomePage> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var rectSize =
-        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
-    oAuth.setWebViewScreenSize(rectSize);
-
-    return MaterialApp(
-      onGenerateRoute: RouteGenerator.generateRoute,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: Container(
-        child: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
-        ),
-      ),
-    );
+  _getData() async {
+    return await detallePlanta.getData();
   }
 
-  _getData() async {
-    return await detalleGeneracion.getData();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
+        home: Scaffold(
+            appBar: _crearAppBar(),
+            body: _body(),
+            bottomNavigationBar: _crearBottomBar()),
+      ),
+    );
   }
 
   Widget _body() {
@@ -72,13 +52,14 @@ class MyAppState extends State<HomePage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
             return SafeArea(
-              child: Container(
-                child: Column(
+              child: Center(
+                child: Container(
+                    child: Column(
                   children: <Widget>[
                     _pagesNavigation(),
-                    _containerGeneration(snapshot),
+                    _containerGeneration(snapshot)
                   ],
-                ),
+                )),
               ),
             );
           }
@@ -96,31 +77,10 @@ class MyAppState extends State<HomePage> {
       elevation: 0,
       leading: Row(
         children: <Widget>[
-          SizedBox(width: 32.0),
-          Icon(FontAwesomeIcons.gripLines, color: Colors.black)
+          SizedBox(width: 20.0),
+          Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38)
         ],
       ),
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Color.fromRGBO(234, 242, 248, 1),
-            ),
-            child: MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/plantaPage');
-              },
-              child: Text(
-                'Castilla',
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
-              ),
-              elevation: 0,
-            ),
-          ),
-        )
-      ],
     );
   }
 
@@ -152,7 +112,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _pagesNavigation() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 10),
       child: Container(
           child: Row(
         children: <Widget>[
@@ -162,14 +122,14 @@ class MyAppState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 12),
                   child: Row(children: <Widget>[
-                    Text('Generación',
+                    Text('Plantas',
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('favoritos',
+                      child: Text('máquinas',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
@@ -191,24 +151,24 @@ class MyAppState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 25),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 60),
-                      child: CircleBar(snapshot: snapshot),
+                      padding: const EdgeInsets.only(left: 70),
+                      child: _circular(snapshot),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 60),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 40.0),
+            SizedBox(height: 18.0),
             CountryList(snapshot: snapshot)
           ],
         ),
@@ -238,18 +198,28 @@ class MyAppState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(snapshot.data.generacionActual.toString(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
+                  child: Container(
+                    width: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(snapshot.data.generacionActual.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 17)),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            ' MWh',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -267,18 +237,22 @@ class MyAppState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    Text(snapshot.data.capacidadInstalada.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17)),
-                    Text(
-                      ' MWh',
-                      style: TextStyle(color: Colors.grey),
-                    )
-                  ],
+                Container(
+                  width: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(snapshot.data.capacidadInstalada.toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17)),
+                      Text(
+                        ' MWh',
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -286,5 +260,43 @@ class MyAppState extends State<HomePage> {
         ),
       ],
     ));
+  }
+
+  Widget _circular(AsyncSnapshot snapshot) {
+    final Shader linearGradient = LinearGradient(colors: [
+      const Color.fromRGBO(41, 205, 235, 0.5),
+      const Color.fromRGBO(158, 112, 255, 0.5),
+      const Color.fromRGBO(49, 79, 251, 0.5),
+    ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+    return CircularPercentIndicator(
+      animationDuration: 2,
+      addAutomaticKeepAlive: true,
+      animateFromLastPercent: true,
+      startAngle: 0,
+      center: Text(
+        " " + snapshot.data.capacidadUsada + "%",
+        style: TextStyle(
+            foreground: Paint()..shader = linearGradient,
+            fontSize: 27,
+            fontWeight: FontWeight.bold),
+      ),
+      radius: 120,
+      linearGradient: LinearGradient(
+        colors: [
+          const Color.fromRGBO(158, 112, 255, 0.5),
+          const Color.fromRGBO(49, 79, 251, 0.5),
+          const Color.fromRGBO(41, 205, 235, 0.5),
+          const Color.fromRGBO(142, 255, 112, 0.5),
+        ],
+        begin: Alignment.topRight,
+        end: Alignment.topLeft,
+      ),
+      percent: double.parse(snapshot.data.capacidadUsada) / 100,
+      animation: true,
+      backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
+      lineWidth: 13,
+      // progressColor: Color.fromRGBO(36, 102, 13, 1)
+    );
   }
 }

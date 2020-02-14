@@ -13,17 +13,14 @@ class _DetalleGeneracionPlantaProvider {
   DetalleGeneracion detailGeneracion;
 
   _DetalleGeneracionPlantaProvider() {
-    getData(id: this.id);
+    getData();
   }
 
-  Future<DetalleGeneracion> getData({id}) async {
-    String url = 'https://test-consolaoperaciones.azurewebsites.net';
-
-    id=2950;
-
+  Future<DetalleGeneracion> getData() async {
+    
     var response = await http
         .get(
-            '$url/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionCentral?centralId=$id')
+            'https://test-consolaoperaciones.azurewebsites.net/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionCentral?centralId=2950')
         .catchError((error) => throw (error));
 
     if (response.statusCode == 200) {
@@ -77,4 +74,4 @@ class _DetalleGeneracionPlantaProvider {
   }
 }
 
-final detallePais = _DetalleGeneracionPlantaProvider();
+final detallePlanta = _DetalleGeneracionPlantaProvider();
