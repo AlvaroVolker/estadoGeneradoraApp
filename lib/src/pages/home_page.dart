@@ -194,14 +194,14 @@ class MyAppState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 70),
                       child: CircleBar(snapshot: snapshot),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 55),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
