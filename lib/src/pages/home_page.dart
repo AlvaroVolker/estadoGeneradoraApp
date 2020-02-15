@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
     return MyAppState();
   }
 }
+
 class MyAppState extends State<HomePage> {
   static final Config config = new Config(
       "6be806cd-f6f6-4b43-a806-81f0012743f9",
@@ -152,7 +153,7 @@ class MyAppState extends State<HomePage> {
 
   Widget _pagesNavigation() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 16),
       child: Container(
           child: Row(
         children: <Widget>[
@@ -197,18 +198,50 @@ class MyAppState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 70),
+                      padding: const EdgeInsets.only(left: 55),
                       child: CircleBar(snapshot: snapshot),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 55),
+                      padding: const EdgeInsets.only(right: 50),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 40.0),
+            SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text('Detalle',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22)),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 7),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Column(
+                      children: <Widget>[
+                        Text(snapshot.data.fechaActualizacion,
+                            style: TextStyle(
+                                color: Colors.black26,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 10)),
+                      ],
+                    ),
+                )
+              ],
+            ),
+            SizedBox(height: 18),
             CountryList(snapshot: snapshot)
           ],
         ),

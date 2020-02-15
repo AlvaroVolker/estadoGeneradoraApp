@@ -13,6 +13,7 @@ class CountryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        height: double.infinity,
         child: ListView.separated(
           itemCount: snapshot.data.listaDetalleGeneracion.length,
           itemBuilder: (BuildContext context, int index) {
@@ -20,7 +21,8 @@ class CountryList extends StatelessWidget {
             var capacUsada = double.parse(snapshotData.capacidadUsada);
             return FlatButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/countryPage', arguments: snapshotData);
+                Navigator.of(context)
+                    .pushNamed('/countryPage', arguments: snapshotData);
               },
               child: Container(
                 child: Row(
@@ -40,7 +42,7 @@ class CountryList extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 6,
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -91,7 +93,7 @@ class CountryList extends StatelessWidget {
             );
           },
           separatorBuilder: (BuildContext context, int index) =>
-              const Divider(height: 18),
+              const Divider(height: 22)
         ),
       ),
     );
