@@ -1,9 +1,20 @@
+import 'dart:async';
 import 'dart:ui';
-
+import 'package:aad_oauth/aad_oauth.dart';
+import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/core/routes.dart';
+import 'package:estadogeneradoraapp/src/providers/sbuProvider.dart';
+import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+<<<<<<< HEAD
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+=======
+import 'package:gradient_widgets/gradient_widgets.dart';
+>>>>>>> dad0fc8f8e70911aef80a98fb95beeb840dc9a44
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,14 +26,47 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
+  static final Config config = new Config(
+      "6be806cd-f6f6-4b43-a806-81f0012743f9",
+      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
+      "",
+      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
+
+  final AadOAuth oAuth = AadOAuth(config);
+  Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _getData();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     
+=======
+    var screenSize = MediaQuery.of(context).size;
+    var rectSize =
+        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
+    oAuth.setWebViewScreenSize(rectSize);
+
+>>>>>>> dad0fc8f8e70911aef80a98fb95beeb840dc9a44
     return MaterialApp(
+      onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData.light(),
       home: Container(
         child: Scaffold(
+          appBar: _crearAppBar(),
           body: _body(),
           bottomNavigationBar: _crearBottomBar(),
         ),
@@ -30,37 +74,71 @@ class MyAppState extends State<HomePage> {
     );
   }
 
+  _getData() async {
+    return await detalleGeneracion.getData();
+  }
+
   Widget _body() {
-    return SafeArea(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            _crearAppBar(),
-            _pagesNavigation(),
-            _containerGeneration()
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: _getData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            return SafeArea(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    _pagesNavigation(),
+                    _containerGeneration(snapshot),
+                  ],
+                ),
+              ),
+            );
+          }
+          return Center(
+            child: GradientProgressIndicator(
+              gradient: Gradients.cosmicFusion,
+            ),
+          );
+        });
   }
 
   Widget _crearAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        IconButton(
-          icon: CircleAvatar(
-            child: Text('SL'),
-            backgroundColor: Colors.blueGrey,
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Row(
+        children: <Widget>[
+          SizedBox(width: 32.0),
+          Icon(FontAwesomeIcons.gripLines, color: Colors.black)
+        ],
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Color.fromRGBO(234, 242, 248, 1),
+            ),
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/plantaPage');
+              },
+              child: Text(
+                'Castilla',
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+              ),
+              elevation: 0,
+            ),
           ),
-          onPressed: () {},
-        ),
+        )
       ],
     );
   }
 
   Widget _crearBottomBar() {
     return BottomAppBar(
+      color: Colors.white,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -85,191 +163,173 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _pagesNavigation() {
-    return Container(
-        child: Row(
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 20),
-                child: Row(children: <Widget>[
-                  Text('Generación',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 27)),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5, top: 8),
-                    child: Text('Favoritos',
-                        style: TextStyle(color: Colors.grey, fontSize: 15)),
-                  ),
-                  Expanded(
-                    flex: 12,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ButtonTheme(
-                          alignedDropdown: true,
-                          child: DropdownButton(
-                            isExpanded: true,
-                            items: <DropdownMenuItem>[
-                              new DropdownMenuItem(
-                                child: new Text('Hola'),
-                              )
-                            ],
-                            onChanged: (value) {},
-                          ),
-                        ),
-                      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Container(
+          child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 12),
+                  child: Row(children: <Widget>[
+                    Text('Generación',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 29)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 8),
+                      child: Text('favoritos',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400)),
                     ),
-                  )
-                ]),
-              ),
-            ],
+                  ]),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      )),
+    );
   }
 
-  Widget _textGeneration() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "Entregando",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.start,
+  Widget _containerGeneration(AsyncSnapshot snapshot) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 55),
+                      child: CircleBar(snapshot: snapshot),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50),
+                      child: _dataGeneration(snapshot),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text('Detalle',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22)),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Row(
+                ),
+                SizedBox(width: 7),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Column(
                       children: <Widget>[
-                        Text('2270,80',
+                        Text(snapshot.data.fechaActualizacion,
                             style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
-                        Text(
-                          ' MWh',
-                          style: TextStyle(color: Colors.grey),
-                        )
+                                color: Colors.black26,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 10)),
                       ],
                     ),
+                )
+              ],
+            ),
+            SizedBox(height: 18),
+            CountryList(snapshot: snapshot)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _dataGeneration(AsyncSnapshot snapshot) {
+    return Container(
+        child: Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 100,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Entregando",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+                    ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Capacidad',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                  Row(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Row(
                     children: <Widget>[
-                      Text('11233',
+                      Text(snapshot.data.generacionActual.toString(),
                           style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20)),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17)),
                       Text(
                         ' MWh',
                         style: TextStyle(color: Colors.grey),
                       )
                     ],
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _containerGeneration() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Container(
-                width: 250,
-                height: 170,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  width: 100,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Capacidad',
+                      textAlign: TextAlign.right,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+                    ),
+                  ),
+                ),
+                Row(
                   children: <Widget>[
-                    Expanded(
-                      child:
-                          Container(height: 500, width: 500, child: _chart()),
+                    Text(snapshot.data.capacidadInstalada.toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17)),
+                    Text(
+                      ' MWh',
+                      style: TextStyle(color: Colors.grey),
                     )
                   ],
                 ),
-              ),
+              ],
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 0, right: 20),
-              child: new Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[_textGeneration()],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _chart() {
-    final List<ChartData> chartData = [
-      ChartData('Colombia', 48, Color.fromRGBO(222, 219, 23, 0)),
-      ChartData('Brasil', 51, Color.fromRGBO(109, 176, 97, 0)),
-      ChartData('Argentina', 41, Color.fromRGBO(51, 170, 205, 0)),
-      ChartData('Chile', 20, Color.fromRGBO(252, 111, 95, 0)),
-    ];
-
-    return SfCircularChart(
-        legend: Legend(
-            isResponsive: true,
-            textStyle: ChartTextStyle(fontWeight: FontWeight.w300),
-            isVisible: true,
-            position: LegendPosition.left,
-            iconWidth: 15),
-        series: <CircularSeries>[
-          RadialBarSeries<ChartData, String>(
-              enableSmartLabels: true,
-              maximumValue: 70,
-              pointColorMapper: (ChartData data, _) => data.color,
-              cornerStyle: CornerStyle.bothFlat,
-              dataSource: chartData,
-              radius: '90%',
-              innerRadius: '30%',
-              xValueMapper: (ChartData data, _) => data.x,
-              yValueMapper: (ChartData data, _) => data.y,
-              dataLabelMapper: (ChartData data, _) => data.x,
-              dataLabelSettings: DataLabelSettings(
-                  isVisible: false,
-                  labelPosition: ChartDataLabelPosition.inside,
-                  textStyle:
-                      ChartTextStyle(fontSize: 12, fontWeight: FontWeight.w300),
-                  connectorLineSettings:
-                      ConnectorLineSettings(type: ConnectorType.curve)))
-        ]);
+          ],
+        ),
+      ],
+    ));
   }
 
 
@@ -282,11 +342,4 @@ class MyAppState extends State<HomePage> {
 //     );
 // }
 
-}
-
-class ChartData {
-  ChartData(this.x, this.y, [this.color]);
-  final String x;
-  final double y;
-  final Color color;
 }
