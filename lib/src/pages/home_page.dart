@@ -9,12 +9,7 @@ import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-<<<<<<< HEAD
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-=======
 import 'package:gradient_widgets/gradient_widgets.dart';
->>>>>>> dad0fc8f8e70911aef80a98fb95beeb840dc9a44
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,15 +46,11 @@ class MyAppState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    
-=======
     var screenSize = MediaQuery.of(context).size;
     var rectSize =
         Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
     oAuth.setWebViewScreenSize(rectSize);
 
->>>>>>> dad0fc8f8e70911aef80a98fb95beeb840dc9a44
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
