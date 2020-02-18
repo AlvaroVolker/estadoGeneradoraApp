@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:http/http.dart' as http;
+
 class _DetalleGeneracionProvider {
-  int id;
-  String nombre;
-  String fechaActualizacion;
-  double generacionActual;
-  double capacidadInstalada;
-  String capacidadUsada;
-  DetalleGeneracion detailGeneracion;
+  DetalleGeneracionSBU detailGeneracion;
+
+  var detalleGen;
 
   _DetalleGeneracionProvider() {
     getData();
   }
 
-  Future<DetalleGeneracion> getData() async {
+  Future<DetalleGeneracionSBU> getData() async {
     String url = 'https://test-consolaoperaciones.azurewebsites.net';
 
     var response = await http
@@ -24,40 +21,50 @@ class _DetalleGeneracionProvider {
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      jsonDataAsign(jsonData);
-      detailGeneracion = createNewModel();
-      var detalleGen = jsonData['ListaDetalleComposite'];
+      detailGeneracion = crearCabeceraVM(jsonData);
 
-      for (var u in detalleGen) {
-        jsonDataAsign(u);
-        DetalleGeneracion detail = createNewModel();
-        detailGeneracion.listaDetalleGeneracion.add(detail);
+      if (detalleGen != null) {
+        for (var u in detalleGen) {
+          var detail = crearCabeceraVM(u);
+          detailGeneracion.listaDetalleGeneracion.add(detail);
+        }
       }
     }
     return detailGeneracion;
   }
 
-  DetalleGeneracion createNewModel() {
-    DetalleGeneracion detail = new DetalleGeneracion(
-      id: id,
-      nombre: nombre,
-      capacidadInstalada: capacidadInstalada,
-      capacidadUsada: capacidadUsada,
-      fechaActualizacion: fechaActualizacion,
-      generacionActual: generacionActual,
-    );
-    return detail;
+  DetalleGeneracionSBU crearCabeceraVM(jsonData) {
+    var detailGeneracion = createNewModel(jsonData);
+    return detailGeneracion;
   }
 
-  void jsonDataAsign(jsonData) {
-    id = jsonData['Id'];
-    nombre = jsonData['Nombre'].toString();
-    fechaActualizacion = jsonData['FechaActualizacion'].toString();
-    generacionActual =
-        double.parse(jsonData['GeneracionActual'].toStringAsFixed(1));
-    capacidadInstalada =
-        double.parse(jsonData['CapacidadInstalada'].toStringAsFixed(1));
-    capacidadUsada = jsonData['CapacidadUsada'].toStringAsFixed(0);
+  DetalleGeneracionSBU createNewModel(jsonData) {
+    DetalleGeneracionSBU detail = new DetalleGeneracionSBU(
+        id: jsonData['Id'],
+        nombre: jsonData['Nombre'].toString(),
+        capacidadInstalada:
+            double.parse(jsonData['CapacidadInstalada'].toString()).isNaN
+                ? 0
+                : double.parse(
+                    jsonData['CapacidadInstalada'].toStringAsFixed(1)),
+        capacidadUsada:
+            !double.parse(jsonData['CapacidadUsada'].toString()).isNaN
+                ? jsonData['CapacidadUsada'].toStringAsFixed(0)
+                : "0",
+        generacionActual:
+            double.parse(jsonData['GeneracionActual'].toString()).isNaN
+                ? 0
+                : double.parse(jsonData['GeneracionActual'].toStringAsFixed(1)),
+        fechaActualizacion: jsonData['FechaActualizacion'].toString());
+
+    detalleGen = jsonData['ListaDetalleComposite'];
+
+    if (detalleGen != null) {
+      for (var item in detalleGen) {
+        detail.listaDetalleGeneracion.add(createNewModel(item));
+      }
+    }
+    return detail;
   }
 }
 

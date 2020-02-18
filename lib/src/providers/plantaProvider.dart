@@ -10,13 +10,13 @@ class _DetalleGeneracionPlantaProvider {
   double generacionActual;
   double capacidadInstalada;
   String capacidadUsada;
-  DetalleGeneracion detailGeneracion;
+  DetalleGeneracionSBU detailGeneracion;
 
   _DetalleGeneracionPlantaProvider() {
     getData();
   }
 
-  Future<DetalleGeneracion> getData() async {
+  Future<DetalleGeneracionSBU> getData() async {
     
     var response = await http
         .get(
@@ -31,15 +31,15 @@ class _DetalleGeneracionPlantaProvider {
 
       for (var u in detalleGen) {
         jsonDataAsign(u);
-        DetalleGeneracion detail = createNewModel();
+        DetalleGeneracionSBU detail = createNewModel();
         detailGeneracion.listaDetalleGeneracion.add(detail);
       }
     }
     return detailGeneracion;
   }
 
-  DetalleGeneracion createNewModel() {
-    DetalleGeneracion detail = new DetalleGeneracion(
+  DetalleGeneracionSBU createNewModel() {
+    DetalleGeneracionSBU detail = new DetalleGeneracionSBU(
       id: id,
       nombre: nombre,
       capacidadInstalada: capacidadInstalada,

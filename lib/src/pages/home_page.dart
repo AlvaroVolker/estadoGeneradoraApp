@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return MyAppState();
   }
-
   
 }
 
@@ -197,7 +196,7 @@ class MyAppState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),

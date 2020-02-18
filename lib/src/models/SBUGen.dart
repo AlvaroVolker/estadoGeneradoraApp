@@ -1,4 +1,4 @@
-class DetalleGeneracion{
+class DetalleGeneracionSBU{
 
   final int id;
   final String nombre;
@@ -6,11 +6,11 @@ class DetalleGeneracion{
   final String capacidadUsada;
   final double generacionActual;
   final String fechaActualizacion;
-  List<DetalleGeneracion> listaDetalleGeneracion;
+  List<DetalleGeneracionSBU> listaDetalleGeneracion;
 
-  DetalleGeneracion({
-    this.id, this.nombre,this.capacidadInstalada, this.capacidadUsada, this.generacionActual, this.fechaActualizacion,this.listaDetalleGeneracion
+  DetalleGeneracionSBU({
+    this.id, this.nombre,this.capacidadInstalada, this.capacidadUsada, this.generacionActual, this.fechaActualizacion,this.listaDetalleGeneracion,
     }){
-      this.listaDetalleGeneracion = new List<DetalleGeneracion>();
+      this.listaDetalleGeneracion = new List<DetalleGeneracionSBU>();
     }
 }

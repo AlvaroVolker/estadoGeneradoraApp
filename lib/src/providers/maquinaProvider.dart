@@ -10,13 +10,13 @@ class _DetalleGeneracionMaquinaProvider {
   double generacionActual;
   double capacidadInstalada;
   String capacidadUsada;
-  DetalleGeneracion detailGeneracion;
+  DetalleGeneracionSBU detailGeneracion;
 
   _DetalleGeneracionMaquinaProvider() {
     getData(id: this.id);
   }
 
-  Future<DetalleGeneracion> getData({id}) async {
+  Future<DetalleGeneracionSBU> getData({id}) async {
     String url = 'https://test-consolaoperaciones.azurewebsites.net';
 
     var response = await http
@@ -32,15 +32,15 @@ class _DetalleGeneracionMaquinaProvider {
 
       for (var u in detalleGen) {
         jsonDataAsign(u);
-        DetalleGeneracion detail = createNewModel();
+        DetalleGeneracionSBU detail = createNewModel();
         detailGeneracion.listaDetalleGeneracion.add(detail);
       }
     }
     return detailGeneracion;
   }
 
-  DetalleGeneracion createNewModel() {
-    DetalleGeneracion detail = new DetalleGeneracion(
+  DetalleGeneracionSBU createNewModel() {
+    DetalleGeneracionSBU detail = new DetalleGeneracionSBU(
       id: id,
       nombre: nombre,
       capacidadInstalada: capacidadInstalada,

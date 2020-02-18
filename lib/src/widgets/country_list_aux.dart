@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class CountryList extends StatelessWidget {
-  const CountryList({
+class CountryListAux extends StatelessWidget {
+  const CountryListAux({
     Key key,
     @required this.snapshot,
   }) : super(key: key);
@@ -15,9 +15,9 @@ class CountryList extends StatelessWidget {
       child: Container(
         height: double.infinity,
         child: ListView.separated(
-            itemCount: snapshot.data.listaDetalleGeneracion.length,
+            itemCount: snapshot.listaDetalleGeneracion.length,
             itemBuilder: (BuildContext context, int index) {
-              var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+              var snapshotData = snapshot.listaDetalleGeneracion[index];
               var capacUsada = double.parse(snapshotData.capacidadUsada);
               return FlatButton(
                 onPressed: () {
