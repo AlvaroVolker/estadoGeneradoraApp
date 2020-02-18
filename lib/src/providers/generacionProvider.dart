@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:http/http.dart' as http;
 
 class _DetalleGeneracionProvider {
-  DetalleGeneracionSBU detailGeneracion;
+  DetalleGeneracion detailGeneracion;
 
   var detalleGen;
 
@@ -11,7 +11,7 @@ class _DetalleGeneracionProvider {
     getData();
   }
 
-  Future<DetalleGeneracionSBU> getData() async {
+  Future<DetalleGeneracion> getData() async {
     String url = 'https://test-consolaoperaciones.azurewebsites.net';
 
     var response = await http
@@ -33,13 +33,13 @@ class _DetalleGeneracionProvider {
     return detailGeneracion;
   }
 
-  DetalleGeneracionSBU crearCabeceraVM(jsonData) {
+  DetalleGeneracion crearCabeceraVM(jsonData) {
     var detailGeneracion = createNewModel(jsonData);
     return detailGeneracion;
   }
 
-  DetalleGeneracionSBU createNewModel(jsonData) {
-    DetalleGeneracionSBU detail = new DetalleGeneracionSBU(
+  DetalleGeneracion createNewModel(jsonData) {
+    DetalleGeneracion detail = new DetalleGeneracion(
         id: jsonData['Id'],
         nombre: jsonData['Nombre'].toString(),
         capacidadInstalada:
