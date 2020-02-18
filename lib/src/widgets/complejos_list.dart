@@ -30,7 +30,7 @@ class ComplejosList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
-                        width: 70,
+                        width: 120,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -63,7 +63,7 @@ class ComplejosList extends StatelessWidget {
                           animation: true,
                           animateFromLastPercent: true,
                           percent: capacUsada / 100,
-                          width: MediaQuery.of(context).size.width - 250,
+                          width: MediaQuery.of(context).size.width - 270,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
                           progressColor: setProgressColor(capacUsada),
