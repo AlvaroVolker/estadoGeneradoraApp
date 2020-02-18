@@ -102,27 +102,6 @@ class MyAppState extends State<HomePage> {
           Icon(FontAwesomeIcons.gripLines, color: Colors.black)
         ],
       ),
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Color.fromRGBO(234, 242, 248, 1),
-            ),
-            child: MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/plantaPage');
-              },
-              child: Text(
-                'Castilla',
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
-              ),
-              elevation: 0,
-            ),
-          ),
-        )
-      ],
     );
   }
 

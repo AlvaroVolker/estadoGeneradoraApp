@@ -1,89 +1,44 @@
-import 'dart:async';
-import 'package:estadogeneradoraapp/src/providers/plantaProvider.dart';
-import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
+import 'package:estadogeneradoraapp/src/core/routes.dart';
+import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class PlantaPage extends StatefulWidget {
+  final dynamic snapshot;
+
+  PlantaPage({Key key, @required this.snapshot}) : super(key: key);
+
   @override
   _PlantaPageState createState() => _PlantaPageState();
 }
 
 class _PlantaPageState extends State<PlantaPage> {
-  Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _getData();
-    });
-  }
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  _getData() async {
-    return await detallePlanta.getData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: MaterialApp(
+        onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light(),
         home: Scaffold(
-            appBar: _crearAppBar(),
-            body: _body(),
-            bottomNavigationBar: _crearBottomBar()),
+          appBar: _crearAppBar(),
+          body: _body(),
+          bottomNavigationBar: _crearBottomBar(),
+        ),
       ),
     );
   }
 
   Widget _body() {
-    return FutureBuilder(
-        future: _getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
-            return SafeArea(
-              child: Center(
-                child: Container(
-                    child: Column(
-                  children: <Widget>[
-                    _pagesNavigation(),
-                    _containerGeneration(snapshot)
-                  ],
-                )),
-              ),
-            );
-          }
-          return Center(
-            child: GradientProgressIndicator(
-              gradient: Gradients.cosmicFusion,
-            ),
-          );
-        });
-  }
-
-  Widget _crearAppBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Row(
-        children: <Widget>[
-          SizedBox(width: 20.0),
-          GestureDetector(
-            child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38), 
-            onTap: (){
-              Navigator.of(context).pushNamed('/');
-            })
-        ],
+    return SafeArea(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            _pagesNavigation(),
+            _containerGeneration(widget.snapshot),
+          ],
+        ),
       ),
     );
   }
@@ -114,9 +69,45 @@ class _PlantaPageState extends State<PlantaPage> {
     );
   }
 
+  Widget _crearAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Row(
+        children: <Widget>[
+          SizedBox(width: 20.0),
+          GestureDetector(
+              child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38),
+              onTap: () {
+                Navigator.of(context).pushNamed('/');
+              })
+        ],
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Color.fromRGBO(234, 242, 248, 1),
+            ),
+            child: MaterialButton(
+              child: Text(
+                widget.snapshot.nombre,
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+              ),
+              elevation: 0,
+              onPressed: () {},
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _pagesNavigation() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 16),
       child: Container(
           child: Row(
         children: <Widget>[
@@ -133,7 +124,7 @@ class _PlantaPageState extends State<PlantaPage> {
                             fontSize: 29)),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('máquinas',
+                      child: Text('unidades',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
@@ -149,38 +140,70 @@ class _PlantaPageState extends State<PlantaPage> {
     );
   }
 
-  Widget _containerGeneration(AsyncSnapshot snapshot) {
+  Widget _containerGeneration(dynamic snapshot) {
     return Expanded(
       child: Container(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 25),
+              padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 70),
-                      child: _circular(snapshot),
+                      padding: const EdgeInsets.only(left: 55),
+                      child: IndexCircleBar(snapshot: snapshot),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 60),
+                      padding: const EdgeInsets.only(right: 50),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 18.0),
-            CountryList(snapshot: snapshot)
+            SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text('Detalle',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 22)),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 7),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Column(
+                    children: <Widget>[
+                      Text(snapshot.fechaActualizacion.toString(),
+                          style: TextStyle(
+                              color: Colors.black26,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 10)),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 18),
+            MaquinasList(snapshot: snapshot)
           ],
         ),
       ),
     );
   }
 
-  Widget _dataGeneration(AsyncSnapshot snapshot) {
+  Widget _dataGeneration(dynamic snapshot) {
     return Container(
         child: Column(
       children: <Widget>[
@@ -202,28 +225,18 @@ class _PlantaPageState extends State<PlantaPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(3.0),
-                  child: Container(
-                    width: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(snapshot.data.generacionActual.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 17)),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            ' MWh',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        )
-                      ],
-                    ),
+                  child: Row(
+                    children: <Widget>[
+                      Text(snapshot.generacionActual.toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17)),
+                      Text(
+                        ' MWh',
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -241,22 +254,18 @@ class _PlantaPageState extends State<PlantaPage> {
                     ),
                   ),
                 ),
-                Container(
-                  width: 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text(snapshot.data.capacidadInstalada.toString(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
+                Row(
+                  children: <Widget>[
+                    Text(snapshot.capacidadInstalada.toString(),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17)),
+                    Text(
+                      ' MWh',
+                      style: TextStyle(color: Colors.grey),
+                    )
+                  ],
                 ),
               ],
             ),
@@ -264,43 +273,5 @@ class _PlantaPageState extends State<PlantaPage> {
         ),
       ],
     ));
-  }
-
-  Widget _circular(AsyncSnapshot snapshot) {
-    final Shader linearGradient = LinearGradient(colors: [
-      const Color.fromRGBO(41, 205, 235, 0.5),
-      const Color.fromRGBO(158, 112, 255, 0.5),
-      const Color.fromRGBO(49, 79, 251, 0.5),
-    ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
-
-    return CircularPercentIndicator(
-      animationDuration: 2,
-      addAutomaticKeepAlive: true,
-      animateFromLastPercent: true,
-      startAngle: 0,
-      center: Text(
-        " " + snapshot.data.capacidadUsada + "%",
-        style: TextStyle(
-            foreground: Paint()..shader = linearGradient,
-            fontSize: 27,
-            fontWeight: FontWeight.bold),
-      ),
-      radius: 120,
-      linearGradient: LinearGradient(
-        colors: [
-          const Color.fromRGBO(158, 112, 255, 0.5),
-          const Color.fromRGBO(49, 79, 251, 0.5),
-          const Color.fromRGBO(41, 205, 235, 0.5),
-          const Color.fromRGBO(142, 255, 112, 0.5),
-        ],
-        begin: Alignment.topRight,
-        end: Alignment.topLeft,
-      ),
-      percent: double.parse(snapshot.data.capacidadUsada) / 100,
-      animation: true,
-      backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
-      lineWidth: 13,
-      // progressColor: Color.fromRGBO(36, 102, 13, 1)
-    );
   }
 }

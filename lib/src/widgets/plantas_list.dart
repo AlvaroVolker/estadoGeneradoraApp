@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class CountryListAux extends StatelessWidget {
-  const CountryListAux({
+class PlantasList extends StatelessWidget {
+  const PlantasList({
     Key key,
     @required this.snapshot,
   }) : super(key: key);
@@ -22,7 +22,7 @@ class CountryListAux extends StatelessWidget {
               return FlatButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .pushNamed('/countryPage', arguments: snapshotData);
+                      .pushNamed('/plantaPage', arguments: snapshotData);
                 },
                 child: Container(
                   child: Row(

@@ -1,19 +1,19 @@
 import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CountryPage extends StatefulWidget {
+class ComplejoPage extends StatefulWidget {
   final dynamic snapshot;
 
-  const CountryPage({Key key, @required this.snapshot}) : super(key: key);
+  ComplejoPage({Key key, @required this.snapshot}) : super(key: key);
 
   @override
-  _CountryPageState createState() => _CountryPageState();
+  _ComplejoPageState createState() => _ComplejoPageState();
 }
 
-class _CountryPageState extends State<CountryPage> {
+class _ComplejoPageState extends State<ComplejoPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,14 +117,14 @@ class _CountryPageState extends State<CountryPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 12),
                   child: Row(children: <Widget>[
-                    Text('País',
+                    Text('Complejos',
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('complejos',
+                      child: Text('plantas',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
@@ -196,7 +196,7 @@ class _CountryPageState extends State<CountryPage> {
               ],
             ),
             SizedBox(height: 18),
-            ComplejosList(snapshot: snapshot)
+            PlantasList(snapshot: snapshot)
           ],
         ),
       ),

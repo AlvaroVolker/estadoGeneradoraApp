@@ -1,22 +1,21 @@
 import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CountryPage extends StatefulWidget {
+class MaquinaPage extends StatefulWidget {
   final dynamic snapshot;
 
-  const CountryPage({Key key, @required this.snapshot}) : super(key: key);
+  MaquinaPage({Key key, @required this.snapshot}) : super(key: key);
 
   @override
-  _CountryPageState createState() => _CountryPageState();
+  _MaquinaPageState createState() => _MaquinaPageState();
 }
 
-class _CountryPageState extends State<CountryPage> {
+class _MaquinaPageState extends State<MaquinaPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+     return Container(
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
@@ -30,10 +29,12 @@ class _CountryPageState extends State<CountryPage> {
     );
   }
 
-  Widget _body() {
+
+   Widget _body() {
     return SafeArea(
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _pagesNavigation(),
             _containerGeneration(widget.snapshot),
@@ -117,20 +118,22 @@ class _CountryPageState extends State<CountryPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 12),
                   child: Row(children: <Widget>[
-                    Text('País',
+                    Text('Unidad',
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
-                    Padding(
+                            Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('complejos',
+                      child: Text(widget.snapshot.nombre,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
                               fontWeight: FontWeight.w400)),
                     ),
-                  ]),
+                  ]
+
+                  ),
                 ),
               ],
             ),
@@ -141,7 +144,7 @@ class _CountryPageState extends State<CountryPage> {
   }
 
   Widget _containerGeneration(dynamic snapshot) {
-    return Expanded(
+    return Center(
       child: Container(
         child: Column(
           children: <Widget>[
@@ -164,39 +167,6 @@ class _CountryPageState extends State<CountryPage> {
               ),
             ),
             SizedBox(height: 25.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text('Detalle',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22)),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 7),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30),
-                  child: Column(
-                    children: <Widget>[
-                      Text(snapshot.fechaActualizacion.toString(),
-                          style: TextStyle(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 10)),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 18),
-            ComplejosList(snapshot: snapshot)
           ],
         ),
       ),
