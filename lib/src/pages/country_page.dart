@@ -163,7 +163,7 @@ class _CountryPageState extends State<CountryPage> {
                 ),
               ),
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -195,7 +195,7 @@ class _CountryPageState extends State<CountryPage> {
                 )
               ],
             ),
-            SizedBox(height: 18),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             ComplejosList(snapshot: snapshot)
           ],
         ),

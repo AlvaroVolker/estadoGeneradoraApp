@@ -163,7 +163,7 @@ class _PlantaPageState extends State<PlantaPage> {
                 ),
               ),
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -195,7 +195,7 @@ class _PlantaPageState extends State<PlantaPage> {
                 )
               ],
             ),
-            SizedBox(height: 18),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             MaquinasList(snapshot: snapshot)
           ],
         ),

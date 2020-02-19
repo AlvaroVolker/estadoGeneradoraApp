@@ -94,7 +94,7 @@ class CountryList extends StatelessWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                 Divider(height: MediaQuery.of(context).size.height * 0.03,)),
+                 Divider(height: MediaQuery.of(context).size.height * 0.04)),
       ),
     );
   }

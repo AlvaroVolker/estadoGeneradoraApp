@@ -94,7 +94,7 @@ class MaquinasList extends StatelessWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const Divider(height: 22)),
+                 Divider(height: MediaQuery.of(context).size.height * 0.05)),
       ),
     );
   }

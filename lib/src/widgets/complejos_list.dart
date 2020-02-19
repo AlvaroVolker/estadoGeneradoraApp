@@ -94,7 +94,7 @@ class ComplejosList extends StatelessWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const Divider(height: 30)),
+                 Divider(height: MediaQuery.of(context).size.height * 0.07)),
       ),
     );
   }

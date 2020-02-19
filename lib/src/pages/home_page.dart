@@ -55,71 +55,71 @@ class MyAppState extends State<HomePage> {
       theme: ThemeData.light(),
       home: Container(
         child: FutureBuilder(
-          future: _getData(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.mood_bad, size: 40, color: Colors.lightBlue),
-                        SizedBox(height: 10),
-                        Text('No pudimos recuperar algunos datos...',
-                            style: TextStyle(
-                                color: Colors.lightBlue,
-                                fontSize: 14,
-                                decoration: TextDecoration.none)),
-                        SizedBox(height: 40),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color.fromRGBO(234, 242, 248, 1),
-                          ),
-                          child: MaterialButton(
-                            child: Text(
-                              'Reintentar',
+            future: _getData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.mood_bad,
+                              size: 40, color: Colors.lightBlue),
+                          SizedBox(height: 10),
+                          Text('No pudimos recuperar algunos datos...',
                               style: TextStyle(
-                                  color: Color.fromRGBO(41, 128, 185, 1)),
+                                  color: Colors.lightBlue,
+                                  fontSize: 14,
+                                  decoration: TextDecoration.none)),
+                          SizedBox(height: 40),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Color.fromRGBO(234, 242, 248, 1),
                             ),
-                            elevation: 0,
-                            onPressed: () {
-                              setState(() {
-                                _getData();
-                              });
-                            },
+                            child: MaterialButton(
+                              child: Text(
+                                'Reintentar',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(41, 128, 185, 1)),
+                              ),
+                              elevation: 0,
+                              onPressed: () {
+                                setState(() {
+                                  _getData();
+                                });
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              case ConnectionState.active:
-              case ConnectionState.waiting:
-                return Stack(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.white,
-                      child: Center(
-                        child: GradientProgressIndicator(
-                            gradient: Gradients.cosmicFusion),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              case ConnectionState.done:
-                return Scaffold(
-                  appBar: _crearAppBar(),
-                  body: _body(snapshot),
-                  bottomNavigationBar: _crearBottomBar(),
-                );
-              default:
-                return Text('default');
-            }
-          },
-        ),
+                  );
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return Stack(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.white,
+                        child: Center(
+                          child: GradientProgressIndicator(
+                              gradient: Gradients.cosmicFusion),
+                        ),
+                      ),
+                    ],
+                  );
+                case ConnectionState.done:
+                  return Scaffold(
+                    appBar: _crearAppBar(),
+                    body: _body(snapshot),
+                    bottomNavigationBar: _crearBottomBar(),
+                  );
+                default:
+                  return Text('default');
+              }
+            }),
       ),
     );
   }
@@ -128,9 +128,7 @@ class MyAppState extends State<HomePage> {
     return await detalleGeneracion.getData();
   }
 
-
-
-  Widget _body(AsyncSnapshot snapshot) {
+  Widget _body(dynamic snapshot) {
     return SafeArea(
       child: Container(
         child: Column(
