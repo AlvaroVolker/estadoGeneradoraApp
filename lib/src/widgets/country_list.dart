@@ -62,7 +62,7 @@ class CountryList extends StatelessWidget {
                           addAutomaticKeepAlive: true,
                           animation: true,
                           animateFromLastPercent: true,
-                          percent: capacUsada / 100,
+                          percent: capacUsada <0 ? 0:capacUsada / 100,
                           width: MediaQuery.of(context).size.width - 250,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
@@ -94,7 +94,7 @@ class CountryList extends StatelessWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                 Divider(height: MediaQuery.of(context).size.height * 0.04)),
+                 Divider(height: MediaQuery.of(context).size.height * 0.035)),
       ),
     );
   }

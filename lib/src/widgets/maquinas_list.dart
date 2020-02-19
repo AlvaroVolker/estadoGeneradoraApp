@@ -62,7 +62,7 @@ class MaquinasList extends StatelessWidget {
                           addAutomaticKeepAlive: true,
                           animation: true,
                           animateFromLastPercent: true,
-                          percent: capacUsada / 100,
+                          percent: capacUsada <0 ? 0:capacUsada / 100,
                           width: MediaQuery.of(context).size.width - 250,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
