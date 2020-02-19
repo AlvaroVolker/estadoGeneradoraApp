@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return MyAppState();
   }
-  
 }
 
 class MyAppState extends State<HomePage> {
@@ -55,10 +54,71 @@ class MyAppState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: Container(
-        child: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
+        child: FutureBuilder(
+          future: _getData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.mood_bad, size: 40, color: Colors.lightBlue),
+                        SizedBox(height: 10),
+                        Text('No pudimos recuperar algunos datos...',
+                            style: TextStyle(
+                                color: Colors.lightBlue,
+                                fontSize: 14,
+                                decoration: TextDecoration.none)),
+                        SizedBox(height: 40),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Color.fromRGBO(234, 242, 248, 1),
+                          ),
+                          child: MaterialButton(
+                            child: Text(
+                              'Reintentar',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(41, 128, 185, 1)),
+                            ),
+                            elevation: 0,
+                            onPressed: () {
+                              setState(() {
+                                _getData();
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.white,
+                      child: Center(
+                        child: GradientProgressIndicator(
+                            gradient: Gradients.cosmicFusion),
+                      ),
+                    ),
+                  ],
+                );
+              case ConnectionState.done:
+                return Scaffold(
+                  appBar: _crearAppBar(),
+                  body: _body(snapshot),
+                  bottomNavigationBar: _crearBottomBar(),
+                );
+              default:
+                return Text('default');
+            }
+          },
         ),
       ),
     );
@@ -68,28 +128,19 @@ class MyAppState extends State<HomePage> {
     return await detalleGeneracion.getData();
   }
 
-  Widget _body() {
-    return FutureBuilder(
-        future: _getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data != null) {
-            return SafeArea(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    _pagesNavigation(),
-                    _containerGeneration(snapshot),
-                  ],
-                ),
-              ),
-            );
-          }
-          return Center(
-            child: GradientProgressIndicator(
-              gradient: Gradients.cosmicFusion,
-            ),
-          );
-        });
+
+
+  Widget _body(AsyncSnapshot snapshot) {
+    return SafeArea(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            _pagesNavigation(),
+            _containerGeneration(snapshot),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _crearAppBar() {
@@ -210,18 +261,18 @@ class MyAppState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: Column(
-                      children: <Widget>[
-                        Text(snapshot.data.fechaActualizacion,
-                            style: TextStyle(
-                                color: Colors.black26,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 10)),
-                      ],
-                    ),
+                    children: <Widget>[
+                      Text(snapshot.data.fechaActualizacion,
+                          style: TextStyle(
+                              color: Colors.black26,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 10)),
+                    ],
+                  ),
                 )
               ],
             ),
-            SizedBox(height: 18),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.013),
             CountryList(snapshot: snapshot)
           ],
         ),
@@ -300,5 +351,4 @@ class MyAppState extends State<HomePage> {
       ],
     ));
   }
-
 }
