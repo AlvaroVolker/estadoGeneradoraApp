@@ -12,7 +12,7 @@ class _DetalleGeneracionProvider {
   }
 
   Future<DetalleGeneracion> getData() async {
-    String url = 'https://consolaoperaciones.aesandes.com/';
+    String url = 'https://test-consolaoperaciones.azurewebsites.net/';
 
     var response = await http
         .get(

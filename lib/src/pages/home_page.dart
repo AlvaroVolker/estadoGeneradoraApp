@@ -8,8 +8,10 @@ import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -104,8 +106,10 @@ class MyAppState extends State<HomePage> {
                       Container(
                         color: Colors.white,
                         child: Center(
-                          child: GradientProgressIndicator(
-                              gradient: Gradients.cosmicFusion),
+                          child: SpinKitFoldingCube(
+                            color: Colors.purple,
+                            size: 100.0,
+                          ),
                         ),
                       ),
                     ],
