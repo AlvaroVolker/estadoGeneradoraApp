@@ -29,8 +29,6 @@ class MyAppState extends State<HomePage> {
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -55,7 +53,7 @@ class MyAppState extends State<HomePage> {
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'OpenSans'),
+      theme: ThemeData(fontFamily: 'OpenSans'), themeMode: ThemeMode.light,
       home: Container(
         child: FutureBuilder(
             future: _getData(),
@@ -142,7 +140,6 @@ class MyAppState extends State<HomePage> {
                   );
                 case ConnectionState.done:
                   return Scaffold(
-                    key: _scaffoldKey,
                     appBar: _crearAppBar(),
                     body: _body(snapshot),
                     bottomNavigationBar: _crearBottomBar(),
@@ -178,7 +175,6 @@ class MyAppState extends State<HomePage> {
       elevation: 0,
       leading: FlatButton(
         onPressed: (){
-          _scaffoldKey.currentState.openDrawer();
         },
         child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
     );
