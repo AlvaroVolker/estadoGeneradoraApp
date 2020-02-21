@@ -38,11 +38,12 @@ class PlantasList extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 snapshotData.nombre,
-                                style: TextStyle(color: Colors.black54),
+                                style: TextStyle(color: Colors.black54,
+                                   fontWeight: FontWeight.w600),
                               ),
                             ),
                             SizedBox(
-                              height: 6,
+                              height: 5,
                             ),
                             Align(
                               alignment: Alignment.centerLeft,
@@ -63,39 +64,46 @@ class PlantasList extends StatelessWidget {
                           animation: true,
                           animateFromLastPercent: true,
                           percent: capacUsada < 0 ? 0 : capacUsada / 100,
-                          width: MediaQuery.of(context).size.width - 250,
+                          width: MediaQuery.of(context).size.width - 230,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
                           progressColor: setProgressColor(capacUsada),
                           backgroundColor: setBarColor(capacUsada),
                         ),
                       ),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                              double.parse(snapshotData.capacidadUsada) < 50
-                                  ? Icons.arrow_drop_down
-                                  : Icons.arrow_drop_up,
-                              color: Colors.black54,
-                              size: 25),
-                          Text(
-                            snapshotData.capacidadUsada.toString() + " %",
-                            style: TextStyle(
-                                color: Colors.black54,
-                                backgroundColor: setBarColor(
-                                    double.parse(snapshotData.capacidadUsada)),
-                                fontSize: 16),
+                      Container(
+                          decoration: BoxDecoration(
+                            color: setProgressColor(double.parse(
+                                      snapshotData.capacidadUsada)).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(2)
                           ),
-                        ],
-                      )
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                  double.parse(snapshotData.capacidadUsada) < 50
+                                      ? Icons.arrow_drop_down
+                                      : Icons.arrow_drop_up,
+                                  color: Colors.black54,
+                                  size: 15),
+                              Text(
+                                snapshotData.capacidadUsada.toString() + "%",
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 12, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        )
                     ],
                   ),
                 ),
               );
             },
             separatorBuilder: (BuildContext context, int index) =>
-                const Divider(height: 22)),
-      ),
+                 Divider(height: 
+                 snapshot.listaDetalleGeneracion.length <= 3 ? 
+                 MediaQuery.of(context).size.height * 0.063 : MediaQuery.of(context).size.height * 0.03))),
     );
   }
 

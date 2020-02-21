@@ -20,7 +20,8 @@ class _CountryPageState extends State<CountryPage> {
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(),
+        theme: ThemeData(fontFamily: 'OpenSans'),
+
         home: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
@@ -74,13 +75,11 @@ class _CountryPageState extends State<CountryPage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 20.0),
-          GestureDetector(
-              child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38),
-              onTap: () {
-                Navigator.of(context).pushNamed('/');
-              })
+          BackButton(
+            color: Colors.black,
+               onPressed: () {Navigator.of(context).pushNamed('/');},)
         ],
       ),
       actions: <Widget>[
@@ -94,7 +93,7 @@ class _CountryPageState extends State<CountryPage> {
             child: MaterialButton(
               child: Text(
                 widget.snapshot.nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},
@@ -149,7 +148,7 @@ class _CountryPageState extends State<CountryPage> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
@@ -174,7 +173,7 @@ class _CountryPageState extends State<CountryPage> {
                     children: <Widget>[
                       Text('Detalle',
                           style: TextStyle(
-                              color: Colors.black54,
+                              color: Colors.black87,
                               fontWeight: FontWeight.w600,
                               fontSize: 22)),
                     ],

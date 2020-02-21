@@ -11,7 +11,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,6 +28,8 @@ class MyAppState extends State<HomePage> {
 
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class MyAppState extends State<HomePage> {
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData(fontFamily: 'OpenSans'),
       home: Container(
         child: FutureBuilder(
             future: _getData(),
@@ -106,9 +107,34 @@ class MyAppState extends State<HomePage> {
                       Container(
                         color: Colors.white,
                         child: Center(
-                          child: SpinKitFoldingCube(
-                            color: Colors.purple,
-                            size: 100.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  gradient: Gradients.aliHussien,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Center(
+                                  child: SpinKitChasingDots(
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(width: 100,child: Text('AES',textAlign: TextAlign.start, style: TextStyle(decoration: TextDecoration.none, color: Colors.black45,fontSize: 16, fontFamily: 'OpenSans'),),),
+                                    Container(width:100, child: Text('SmartGen',textAlign: TextAlign.start, style: TextStyle(decoration: TextDecoration.none, color: Colors.black54, fontSize: 19, fontFamily: 'OpenSans'),))
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -116,6 +142,7 @@ class MyAppState extends State<HomePage> {
                   );
                 case ConnectionState.done:
                   return Scaffold(
+                    key: _scaffoldKey,
                     appBar: _crearAppBar(),
                     body: _body(snapshot),
                     bottomNavigationBar: _crearBottomBar(),
@@ -149,12 +176,11 @@ class MyAppState extends State<HomePage> {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: Row(
-        children: <Widget>[
-          SizedBox(width: 32.0),
-          Icon(FontAwesomeIcons.gripLines, color: Colors.black)
-        ],
-      ),
+      leading: FlatButton(
+        onPressed: (){
+          _scaffoldKey.currentState.openDrawer();
+        },
+        child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
     );
   }
 
@@ -225,10 +251,10 @@ class MyAppState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 20),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
@@ -253,7 +279,7 @@ class MyAppState extends State<HomePage> {
                     children: <Widget>[
                       Text('Detalle',
                           style: TextStyle(
-                              color: Colors.black54,
+                              color: Colors.black87,
                               fontWeight: FontWeight.w600,
                               fontSize: 22)),
                     ],
@@ -274,7 +300,7 @@ class MyAppState extends State<HomePage> {
                 )
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.013),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             CountryList(snapshot: snapshot)
           ],
         ),

@@ -19,7 +19,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(),
+        theme: ThemeData(fontFamily: 'OpenSans'),
         home: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
@@ -76,12 +76,9 @@ class _MaquinaPageState extends State<MaquinaPage> {
       elevation: 0,
       leading: Row(
         children: <Widget>[
-          SizedBox(width: 20.0),
-          GestureDetector(
-              child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38),
-              onTap: () {
-                Navigator.of(context).pushNamed('/');
-              })
+          BackButton(
+            color: Colors.black,
+               onPressed: () {Navigator.of(context).pushNamed('/');},)
         ],
       ),
       actions: <Widget>[
@@ -95,7 +92,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
             child: MaterialButton(
               child: Text(
                 widget.snapshot.nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},

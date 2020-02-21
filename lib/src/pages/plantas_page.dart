@@ -20,7 +20,7 @@ class _PlantaPageState extends State<PlantaPage> {
       child: MaterialApp(
         onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(),
+        theme: ThemeData(fontFamily: 'OpenSans'),
         home: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
@@ -75,12 +75,9 @@ class _PlantaPageState extends State<PlantaPage> {
       elevation: 0,
       leading: Row(
         children: <Widget>[
-          SizedBox(width: 20.0),
-          GestureDetector(
-              child: Icon(FontAwesomeIcons.chevronLeft, color: Colors.black38),
-              onTap: () {
-                Navigator.of(context).pushNamed('/');
-              })
+          BackButton(
+            color: Colors.black,
+               onPressed: () {Navigator.of(context).pushNamed('/');},)
         ],
       ),
       actions: <Widget>[
@@ -94,7 +91,7 @@ class _PlantaPageState extends State<PlantaPage> {
             child: MaterialButton(
               child: Text(
                 widget.snapshot.nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1)),
+                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},
@@ -149,7 +146,7 @@ class _PlantaPageState extends State<PlantaPage> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),

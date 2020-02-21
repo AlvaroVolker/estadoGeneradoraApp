@@ -48,6 +48,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+  - family: OpenSans
+    fonts:
+      - asset: assets/fonts/OpenSans-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -55,6 +59,9 @@ flutter:
   assets:
     - assets/images/logo_SmartGen_80.png
     - assets/images/aesLogo.png
+
+
+  
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -67,11 +74,7 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  # - familiy: RobotoMono
-  #     fonts:
-  #     -asset: assets/fonts/RobotoMono-Medium.ttf
+ 
   # - family: Schyler
   #   fonts:
   #     - asset: fonts/Schyler-Regular.ttf

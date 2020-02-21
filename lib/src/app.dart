@@ -14,6 +14,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'OpenSans'),
       home: Center(
         child: HomePage(),
       ),

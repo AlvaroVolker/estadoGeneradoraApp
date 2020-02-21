@@ -40,11 +40,12 @@ class CountryList extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   snapshotData.nombre,
-                                  style: TextStyle(color: Colors.black54),
+                                  style: TextStyle(color: Colors.black54,
+                                   fontWeight: FontWeight.w600),
                                 ),
                               ),
                               SizedBox(
-                                height: 6,
+                                height: 5,
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -72,30 +73,36 @@ class CountryList extends StatelessWidget {
                             backgroundColor: setBarColor(capacUsada),
                           ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                                double.parse(snapshotData.capacidadUsada) < 50
-                                    ? Icons.arrow_drop_down
-                                    : Icons.arrow_drop_up,
-                                color: Colors.black54,
-                                size: 25),
-                            Text(
-                              snapshotData.capacidadUsada.toString() + " %",
-                              style: TextStyle(
+                        Container(
+                          decoration: BoxDecoration(
+                            color: setProgressColor(double.parse(
+                                      snapshotData.capacidadUsada)).withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(2)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                  double.parse(snapshotData.capacidadUsada) < 50
+                                      ? Icons.arrow_drop_down
+                                      : Icons.arrow_drop_up,
                                   color: Colors.black54,
-                                  backgroundColor: setBarColor(double.parse(
-                                      snapshotData.capacidadUsada)),
-                                  fontSize: 16),
-                            ),
-                          ],
+                                  size: 15),
+                              Text(
+                                snapshotData.capacidadUsada.toString() + "%",
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 12, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) => Divider(
-                    height: MediaQuery.of(context).size.height * 0.04)),
+                    height: MediaQuery.of(context).size.height * 0.03)),
           ),
         ],
       ),
