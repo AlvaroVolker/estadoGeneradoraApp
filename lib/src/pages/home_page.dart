@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/bloc/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/providers/sbuProvider.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class MyAppState extends State<HomePage> {
   }
 
   _getData() async {
-    return await detalleGeneracion.getData();
+    return await blocDetalleGeneracion.getData();
   }
 
   Widget _body() {

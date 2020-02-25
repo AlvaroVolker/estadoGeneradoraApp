@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:http/http.dart' as http;
+
 class _DetalleGeneracionProvider {
   int id;
   String nombre;
