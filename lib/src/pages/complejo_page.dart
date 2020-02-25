@@ -73,7 +73,7 @@ class _ComplejoPageState extends State<ComplejoPage> {
           BackButton(
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.pop(context);
             },
           )
         ],

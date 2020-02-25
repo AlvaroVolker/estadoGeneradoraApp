@@ -78,7 +78,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.of(context).pushNamed('/');},)
+               onPressed: () {Navigator.pop(context);},)
         ],
       ),
       actions: <Widget>[
