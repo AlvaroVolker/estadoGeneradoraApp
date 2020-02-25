@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:estadogeneradoraapp/src/models/SBUGen.dart';
 import 'package:http/http.dart' as http;
 
+///TODO: esta clase no deberia existir mas ya que ahora tener todo administrado por la clase del bloc
+
 class _DetalleGeneracionProvider {
   int id;
   String nombre;

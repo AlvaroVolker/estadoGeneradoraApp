@@ -11,6 +11,8 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 
+import '../models/SBUGen.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -70,7 +72,7 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _body() {
-    return FutureBuilder(
+    return FutureBuilder( /// TODO: Te sirve solo para ver si es null o no y nada mas
         future: _getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data != null) {
@@ -79,7 +81,7 @@ class MyAppState extends State<HomePage> {
                 child: Column(
                   children: <Widget>[
                     _pagesNavigation(),
-                    _containerGeneration(snapshot),
+                    _containerGeneration(),
                   ],
                 ),
               ),
@@ -188,7 +190,7 @@ class MyAppState extends State<HomePage> {
     );
   }
 
-  Widget _containerGeneration(AsyncSnapshot snapshot) {
+  Widget _containerGeneration() {
     return Expanded(
       child: Container(
         child: Column(
@@ -201,11 +203,11 @@ class MyAppState extends State<HomePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
-                      child: CircleBar(snapshot: snapshot),
+                      child: CircleBar(snapshot: blocDetalleGeneracion.getDetalleGen),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),
-                      child: _dataGeneration(snapshot),
+                      child: _dataGeneration(),
                     ),
                   ],
                 ),
@@ -233,25 +235,31 @@ class MyAppState extends State<HomePage> {
                   padding: const EdgeInsets.only(right: 30),
                   child: Column(
                       children: <Widget>[
-                        Text(snapshot.data.fechaActualizacion,
-                            style: TextStyle(
-                                color: Colors.black26,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 10)),
+                        ///Con esto llamas lo que hay dentro del stream
+                        StreamBuilder<DetalleGeneracion>(
+                          stream: blocDetalleGeneracion.getDetalleGen,
+                          builder: (context, snapshot) {
+                            return Text(snapshot.data.fechaActualizacion,
+                                style: TextStyle(
+                                    color: Colors.black26,
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 10));
+                          }
+                        ),
                       ],
                     ),
                 )
               ],
             ),
             SizedBox(height: 18),
-            CountryList(snapshot: snapshot)
+            CountryList()
           ],
         ),
       ),
     );
   }
 
-  Widget _dataGeneration(AsyncSnapshot snapshot) {
+  Widget _dataGeneration() {
     return Container(
         child: Column(
       children: <Widget>[

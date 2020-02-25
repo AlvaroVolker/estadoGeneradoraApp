@@ -1,99 +1,105 @@
+import 'package:estadogeneradoraapp/src/bloc/detalle_generacion_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import '../models/SBUGen.dart';
 
 class CountryList extends StatelessWidget {
   const CountryList({
     Key key,
-    @required this.snapshot,
   }) : super(key: key);
 
-  final AsyncSnapshot snapshot;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         height: double.infinity,
-        child: ListView.separated(
-          itemCount: snapshot.data.listaDetalleGeneracion.length,
-          itemBuilder: (BuildContext context, int index) {
-            var snapshotData = snapshot.data.listaDetalleGeneracion[index];
-            var capacUsada = double.parse(snapshotData.capacidadUsada);
-            return FlatButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed('/countryPage', arguments: snapshotData);
-              },
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      width: 70,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              snapshotData.nombre,
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                                "NMC: " +
-                                    snapshotData.capacidadInstalada.toString(),
-                                style: TextStyle(
-                                    fontSize: 9, color: Colors.black38)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: LinearPercentIndicator(
-                        addAutomaticKeepAlive: true,
-                        animation: true,
-                        animateFromLastPercent: true,
-                        percent: capacUsada / 100,
-                        width: MediaQuery.of(context).size.width - 250,
-                        linearStrokeCap: LinearStrokeCap.butt,
-                        lineHeight: 20,
-                        progressColor: setProgressColor(capacUsada),
-                        backgroundColor: setBarColor(capacUsada),
-                      ),
-                    ),
-                    Row(
+        child: StreamBuilder<DetalleGeneracion>(
+          stream: blocDetalleGeneracion.getDetalleGen,
+          builder: (context, snapshot) {
+            return ListView.separated(
+              itemCount: snapshot.data.listaDetalleGeneracion.length,
+              itemBuilder: (BuildContext context, int index) {
+                var snapshotData = snapshot.data.listaDetalleGeneracion[index];
+                var capacUsada = double.parse(snapshotData.capacidadUsada);
+                return FlatButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed('/countryPage', arguments: snapshotData);
+                  },
+                  child: Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Icon(
-                            double.parse(snapshotData.capacidadUsada) < 50
-                                ? Icons.arrow_drop_down
-                                : Icons.arrow_drop_up,
-                            color: Colors.black54,
-                            size: 25),
-                        Text(
-                          snapshotData.capacidadUsada.toString() + " %",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              backgroundColor: setBarColor(
-                                  double.parse(snapshotData.capacidadUsada)),
-                              fontSize: 16),
+                        Container(
+                          width: 70,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  snapshotData.nombre,
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    "NMC: " +
+                                        snapshotData.capacidadInstalada.toString(),
+                                    style: TextStyle(
+                                        fontSize: 9, color: Colors.black38)),
+                              ),
+                            ],
+                          ),
                         ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: LinearPercentIndicator(
+                            addAutomaticKeepAlive: true,
+                            animation: true,
+                            animateFromLastPercent: true,
+                            percent: capacUsada / 100,
+                            width: MediaQuery.of(context).size.width - 250,
+                            linearStrokeCap: LinearStrokeCap.butt,
+                            lineHeight: 20,
+                            progressColor: setProgressColor(capacUsada),
+                            backgroundColor: setBarColor(capacUsada),
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(
+                                double.parse(snapshotData.capacidadUsada) < 50
+                                    ? Icons.arrow_drop_down
+                                    : Icons.arrow_drop_up,
+                                color: Colors.black54,
+                                size: 25),
+                            Text(
+                              snapshotData.capacidadUsada.toString() + " %",
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  backgroundColor: setBarColor(
+                                      double.parse(snapshotData.capacidadUsada)),
+                                  fontSize: 16),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
-              ),
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(height: 22)
             );
-          },
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(height: 22)
+          }
         ),
       ),
     );
