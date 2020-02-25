@@ -17,16 +17,11 @@ class _PlantaPageState extends State<PlantaPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: MaterialApp(
-        onGenerateRoute: RouteGenerator.generateRoute,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'OpenSans'),
-        home: Scaffold(
+      child: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
           bottomNavigationBar: _crearBottomBar(),
         ),
-      ),
     );
   }
 

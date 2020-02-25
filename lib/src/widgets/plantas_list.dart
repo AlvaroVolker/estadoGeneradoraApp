@@ -13,70 +13,75 @@ class PlantasList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: double.infinity,
-        child: ListView.separated(
-            itemCount: snapshot.listaDetalleGeneracion.length,
-            itemBuilder: (BuildContext context, int index) {
-              var snapshotData = snapshot.listaDetalleGeneracion[index];
-              var capacUsada = double.parse(snapshotData.capacidadUsada);
-              return FlatButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('/plantaPage', arguments: snapshotData);
-                },
-                child: Container(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        width: 90,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                snapshotData.nombre,
-                                style: TextStyle(color: Colors.black54,
-                                   fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                  "NMC: " +
-                                      snapshotData.capacidadInstalada
-                                          .toString(),
+          height: double.infinity,
+          child: ListView.separated(
+              itemCount: snapshot.listaDetalleGeneracion.length,
+              itemBuilder: (BuildContext context, int index) {
+                var snapshotData = snapshot.listaDetalleGeneracion[index];
+                var capacUsada = double.parse(snapshotData.capacidadUsada);
+                return FlatButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed('/plantaPage', arguments: snapshotData);
+                  },
+                  child: Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Container(
+                          width: 90,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  snapshotData.nombre,
                                   style: TextStyle(
-                                      fontSize: 9, color: Colors.black38)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: LinearPercentIndicator(
-                          addAutomaticKeepAlive: true,
-                          animation: true,
-                          animateFromLastPercent: true,
-                          percent: capacUsada < 0 ? 0 : capacUsada / 100,
-                          width: MediaQuery.of(context).size.width - 230,
-                          linearStrokeCap: LinearStrokeCap.butt,
-                          lineHeight: 20,
-                          progressColor: setProgressColor(capacUsada),
-                          backgroundColor: setBarColor(capacUsada),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            color: setProgressColor(double.parse(
-                                      snapshotData.capacidadUsada)).withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(2)
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    "NMC: " +
+                                        snapshotData.capacidadInstalada
+                                            .toString(),
+                                    style: TextStyle(
+                                        fontSize: 9, color: Colors.black38)),
+                              ),
+                            ],
                           ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: LinearPercentIndicator(
+                            addAutomaticKeepAlive: true,
+                            animation: true,
+                            animateFromLastPercent: true,
+                            percent: capacUsada < 0
+                                ? 0.0
+                                : capacUsada / 100 > 1.0
+                                    ? 1.0
+                                    : capacUsada / 100,
+                            width: MediaQuery.of(context).size.width - 230,
+                            linearStrokeCap: LinearStrokeCap.butt,
+                            lineHeight: 20,
+                            progressColor: setProgressColor(capacUsada),
+                            backgroundColor: setBarColor(capacUsada),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: setProgressColor(
+                                      double.parse(snapshotData.capacidadUsada))
+                                  .withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(2)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -90,20 +95,21 @@ class PlantasList extends StatelessWidget {
                                 snapshotData.capacidadUsada.toString() + "%",
                                 style: TextStyle(
                                     color: Colors.black54,
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                         )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                 Divider(height: 
-                 snapshot.listaDetalleGeneracion.length <= 3 ? 
-                 MediaQuery.of(context).size.height * 0.063 : MediaQuery.of(context).size.height * 0.03))),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) => Divider(
+                  height: snapshot.listaDetalleGeneracion.length <= 3
+                      ? MediaQuery.of(context).size.height * 0.063
+                      : MediaQuery.of(context).size.height * 0.03))),
     );
   }
 

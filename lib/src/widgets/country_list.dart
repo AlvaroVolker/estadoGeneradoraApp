@@ -40,8 +40,9 @@ class CountryList extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   snapshotData.nombre,
-                                  style: TextStyle(color: Colors.black54,
-                                   fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                               SizedBox(
@@ -65,7 +66,11 @@ class CountryList extends StatelessWidget {
                             addAutomaticKeepAlive: true,
                             animation: true,
                             animateFromLastPercent: true,
-                            percent: capacUsada < 0 ? 0 : capacUsada / 100,
+                            percent: capacUsada < 0
+                                ? 0.0
+                                : capacUsada / 100 > 1.0
+                                    ? 1.0
+                                    : capacUsada / 100,
                             width: MediaQuery.of(context).size.width - 250,
                             linearStrokeCap: LinearStrokeCap.butt,
                             lineHeight: 20,
@@ -75,10 +80,10 @@ class CountryList extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: setProgressColor(double.parse(
-                                      snapshotData.capacidadUsada)).withOpacity(0.05),
-                            borderRadius: BorderRadius.circular(2)
-                          ),
+                              color: setProgressColor(
+                                      double.parse(snapshotData.capacidadUsada))
+                                  .withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(2)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -92,7 +97,8 @@ class CountryList extends StatelessWidget {
                                 snapshotData.capacidadUsada.toString() + "%",
                                 style: TextStyle(
                                     color: Colors.black54,
-                                    fontSize: 12, fontWeight: FontWeight.w600),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -101,8 +107,8 @@ class CountryList extends StatelessWidget {
                     ),
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Divider(
-                    height: MediaQuery.of(context).size.height * 0.03)),
+                separatorBuilder: (BuildContext context, int index) =>
+                    Divider(height: MediaQuery.of(context).size.height * 0.03)),
           ),
         ],
       ),

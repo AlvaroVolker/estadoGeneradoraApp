@@ -1,13 +1,14 @@
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class CircleBar extends StatelessWidget {
   const CircleBar({
     Key key,
-    @required this.snapshot,
+    @required this.generacion,
   }) : super(key: key);
 
-  final dynamic snapshot;
+  final DetalleGeneracion generacion;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class CircleBar extends StatelessWidget {
       animateFromLastPercent: true,
       startAngle: 0,
       center: Text(
-        " " + snapshot.data.capacidadUsada + "%",
+        " " + generacion.capacidadUsada + "%",
         style: TextStyle(
             foreground: Paint()..shader = linearGradient,
             fontSize: 27,
@@ -41,7 +42,7 @@ class CircleBar extends StatelessWidget {
         begin: Alignment.topRight,
         end: Alignment.topLeft,
       ),
-      percent: double.parse(snapshot.data.capacidadUsada) / 100,
+      percent: double.parse(generacion.capacidadUsada) / 100,
       animation: true,
       backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
       lineWidth: 13,

@@ -1,4 +1,3 @@
-import 'package:estadogeneradoraapp/src/core/routes.dart';
 import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +15,11 @@ class CountryPage extends StatefulWidget {
 class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: MaterialApp(
-        onGenerateRoute: RouteGenerator.generateRoute,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'OpenSans'),
-
-        home: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
-        ),
-      ),
-    );
+    return Scaffold(
+      appBar: _crearAppBar(),
+        body: _body(),
+        bottomNavigationBar: _crearBottomBar(),
+      );
   }
 
   Widget _body() {
@@ -147,15 +138,16 @@ class _CountryPageState extends State<CountryPage> {
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 55),
+                      padding: const EdgeInsets.only(left: 30),
                       child: IndexCircleBar(snapshot: snapshot),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 30),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
@@ -203,74 +195,65 @@ class _CountryPageState extends State<CountryPage> {
   }
 
   Widget _dataGeneration(dynamic snapshot) {
-    return Container(
-        child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Entregando",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(snapshot.generacionActual.toString(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Capacidad',
-                      textAlign: TextAlign.right,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(snapshot.capacidadInstalada.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17)),
-                    Text(
-                      ' MWh',
-                      style: TextStyle(color: Colors.grey),
-                    )
-                  ],
-                ),
-              ],
+        Container(
+          width: 100,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Entregando",
+              style:
+                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: <Widget>[
+              Text(snapshot.generacionActual.toString(),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17)),
+              Text(
+                ' MWh',
+                style: TextStyle(color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          width: 100,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Capacidad',
+              textAlign: TextAlign.right,
+              style:
+                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+            ),
+          ),
+        ),
+        Row(
+          children: <Widget>[
+            Text(snapshot.capacidadInstalada.toString(),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 17)),
+            Text(
+              ' MWh',
+              style: TextStyle(color: Colors.grey),
+            )
           ],
         ),
       ],
-    ));
+    );
   }
 }

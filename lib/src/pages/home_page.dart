@@ -249,15 +249,16 @@ class MyAppState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.20,
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 55),
-                      child: CircleBar(snapshot: snapshot),
+                      padding: const EdgeInsets.only(left: 30),
+                      child: CircleBar(generacion: snapshot.data),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 30),
                       child: _dataGeneration(snapshot),
                     ),
                   ],
@@ -305,74 +306,65 @@ class MyAppState extends State<HomePage> {
   }
 
   Widget _dataGeneration(AsyncSnapshot snapshot) {
-    return Container(
-        child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Entregando",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(snapshot.data.generacionActual.toString(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Capacidad',
-                      textAlign: TextAlign.right,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(snapshot.data.capacidadInstalada.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17)),
-                    Text(
-                      ' MWh',
-                      style: TextStyle(color: Colors.grey),
-                    )
-                  ],
-                ),
-              ],
+        Container(
+          width: 100,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Entregando",
+              style:
+                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: <Widget>[
+              Text(snapshot.data.generacionActual.toString(),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17)),
+              Text(
+                ' MWh',
+                style: TextStyle(color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          width: 100,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Capacidad',
+              textAlign: TextAlign.right,
+              style:
+                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+            ),
+          ),
+        ),
+        Row(
+          children: <Widget>[
+            Text(snapshot.data.capacidadInstalada.toString(),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 17)),
+            Text(
+              ' MWh',
+              style: TextStyle(color: Colors.grey),
+            )
           ],
         ),
       ],
-    ));
+    );
   }
 }
