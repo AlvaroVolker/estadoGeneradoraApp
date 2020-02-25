@@ -1,3 +1,4 @@
+import 'package:estadogeneradoraapp/src/pages/country_page.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _ComplejoPageState extends State<ComplejoPage> {
           BackButton(
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pushNamed('/');
+              Navigator.pop(context);
             },
           )
         ],

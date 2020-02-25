@@ -70,7 +70,7 @@ class _CountryPageState extends State<CountryPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.of(context).pushNamed('/');},)
+               onPressed: () {Navigator.pop(context);},)
         ],
       ),
       actions: <Widget>[

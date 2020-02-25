@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
+import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/providers/generacionProvider.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +29,16 @@ class MyAppState extends State<HomePage> {
   final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
 
+  var data;
+
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _getData();
+    _getData();
+    timer = Timer.periodic(Duration(minutes: 2), (Timer t) {
+      setState(() {
+        _getData();
+      });
     });
   }
 
@@ -53,7 +58,8 @@ class MyAppState extends State<HomePage> {
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'OpenSans'), themeMode: ThemeMode.light,
+      theme: ThemeData(fontFamily: 'OpenSans'),
+      themeMode: ThemeMode.light,
       home: Container(
         child: FutureBuilder(
             future: _getData(),
@@ -112,9 +118,9 @@ class MyAppState extends State<HomePage> {
                                 height: 60,
                                 width: 60,
                                 decoration: BoxDecoration(
-                                  gradient: Gradients.aliHussien,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
+                                    gradient: Gradients.aliHussien,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                                 child: Center(
                                   child: SpinKitChasingDots(
                                     color: Colors.white,
@@ -127,8 +133,29 @@ class MyAppState extends State<HomePage> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Container(width: 100,child: Text('AES',textAlign: TextAlign.start, style: TextStyle(decoration: TextDecoration.none, color: Colors.black45,fontSize: 16, fontFamily: 'OpenSans'),),),
-                                    Container(width:100, child: Text('SmartGen',textAlign: TextAlign.start, style: TextStyle(decoration: TextDecoration.none, color: Colors.black54, fontSize: 19, fontFamily: 'OpenSans'),))
+                                    Container(
+                                      width: 100,
+                                      child: Text(
+                                        'AES',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            decoration: TextDecoration.none,
+                                            color: Colors.black45,
+                                            fontSize: 16,
+                                            fontFamily: 'OpenSans'),
+                                      ),
+                                    ),
+                                    Container(
+                                        width: 100,
+                                        child: Text(
+                                          'SmartGen',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              decoration: TextDecoration.none,
+                                              color: Colors.black54,
+                                              fontSize: 19,
+                                              fontFamily: 'OpenSans'),
+                                        ))
                                   ],
                                 ),
                               )
@@ -153,7 +180,7 @@ class MyAppState extends State<HomePage> {
   }
 
   _getData() async {
-    return await detalleGeneracion.getData();
+    return await blocDetalleGeneracion.getData();
   }
 
   Widget _body(dynamic snapshot) {
@@ -174,9 +201,8 @@ class MyAppState extends State<HomePage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: FlatButton(
-        onPressed: (){
-        },
-        child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
+          onPressed: () {},
+          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
     );
   }
 
@@ -298,7 +324,7 @@ class MyAppState extends State<HomePage> {
               ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            CountryList(snapshot: snapshot)
+            CountryList()
           ],
         ),
       ),
@@ -315,8 +341,7 @@ class MyAppState extends State<HomePage> {
             alignment: Alignment.centerRight,
             child: Text(
               "Entregando",
-              style:
-                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
             ),
           ),
         ),
@@ -346,8 +371,7 @@ class MyAppState extends State<HomePage> {
             child: Text(
               'Capacidad',
               textAlign: TextAlign.right,
-              style:
-                  TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
             ),
           ),
         ),

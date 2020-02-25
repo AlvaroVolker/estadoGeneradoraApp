@@ -1,4 +1,3 @@
-import 'package:estadogeneradoraapp/src/core/routes.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +71,7 @@ class _PlantaPageState extends State<PlantaPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.of(context).pushNamed('/');},)
+               onPressed: () {Navigator.pop(context);},)
         ],
       ),
       actions: <Widget>[
