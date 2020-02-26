@@ -12,7 +12,7 @@ class CountryList extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     return Expanded(
-      child: Stack(
+      child: Stack( 
         children: <Widget>[
           Container(
             height: double.infinity,
@@ -77,21 +77,25 @@ class CountryList extends StatelessWidget {
                                 ),
                                 Align(
                                   alignment: Alignment.centerRight,
-                                  child: LinearPercentIndicator(
-                                    addAutomaticKeepAlive: true,
-                                    animation: true,
-                                    animateFromLastPercent: true,
-                                    percent: capacUsada < 0
-                                        ? 0.0
-                                        : capacUsada / 100 > 1.0
-                                            ? 1.0
-                                            : capacUsada / 100,
-                                    width:
-                                        MediaQuery.of(context).size.width - 250,
-                                    linearStrokeCap: LinearStrokeCap.butt,
-                                    lineHeight: 20,
-                                    progressColor: setProgressColor(capacUsada),
-                                    backgroundColor: setBarColor(capacUsada),
+                                  child: Hero(
+                                    tag: snapshotData.capacidadUsada,
+                                    child: LinearPercentIndicator(
+                                      addAutomaticKeepAlive: true,
+                                      animation: true,
+                                      animateFromLastPercent: true,
+                                      percent: capacUsada < 0
+                                          ? 0.0
+                                          : capacUsada / 100 > 1.0
+                                              ? 1.0
+                                              : capacUsada / 100,
+                                      width: MediaQuery.of(context).size.width -
+                                          250,
+                                      linearStrokeCap: LinearStrokeCap.butt,
+                                      lineHeight: 20,
+                                      progressColor:
+                                          setProgressColor(capacUsada),
+                                      backgroundColor: setBarColor(capacUsada),
+                                    ),
                                   ),
                                 ),
                                 Container(
@@ -111,16 +115,13 @@ class CountryList extends StatelessWidget {
                                               : Icons.arrow_drop_up,
                                           color: Colors.black54,
                                           size: 15),
-                                      Hero(
-                                        tag: snapshotData.capacidadUsada,
-                                                                              child: Text(
-                                          snapshotData.capacidadUsada.toString() +
-                                              "%",
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
-                                        ),
+                                      Text(
+                                        snapshotData.capacidadUsada.toString() +
+                                            "%",
+                                        style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),

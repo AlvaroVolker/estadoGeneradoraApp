@@ -7,6 +7,7 @@ import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
+import 'package:estadogeneradoraapp/util/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -28,7 +29,6 @@ class MyAppState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getData();
     timer = Timer.periodic(Duration(minutes: 2), (Timer t) {
       setState(() {
         _getData();
@@ -192,7 +192,13 @@ class MyAppState extends State<HomePage> {
       elevation: 0,
       leading: FlatButton(
           onPressed: () {},
-          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
+          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)
+          ),
+          actions: <Widget>[
+            IconButton(icon: Icon(FontAwesomeIcons.search, color: Colors.black54,size: 15), onPressed: (){
+              showSearch(context: context, delegate: DataSearch());
+            })
+          ],
     );
   }
 
