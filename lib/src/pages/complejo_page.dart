@@ -7,7 +7,6 @@ import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
 import 'package:flutter/material.dart';
 
 class ComplejoPage extends StatelessWidget {
-
   final DetalleGeneracion detalleGeneracion;
 
   ComplejoPage({Key key, @required this.detalleGeneracion}) : super(key: key);
@@ -16,10 +15,10 @@ class ComplejoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-          appBar: _crearAppBar(detalleGeneracion.nombre, context),
-          body: _body(detalleGeneracion),
-          bottomNavigationBar: BottomBar(),
-        ),
+        appBar: _crearAppBar(detalleGeneracion.nombre, context),
+        body: _body(detalleGeneracion),
+        bottomNavigationBar: BottomBar(),
+      ),
     );
   }
 
@@ -61,7 +60,9 @@ class ComplejoPage extends StatelessWidget {
             child: MaterialButton(
               child: Text(
                 nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: Color.fromRGBO(41, 128, 185, 1),
+                    fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},
@@ -120,18 +121,25 @@ class ComplejoPage extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: CircleBar(generacion: detalleGeneracion),
+                      child: CircleBar(
+                          capacidadUsada: detalleGeneracion.capacidadUsada),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
-                      child: DataGenerationColumn(capacidadInstalada: detalleGeneracion.capacidadInstalada.toString(),generacionActual: detalleGeneracion.generacionActual.toString(),),
+                      child: DataGenerationColumn(
+                        capacidadInstalada:
+                            detalleGeneracion.capacidadInstalada.toString(),
+                        generacionActual:
+                            detalleGeneracion.generacionActual.toString(),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 25.0),
-            DetalleDivider(fechaActualizacion: detalleGeneracion.fechaActualizacion),
+            DetalleDivider(
+                fechaActualizacion: detalleGeneracion.fechaActualizacion),
             SizedBox(height: 18),
             PlantasList(snapshot: detalleGeneracion)
           ],
@@ -139,5 +147,4 @@ class ComplejoPage extends StatelessWidget {
       ),
     );
   }
-
 }

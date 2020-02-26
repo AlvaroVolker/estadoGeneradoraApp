@@ -15,17 +15,16 @@ class MaquinaPage extends StatefulWidget {
 class _MaquinaPageState extends State<MaquinaPage> {
   @override
   Widget build(BuildContext context) {
-     return Container(
+    return Container(
       child: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-          bottomNavigationBar: BottomBar(),
-        ),
+        appBar: _crearAppBar(),
+        body: _body(),
+        bottomNavigationBar: BottomBar(),
+      ),
     );
   }
 
-
-   Widget _body() {
+  Widget _body() {
     return SafeArea(
       child: Container(
         child: Column(
@@ -47,7 +46,10 @@ class _MaquinaPageState extends State<MaquinaPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.pop(context);},)
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
         ],
       ),
       actions: <Widget>[
@@ -61,7 +63,9 @@ class _MaquinaPageState extends State<MaquinaPage> {
             child: MaterialButton(
               child: Text(
                 widget.snapshot.nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: Color.fromRGBO(41, 128, 185, 1),
+                    fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},
@@ -89,7 +93,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
-                            Padding(
+                    Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
                       child: Text(widget.snapshot.nombre,
                           style: TextStyle(
@@ -97,9 +101,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
                               fontSize: 17,
                               fontWeight: FontWeight.w400)),
                     ),
-                  ]
-
-                  ),
+                  ]),
                 ),
               ],
             ),
@@ -122,11 +124,15 @@ class _MaquinaPageState extends State<MaquinaPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
-                      child: CircleBar(generacion: snapshot),
+                      child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),
-                      child: DataGenerationColumn(capacidadInstalada: snapshot.capacidadInstalada.toString(),generacionActual: snapshot.generacionActual.toString(),),
+                      child: DataGenerationColumn(
+                        capacidadInstalada:
+                            snapshot.capacidadInstalada.toString(),
+                        generacionActual: snapshot.generacionActual.toString(),
+                      ),
                     ),
                   ],
                 ),
@@ -138,5 +144,4 @@ class _MaquinaPageState extends State<MaquinaPage> {
       ),
     );
   }
-
 }

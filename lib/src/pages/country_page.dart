@@ -7,7 +7,6 @@ import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatelessWidget {
-
   const CountryPage({
     Key key,
     @required this.detalleGeneracion,
@@ -17,8 +16,6 @@ class CountryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-
     return Scaffold(
       appBar: _crearAppBar(context, detalleGeneracion.nombre),
       body: _body(detalleGeneracion, context),
@@ -57,20 +54,23 @@ class CountryPage extends StatelessWidget {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Color.fromRGBO(234, 242, 248, 1),
-            ),
-            child: MaterialButton(
-              child: Text(
-                nombre,
-                style: TextStyle(
-                    color: Color.fromRGBO(41, 128, 185, 1),
-                    fontWeight: FontWeight.w600),
+          child: Hero(
+            tag: detalleGeneracion.id,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color.fromRGBO(234, 242, 248, 1),
               ),
-              elevation: 0,
-              onPressed: () {},
+              child: MaterialButton(
+                child: Text(
+                  nombre,
+                  style: TextStyle(
+                      color: Color.fromRGBO(41, 128, 185, 1),
+                      fontWeight: FontWeight.w600),
+                ),
+                elevation: 0,
+                onPressed: () {},
+              ),
             ),
           ),
         )
@@ -128,7 +128,7 @@ class CountryPage extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: CircleBar(generacion: snapshot),
+                      child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
@@ -143,8 +143,7 @@ class CountryPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            DetalleDivider(
-                fechaActualizacion: snapshot.fechaActualizacion),
+            DetalleDivider(fechaActualizacion: snapshot.fechaActualizacion),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             ComplejosList(snapshot: snapshot)
           ],

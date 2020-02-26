@@ -245,7 +245,8 @@ class MyAppState extends State<HomePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: CircleBar(generacion: snapshot.data),
+                      child: CircleBar(
+                          capacidadUsada: snapshot.data.capacidadUsada),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30),

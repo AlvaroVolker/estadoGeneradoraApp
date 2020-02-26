@@ -121,7 +121,7 @@ class _PlantaPageState extends State<PlantaPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
-                      child: CircleBar(generacion: snapshot),
+                      child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),

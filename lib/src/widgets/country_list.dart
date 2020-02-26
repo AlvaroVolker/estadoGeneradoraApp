@@ -43,16 +43,20 @@ class CountryList extends StatelessWidget {
                                     children: <Widget>[
                                       Align(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          snapshotData.nombre,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontSize: Theme.of(context)
-                                                  .textTheme
-                                                  .caption
-                                                  .fontSize + 0.8,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.black54),
+                                        child: Hero(
+                                          tag: snapshotData.id,
+                                          child: Text(
+                                            snapshotData.nombre,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: Theme.of(context)
+                                                        .textTheme
+                                                        .caption
+                                                        .fontSize +
+                                                    0.8,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black54),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -107,13 +111,16 @@ class CountryList extends StatelessWidget {
                                               : Icons.arrow_drop_up,
                                           color: Colors.black54,
                                           size: 15),
-                                      Text(
-                                        snapshotData.capacidadUsada.toString() +
-                                            "%",
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600),
+                                      Hero(
+                                        tag: snapshotData.capacidadUsada,
+                                                                              child: Text(
+                                          snapshotData.capacidadUsada.toString() +
+                                              "%",
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600),
+                                        ),
                                       ),
                                     ],
                                   ),
