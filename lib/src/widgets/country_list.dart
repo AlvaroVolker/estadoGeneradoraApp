@@ -18,6 +18,8 @@ class CountryList extends StatelessWidget {
             child: StreamBuilder(
                 stream: blocDetalleGeneracion.getDetalleGen,
                 builder: (context, snapshot) {
+
+                  if(snapshot.hasData){
                   return ListView.separated(
                       itemCount: snapshot.data.listaDetalleGeneracion.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -120,6 +122,10 @@ class CountryList extends StatelessWidget {
                               height: screenHeight > 700
                                   ? MediaQuery.of(context).size.height * 0.06
                                   : MediaQuery.of(context).size.height * 0.03));
+                  }
+                  else{
+                    return CircularProgressIndicator();
+                  }
                 }),
           ),
         ],
