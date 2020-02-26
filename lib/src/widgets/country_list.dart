@@ -1,4 +1,5 @@
 import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -18,21 +19,20 @@ class CountryList extends StatelessWidget {
             child: StreamBuilder(
                 stream: blocDetalleGeneracion.getDetalleGen,
                 builder: (context, snapshot) {
-
-                  if(snapshot.hasData){
-                  return ListView.separated(
-                      itemCount: snapshot.data.listaDetalleGeneracion.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var snapshotData =
-                            snapshot.data.listaDetalleGeneracion[index];
-                        var capacUsada =
-                            double.parse(snapshotData.capacidadUsada);
-                        return FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/countryPage',
-                                arguments: snapshotData);
-                          },
-                          child: Row(
+                  if (snapshot.hasData) {
+                    return ListView.separated(
+                        itemCount: snapshot.data.listaDetalleGeneracion.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          DetalleGeneracion snapshotData =
+                              snapshot.data.listaDetalleGeneracion[index];
+                          var capacUsada =
+                              double.parse(snapshotData.capacidadUsada);
+                          return FlatButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/countryPage',
+                                  arguments: snapshotData);
+                            },
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
@@ -45,9 +45,14 @@ class CountryList extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           snapshotData.nombre,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                              color: Colors.black54,
-                                              fontWeight: FontWeight.w600),
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .caption
+                                                  .fontSize + 0.8,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black54),
                                         ),
                                       ),
                                       SizedBox(
@@ -96,7 +101,7 @@ class CountryList extends StatelessWidget {
                                     children: <Widget>[
                                       Icon(
                                           double.parse(snapshotData
-                          .capacidadUsada) <
+                                                      .capacidadUsada) <
                                                   50
                                               ? Icons.arrow_drop_down
                                               : Icons.arrow_drop_up,
@@ -115,15 +120,15 @@ class CountryList extends StatelessWidget {
                                 )
                               ],
                             ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          Divider(
-                              height: screenHeight > 700
-                                  ? MediaQuery.of(context).size.height * 0.06
-                                  : MediaQuery.of(context).size.height * 0.03));
-                  }
-                  else{
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            Divider(
+                                height: screenHeight > 700
+                                    ? MediaQuery.of(context).size.height * 0.05
+                                    : MediaQuery.of(context).size.height *
+                                        0.03));
+                  } else {
                     return CircularProgressIndicator();
                   }
                 }),

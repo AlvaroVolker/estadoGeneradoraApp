@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:aad_oauth/aad_oauth.dart';
-import 'package:aad_oauth/model/config.dart';
 import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/core/routes.dart';
-import 'package:estadogeneradoraapp/src/widgets/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
+import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,13 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
-  static final Config config = new Config(
-      "6be806cd-f6f6-4b43-a806-81f0012743f9",
-      "b4d0e974-cc94-4f53-beb0-e27b82b7eb3d",
-      "",
-      "https://consolaoperacionesdev.azurewebsites.net/.auth/login/aad/callback");
-
-  final AadOAuth oAuth = AadOAuth(config);
   Timer timer;
 
   var data;
@@ -53,11 +46,6 @@ class MyAppState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    var rectSize =
-        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
-    oAuth.setWebViewScreenSize(rectSize);
-
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
@@ -261,110 +249,26 @@ class MyAppState extends State<HomePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
-                      child: _dataGeneration(snapshot),
+                      child: DataGenerationColumn(
+                        capacidadInstalada:
+                            snapshot.data.capacidadInstalada.toString(),
+                        generacionActual:
+                            snapshot.data.generacionActual.toString(),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 25.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text('Detalle',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22)),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 7),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30),
-                  child: Column(
-                    children: <Widget>[
-                      Text(snapshot.data.fechaActualizacion,
-                          style: TextStyle(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 10)),
-                    ],
-                  ),
-                )
-              ],
-            ),
+            DetalleDivider(
+                fechaActualizacion:
+                    snapshot.data.fechaActualizacion.toString()),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             CountryList()
           ],
         ),
       ),
-    );
-  }
-
-  Widget _dataGeneration(AsyncSnapshot snapshot) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          width: 100,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "Entregando",
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Row(
-            children: <Widget>[
-              Text(snapshot.data.generacionActual.toString(),
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 17)),
-              Text(
-                ' MWh',
-                style: TextStyle(color: Colors.grey),
-              )
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Container(
-          width: 100,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Capacidad',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-            ),
-          ),
-        ),
-        Row(
-          children: <Widget>[
-            Text(snapshot.data.capacidadInstalada.toString(),
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17)),
-            Text(
-              ' MWh',
-              style: TextStyle(color: Colors.grey),
-            )
-          ],
-        ),
-      ],
     );
   }
 }

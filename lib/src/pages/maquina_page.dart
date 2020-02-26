@@ -1,5 +1,6 @@
-import 'package:estadogeneradoraapp/src/widgets/bottom_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
+import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:flutter/material.dart';
 
 class MaquinaPage extends StatefulWidget {
@@ -121,11 +122,11 @@ class _MaquinaPageState extends State<MaquinaPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 55),
-                      child: IndexCircleBar(snapshot: snapshot),
+                      child: CircleBar(generacion: snapshot),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),
-                      child: _dataGeneration(snapshot),
+                      child: DataGenerationColumn(capacidadInstalada: snapshot.capacidadInstalada.toString(),generacionActual: snapshot.generacionActual.toString(),),
                     ),
                   ],
                 ),
@@ -138,75 +139,4 @@ class _MaquinaPageState extends State<MaquinaPage> {
     );
   }
 
-  Widget _dataGeneration(dynamic snapshot) {
-    return Container(
-        child: Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Entregando",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(snapshot.generacionActual.toString(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 17)),
-                      Text(
-                        ' MWh',
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 100,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Capacidad',
-                      textAlign: TextAlign.right,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 13),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(snapshot.capacidadInstalada.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17)),
-                    Text(
-                      ' MWh',
-                      style: TextStyle(color: Colors.grey),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ));
-  }
 }

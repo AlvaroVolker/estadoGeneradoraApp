@@ -1,3 +1,4 @@
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -7,7 +8,7 @@ class ComplejosList extends StatelessWidget {
     @required this.snapshot,
   }) : super(key: key);
 
-  final dynamic snapshot;
+  final DetalleGeneracion snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +39,12 @@ class ComplejosList extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 snapshotData.nombre,
-                                style: TextStyle(color: Colors.black54,
-                                   fontWeight: FontWeight.w600),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: Theme.of(context).textTheme.caption.fontSize,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black54
+                                ),
                               ),
                             ),
                             SizedBox(

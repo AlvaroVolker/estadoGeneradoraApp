@@ -13,9 +13,9 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/countryPage':
-        return MaterialPageRoute(builder: (_) => CountryPage(snapshot: args));
+        return MaterialPageRoute(builder: (_) => CountryPage(detalleGeneracion: args));
       case '/complejoPage':
-        return MaterialPageRoute(builder: (_) => ComplejoPage(snapshot:args));
+        return MaterialPageRoute(builder: (_) => ComplejoPage(detalleGeneracion:args));
       case '/plantaPage':
         return MaterialPageRoute(builder: (_) => PlantaPage(snapshot: args));
       case '/maquinaPage':

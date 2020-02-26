@@ -1,3 +1,4 @@
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -7,7 +8,7 @@ class PlantasList extends StatelessWidget {
     @required this.snapshot,
   }) : super(key: key);
 
-  final dynamic snapshot;
+  final DetalleGeneracion snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class PlantasList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Container(
-                          width: 90,
+                          width: snapshotData.nombre.length > 12 ? 110 : 80,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -38,9 +39,14 @@ class PlantasList extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   snapshotData.nombre,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w600),
+                                      fontSize: Theme.of(context)
+                                          .textTheme
+                                          .caption
+                                          .fontSize,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black54),
                                 ),
                               ),
                               SizedBox(
