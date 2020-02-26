@@ -4,6 +4,7 @@ import 'package:aad_oauth/aad_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
 import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/core/routes.dart';
+import 'package:estadogeneradoraapp/src/widgets/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,8 @@ class MyAppState extends State<HomePage> {
     timer?.cancel();
     super.dispose();
   }
+
+  int selectedBarIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -167,10 +170,9 @@ class MyAppState extends State<HomePage> {
                   );
                 case ConnectionState.done:
                   return Scaffold(
-                    appBar: _crearAppBar(),
-                    body: _body(snapshot),
-                    bottomNavigationBar: _crearBottomBar(),
-                  );
+                      appBar: _crearAppBar(),
+                      body: _body(snapshot),
+                      bottomNavigationBar: BottomBar());
                 default:
                   return Text('default');
               }
@@ -203,32 +205,6 @@ class MyAppState extends State<HomePage> {
       leading: FlatButton(
           onPressed: () {},
           child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
-    );
-  }
-
-  Widget _crearBottomBar() {
-    return BottomAppBar(
-      color: Colors.white,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _bottomAction(FontAwesomeIcons.home),
-          _bottomAction(FontAwesomeIcons.heart),
-          _bottomAction(FontAwesomeIcons.chartBar),
-          _bottomAction(FontAwesomeIcons.cog),
-        ],
-      ),
-    );
-  }
-
-  Widget _bottomAction(IconData icon) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Icon(icon),
-      ),
-      onTap: () {},
     );
   }
 

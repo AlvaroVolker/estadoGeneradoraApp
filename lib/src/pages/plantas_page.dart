@@ -71,7 +71,7 @@ class _PlantaPageState extends State<PlantaPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.pop(context);},)
+               onPressed: () {Navigator.of(context).pop();},)
         ],
       ),
       actions: <Widget>[

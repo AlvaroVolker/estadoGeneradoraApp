@@ -18,7 +18,7 @@ class CircleBar extends StatelessWidget {
       const Color.fromRGBO(158, 112, 255, 0.5),
       const Color.fromRGBO(142, 255, 112, 0.5)
     ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
-
+    var capacUsada = double.parse(generacion.capacidadUsada);
     return new CircularPercentIndicator(
       animationDuration: 2,
       addAutomaticKeepAlive: true,
@@ -42,7 +42,9 @@ class CircleBar extends StatelessWidget {
         begin: Alignment.topRight,
         end: Alignment.topLeft,
       ),
-      percent: double.parse(generacion.capacidadUsada) / 100,
+      percent: capacUsada / 100 < 0
+          ? 0
+          : capacUsada / 100 > 1 ? 1.0 : capacUsada / 100,
       animation: true,
       backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
       lineWidth: 13,

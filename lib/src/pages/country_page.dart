@@ -16,22 +16,22 @@ class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _crearAppBar(),
-        body: _body(),
-        bottomNavigationBar: _crearBottomBar(),
-      );
+        appBar: _crearAppBar(),
+    body: _body(),
+    bottomNavigationBar: _crearBottomBar(),
+        );
   }
 
   Widget _body() {
     return SafeArea(
       child: Container(
-        child: Column(
-          children: <Widget>[
-            _pagesNavigation(),
-            _containerGeneration(widget.snapshot),
-          ],
+          child: Column(
+            children: <Widget>[
+       _pagesNavigation(),
+        _containerGeneration(widget.snapshot),
+            ],
+          ),
         ),
-      ),
     );
   }
 
@@ -70,7 +70,7 @@ class _CountryPageState extends State<CountryPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.pop(context);},)
+               onPressed: () {Navigator.of(context).pop();},)
         ],
       ),
       actions: <Widget>[
@@ -133,64 +133,64 @@ class _CountryPageState extends State<CountryPage> {
   Widget _containerGeneration(dynamic snapshot) {
     return Expanded(
       child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: IndexCircleBar(snapshot: snapshot),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: _dataGeneration(snapshot),
-                    ),
-                  ],
-                ),
+          child: Column(
+            children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.20,
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: IndexCircleBar(snapshot: snapshot),
               ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text('Detalle',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22)),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 7),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30),
-                  child: Column(
-                    children: <Widget>[
-                      Text(snapshot.fechaActualizacion.toString(),
-                          style: TextStyle(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 10)),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            ComplejosList(snapshot: snapshot)
-          ],
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: _dataGeneration(snapshot),
+              ),
+            ],
+          ),
         ),
       ),
+      SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text('Detalle',
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 22)),
+              ],
+            ),
+          ),
+          SizedBox(width: 7),
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Column(
+              children: <Widget>[
+                Text(snapshot.fechaActualizacion.toString(),
+                    style: TextStyle(
+                        color: Colors.black26,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 10)),
+              ],
+            ),
+          )
+        ],
+      ),
+      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+      ComplejosList(snapshot: snapshot)
+            ],
+          ),
+        ),
     );
   }
 

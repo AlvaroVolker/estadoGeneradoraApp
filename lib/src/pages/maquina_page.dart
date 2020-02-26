@@ -1,4 +1,3 @@
-import 'package:estadogeneradoraapp/src/core/routes.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,16 +15,11 @@ class _MaquinaPageState extends State<MaquinaPage> {
   @override
   Widget build(BuildContext context) {
      return Container(
-      child: MaterialApp(
-        onGenerateRoute: RouteGenerator.generateRoute,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'OpenSans'),
-        home: Scaffold(
+      child: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
           bottomNavigationBar: _crearBottomBar(),
         ),
-      ),
     );
   }
 
