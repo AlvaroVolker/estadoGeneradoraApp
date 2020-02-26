@@ -1,6 +1,6 @@
+import 'package:estadogeneradoraapp/src/widgets/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/index_circle_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MaquinaPage extends StatefulWidget {
   final dynamic snapshot;
@@ -18,7 +18,7 @@ class _MaquinaPageState extends State<MaquinaPage> {
       child: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
-          bottomNavigationBar: _crearBottomBar(),
+          bottomNavigationBar: BottomBar(),
         ),
     );
   }
@@ -35,32 +35,6 @@ class _MaquinaPageState extends State<MaquinaPage> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _crearBottomBar() {
-    return BottomAppBar(
-      color: Colors.white,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _bottomAction(FontAwesomeIcons.home),
-          _bottomAction(FontAwesomeIcons.heart),
-          _bottomAction(FontAwesomeIcons.chartBar),
-          _bottomAction(FontAwesomeIcons.cog),
-        ],
-      ),
-    );
-  }
-
-  Widget _bottomAction(IconData icon) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Icon(icon),
-      ),
-      onTap: () {},
     );
   }
 
