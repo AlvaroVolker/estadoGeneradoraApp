@@ -1,3 +1,4 @@
+import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
@@ -6,19 +7,26 @@ import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:flutter/material.dart';
 
-class CountryPage extends StatelessWidget {
+class CountryPage extends StatefulWidget {
+
   const CountryPage({
     Key key,
     @required this.detalleGeneracion,
   }) : super(key: key);
 
-  final DetalleGeneracion detalleGeneracion;
+  final  DetalleGeneracion detalleGeneracion;
+  
 
+  @override
+  _CountryPageState createState() => _CountryPageState();
+}
+
+class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _crearAppBar(context, detalleGeneracion.nombre),
-      body: _body(detalleGeneracion, context),
+      appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
+      body: _body(widget.detalleGeneracion, context),
       bottomNavigationBar: BottomBar(),
     );
   }
@@ -29,6 +37,7 @@ class CountryPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             _pagesNavigation(),
+            _countrySelector(),
             _containerGeneration(detalleGeneracion, context),
           ],
         ),
@@ -55,7 +64,7 @@ class CountryPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Hero(
-            tag: detalleGeneracion.id,
+            tag: widget.detalleGeneracion.id,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
@@ -75,6 +84,51 @@ class CountryPage extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  Widget _countrySelector() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: Container(
+        height: 50,
+        child: StreamBuilder(
+            stream: blocDetalleGeneracion.getDetalleGen,
+            builder: (context, snapshot) {
+              return ListView.separated(
+                itemCount: snapshot.data.listaDetalleGeneracion.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  DetalleGeneracion snapshotData =
+                      snapshot.data.listaDetalleGeneracion[index];
+                  return Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                          });
+                        },
+                        child: Container(
+                          height: 20,
+                          width: snapshotData.nombre.length >= 8 ? 70 : 50,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(91, 178, 197, 1)
+                          ),
+                          child: Text(
+                            snapshotData.nombre.toLowerCase(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }, separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 15),
+              );
+            }),
+      ),
     );
   }
 
