@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 class DetalleGeneracionBloc {
   final _detalleGen = BehaviorSubject<DetalleGeneracion>();
 
+  DetalleGeneracion detailGeneracion;
+
   var detalleGen;
 
   //Con este stream obtenes lo que hay en detalle generacion traido del JSON
@@ -22,13 +24,13 @@ class DetalleGeneracionBloc {
             '$url/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
         .catchError((error) => throw (error));
 
-    DetalleGeneracion detailGeneracion; //Instancias el modelo
+    //Instancias el modelo
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       detailGeneracion = createNewModel(jsonData);
-      addDetalleGen(
-          detailGeneracion); //Con esta linea agregaste al stream el objeto creado que luego lo utilizas en otra clase
+      addDetalleGen(detailGeneracion);
+      //Con esta linea agregaste al stream el objeto creado que luego lo utilizas en otra clase
 
       if (detalleGen != null) {
         for (var u in detalleGen) {
@@ -41,7 +43,12 @@ class DetalleGeneracionBloc {
     return detailGeneracion;
   }
 
-  //Podes hacerlo en un solo paso es mucho mas eficiente
+  // Future<DetalleGeneracion> getByName(String nombre) async {
+  //     DetalleGeneracion detalleGeneracion;
+  //   for (var u in detailGeneracion.listaDetalleGeneracion.where((p)=> p.nombre == nombre)) {
+  //   }
+  // }
+
   DetalleGeneracion createNewModel(jsonData) {
     DetalleGeneracion _detail = new DetalleGeneracion(
       id: jsonData['Id'],
