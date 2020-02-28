@@ -9,13 +9,12 @@ import 'package:flutter/material.dart';
 
 class CountryPage extends StatefulWidget {
 
+  final DetalleGeneracion detalleGeneracion;
+
   const CountryPage({
     Key key,
     @required this.detalleGeneracion,
   }) : super(key: key);
-
-  final  DetalleGeneracion detalleGeneracion;
-  
 
   @override
   _CountryPageState createState() => _CountryPageState();
@@ -24,6 +23,8 @@ class CountryPage extends StatefulWidget {
 class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
       body: _body(widget.detalleGeneracion, context),
@@ -106,14 +107,16 @@ class _CountryPageState extends State<CountryPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
+
+                            
+                            
                           });
                         },
                         child: Container(
                           height: 20,
                           width: snapshotData.nombre.length >= 8 ? 70 : 50,
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(91, 178, 197, 1)
-                          ),
+                              color: Color.fromRGBO(91, 178, 197, 1)),
                           child: Text(
                             snapshotData.nombre.toLowerCase(),
                             textAlign: TextAlign.center,
@@ -125,7 +128,9 @@ class _CountryPageState extends State<CountryPage> {
                       ),
                     ],
                   );
-                }, separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 15),
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(width: 15),
               );
             }),
       ),
