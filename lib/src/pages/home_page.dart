@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
-import 'package:estadogeneradoraapp/src/core/routes.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
@@ -22,36 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> {
-  Timer timer;
-
-  var data;
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(minutes: 2), (Timer t) {
-      setState(() {
-        _getData();
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  int selectedBarIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: RouteGenerator.generateRoute,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'OpenSans'),
-      themeMode: ThemeMode.light,
-      home: Container(
+      return Container(
         child: FutureBuilder(
             future: _getData(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -160,13 +132,13 @@ class MyAppState extends State<HomePage> {
                   return Scaffold(
                       appBar: _crearAppBar(),
                       body: _body(snapshot),
-                      bottomNavigationBar: BottomBar());
+                      );
                 default:
                   return Text('default');
               }
             }),
-      ),
-    );
+      );
+    
   }
 
   _getData() async {

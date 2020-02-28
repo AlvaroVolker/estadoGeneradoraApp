@@ -72,6 +72,16 @@ class CountryList extends StatelessWidget {
                                                 fontSize: 9,
                                                 color: Colors.black38)),
                                       ),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            "Gen: " +
+                                                snapshotData.generacionActual
+                                                    .toString(),
+                                            style: TextStyle(
+                                                fontSize: 9,
+                                                color: Colors.black38)),
+                                      ),
                                     ],
                                   ),
                                 ),
