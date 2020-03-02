@@ -179,7 +179,7 @@ class _CountryPageState extends State<CountryPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 15),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.20,
                 child: new Row(

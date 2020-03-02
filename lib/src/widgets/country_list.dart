@@ -112,7 +112,7 @@ class CountryList extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: setProgressColor(double.parse(
                                               snapshotData.capacidadUsada))
-                                          .withOpacity(0.05),
+                                          .withOpacity(0.09),
                                       borderRadius: BorderRadius.circular(2)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
