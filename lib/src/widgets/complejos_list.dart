@@ -41,10 +41,12 @@ class ComplejosList extends StatelessWidget {
                                 snapshotData.nombre,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: Theme.of(context).textTheme.caption.fontSize,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black54
-                                ),
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        .fontSize,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black54),
                               ),
                             ),
                             SizedBox(
@@ -69,10 +71,8 @@ class ComplejosList extends StatelessWidget {
                           animation: true,
                           animateFromLastPercent: true,
                           percent: capacUsada < 0
-                                ? 0.0
-                                : capacUsada / 100 > 1.0
-                                    ? 1.0
-                                    : capacUsada / 100,
+                              ? 0.0
+                              : capacUsada / 100 > 1.0 ? 1.0 : capacUsada / 100,
                           width: MediaQuery.of(context).size.width - 240,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
@@ -81,38 +81,39 @@ class ComplejosList extends StatelessWidget {
                         ),
                       ),
                       Container(
-                          decoration: BoxDecoration(
-                            color: setProgressColor(double.parse(
-                                      snapshotData.capacidadUsada)).withOpacity(0.05),
-                            borderRadius: BorderRadius.circular(2)
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                  double.parse(snapshotData.capacidadUsada) < 50
-                                      ? Icons.arrow_drop_down
-                                      : Icons.arrow_drop_up,
+                        decoration: BoxDecoration(
+                            color: setProgressColor(
+                                    double.parse(snapshotData.capacidadUsada))
+                                .withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(2)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                                double.parse(snapshotData.capacidadUsada) < 50
+                                    ? Icons.arrow_drop_down
+                                    : Icons.arrow_drop_up,
+                                color: Colors.black54,
+                                size: 15),
+                            Text(
+                              snapshotData.capacidadUsada.toString() + "%",
+                              style: TextStyle(
                                   color: Colors.black54,
-                                  size: 15),
-                              Text(
-                                snapshotData.capacidadUsada.toString() + "%",
-                                style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 12, fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                        )
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) =>
-                 Divider(height: 
-                 snapshot.listaDetalleGeneracion.length <= 3 ? 
-                 MediaQuery.of(context).size.height * 0.063 : MediaQuery.of(context).size.height * 0.03)),
+            separatorBuilder: (BuildContext context, int index) => Divider(
+                height: snapshot.listaDetalleGeneracion.length <= 3
+                    ? MediaQuery.of(context).size.height * 0.063
+                    : MediaQuery.of(context).size.height * 0.03)),
       ),
     );
   }

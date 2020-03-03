@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
@@ -19,126 +18,131 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class MyAppState extends State<HomePage> {
+class MyAppState extends State<HomePage> with TickerProviderStateMixin {
+  double left = 0;
+  double direction;
+
+  double MAX_LEFT = 0;
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-        child: FutureBuilder(
-            future: _getData(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                  return Container(
-                    color: Colors.white,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.mood_bad,
-                              size: 40, color: Colors.lightBlue),
-                          SizedBox(height: 10),
-                          Text('No pudimos recuperar algunos datos...',
-                              style: TextStyle(
-                                  color: Colors.lightBlue,
-                                  fontSize: 14,
-                                  decoration: TextDecoration.none)),
-                          SizedBox(height: 40),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Color.fromRGBO(234, 242, 248, 1),
-                            ),
-                            child: MaterialButton(
-                              child: Text(
-                                'Reintentar',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(41, 128, 185, 1)),
-                              ),
-                              elevation: 0,
-                              onPressed: () {
-                                setState(() {
-                                  _getData();
-                                });
-                              },
-                            ),
+    return Container(
+      child: FutureBuilder(
+          future: _getData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.mood_bad, size: 40, color: Colors.lightBlue),
+                        SizedBox(height: 10),
+                        Text('No pudimos recuperar algunos datos...',
+                            style: TextStyle(
+                                color: Colors.lightBlue,
+                                fontSize: 14,
+                                decoration: TextDecoration.none)),
+                        SizedBox(height: 40),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Color.fromRGBO(234, 242, 248, 1),
                           ),
-                        ],
-                      ),
+                          child: MaterialButton(
+                            child: Text(
+                              'Reintentar',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(41, 128, 185, 1)),
+                            ),
+                            elevation: 0,
+                            onPressed: () {
+                              setState(() {
+                                _getData();
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                case ConnectionState.active:
-                case ConnectionState.waiting:
-                  return Stack(
-                    children: <Widget>[
-                      Container(
-                        color: Colors.white,
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    gradient: Gradients.aliHussien,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Center(
-                                  child: SpinKitChasingDots(
-                                    color: Colors.white,
-                                    size: 30.0,
-                                  ),
+                  ),
+                );
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.white,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  gradient: Gradients.aliHussien,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Center(
+                                child: SpinKitChasingDots(
+                                  color: Colors.white,
+                                  size: 30.0,
                                 ),
                               ),
-                              SizedBox(width: 10),
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
+                            ),
+                            SizedBox(width: 10),
+                            Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    width: 100,
+                                    child: Text(
+                                      'AES',
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          color: Colors.black45,
+                                          fontSize: 16,
+                                          fontFamily: 'OpenSans'),
+                                    ),
+                                  ),
+                                  Container(
                                       width: 100,
                                       child: Text(
-                                        'AES',
+                                        'SmartGen',
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             decoration: TextDecoration.none,
-                                            color: Colors.black45,
-                                            fontSize: 16,
+                                            color: Colors.black54,
+                                            fontSize: 19,
                                             fontFamily: 'OpenSans'),
-                                      ),
-                                    ),
-                                    Container(
-                                        width: 100,
-                                        child: Text(
-                                          'SmartGen',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              decoration: TextDecoration.none,
-                                              color: Colors.black54,
-                                              fontSize: 19,
-                                              fontFamily: 'OpenSans'),
-                                        ))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                      ))
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  );
-                case ConnectionState.done:
-                  return Scaffold(
-                      appBar: _crearAppBar(),
-                      body: _body(snapshot),
-                      );
-                default:
-                  return Text('default');
-              }
-            }),
-      );
-    
+                    ),
+                  ],
+                );
+              case ConnectionState.done:
+                return Scaffold(
+                  appBar: _crearAppBar(),
+                  body: Builder(builder: (context) {
+                    MAX_LEFT = MediaQuery.of(context).size.width * 1.0 - 80;
+                    return _body(snapshot);
+                  }),
+                );
+              default:
+                return Text('default');
+            }
+          }),
+    );
   }
 
   _getData() async {
@@ -164,13 +168,15 @@ class MyAppState extends State<HomePage> {
       elevation: 0,
       leading: FlatButton(
           onPressed: () {},
-          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)
-          ),
-          actions: <Widget>[
-            IconButton(icon: Icon(FontAwesomeIcons.search, color: Colors.black54,size: 15), onPressed: (){
+          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
+      actions: <Widget>[
+        IconButton(
+            icon:
+                Icon(FontAwesomeIcons.search, color: Colors.black54, size: 15),
+            onPressed: () {
               showSearch(context: context, delegate: DataSearch());
             })
-          ],
+      ],
     );
   }
 

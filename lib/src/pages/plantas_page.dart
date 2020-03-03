@@ -17,13 +17,12 @@ class PlantaPage extends StatefulWidget {
 class _PlantaPageState extends State<PlantaPage> {
   @override
   Widget build(BuildContext context) {
-    
     return Container(
       child: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-          bottomNavigationBar: BottomBar(),
-        ),
+        appBar: _crearAppBar(),
+        body: _body(),
+        bottomNavigationBar: BottomBar(),
+      ),
     );
   }
 
@@ -48,7 +47,10 @@ class _PlantaPageState extends State<PlantaPage> {
         children: <Widget>[
           BackButton(
             color: Colors.black,
-               onPressed: () {Navigator.of(context).pop();},)
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
         ],
       ),
       actions: <Widget>[
@@ -62,7 +64,9 @@ class _PlantaPageState extends State<PlantaPage> {
             child: MaterialButton(
               child: Text(
                 widget.snapshot.nombre,
-                style: TextStyle(color: Color.fromRGBO(41, 128, 185, 1), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    color: Color.fromRGBO(41, 128, 185, 1),
+                    fontWeight: FontWeight.w600),
               ),
               elevation: 0,
               onPressed: () {},
@@ -125,14 +129,19 @@ class _PlantaPageState extends State<PlantaPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),
-                      child: DataGenerationColumn(capacidadInstalada: snapshot.capacidadInstalada.toString(),generacionActual: snapshot.generacionActual.toString(),),
+                      child: DataGenerationColumn(
+                        capacidadInstalada:
+                            snapshot.capacidadInstalada.toString(),
+                        generacionActual: snapshot.generacionActual.toString(),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            DetalleDivider(fechaActualizacion: snapshot.fechaActualizacion.toString()),
+            DetalleDivider(
+                fechaActualizacion: snapshot.fechaActualizacion.toString()),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             MaquinasList(snapshot: snapshot)
           ],
@@ -140,5 +149,4 @@ class _PlantaPageState extends State<PlantaPage> {
       ),
     );
   }
-
 }

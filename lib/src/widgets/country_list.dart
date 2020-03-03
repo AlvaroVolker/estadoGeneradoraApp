@@ -12,7 +12,7 @@ class CountryList extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     return Expanded(
-      child: Stack( 
+      child: Stack(
         children: <Widget>[
           Container(
             height: double.infinity,

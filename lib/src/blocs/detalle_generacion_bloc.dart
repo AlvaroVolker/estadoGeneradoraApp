@@ -24,8 +24,6 @@ class DetalleGeneracionBloc {
             '$url/api/MasterDetailEstadoGen/ObtenerDetalleGeneracionSBU?sbuId=1')
         .catchError((error) => throw (error));
 
-    //Instancias el modelo
-
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       detailGeneracion = createNewModel(jsonData);
@@ -42,12 +40,6 @@ class DetalleGeneracionBloc {
     }
     return detailGeneracion;
   }
-
-  // Future<DetalleGeneracion> getByName(String nombre) async {
-  //     DetalleGeneracion detalleGeneracion;
-  //   for (var u in detailGeneracion.listaDetalleGeneracion.where((p)=> p.nombre == nombre)) {
-  //   }
-  // }
 
   DetalleGeneracion createNewModel(jsonData) {
     DetalleGeneracion _detail = new DetalleGeneracion(
