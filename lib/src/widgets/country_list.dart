@@ -54,7 +54,7 @@ class CountryList extends StatelessWidget {
                                                         .caption
                                                         .fontSize +
                                                     0.8,
-                                                fontWeight: FontWeight.w700,
+                                                fontWeight: FontWeight.w800,
                                                 color: Colors.black54),
                                           ),
                                         ),
@@ -66,22 +66,25 @@ class CountryList extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                             "NMC: " +
-                                                snapshotData.capacidadInstalada
+                                                snapshotData
+                                                    .capacidadInstalada
                                                     .toString(),
                                             style: TextStyle(
                                                 fontSize: 9,
                                                 color: Colors.black38)),
                                       ),
+                                      SizedBox(height: 2),
                                       Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                            "Gen: " +
-                                                snapshotData.generacionActual
+                                            "GEN: " +
+                                                snapshotData
+                                                    .generacionActual
                                                     .toString(),
                                             style: TextStyle(
                                                 fontSize: 9,
                                                 color: Colors.black38)),
-                                      ),
+                                      )
                                     ],
                                   ),
                                 ),

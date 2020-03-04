@@ -4,6 +4,7 @@ import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
+import 'package:estadogeneradoraapp/src/widgets/error_widget.dart';
 import 'package:estadogeneradoraapp/util/loader.dart';
 import 'package:estadogeneradoraapp/util/search_delegate.dart';
 import 'package:flutter/material.dart';
@@ -30,47 +31,8 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
           future: _getData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) return Loader();
-
-            if(snapshot.hasError)return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.mood_bad, size: 40, color: Colors.lightBlue),
-                        SizedBox(height: 10),
-                        Text('No pudimos recuperar algunos datos...',
-                            style: TextStyle(
-                                color: Colors.lightBlue,
-                                fontSize: 14,
-                                decoration: TextDecoration.none)),
-                        SizedBox(height: 40),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Color.fromRGBO(234, 242, 248, 1),
-                          ),
-                          child: MaterialButton(
-                            child: Text(
-                              'Reintentar',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(41, 128, 185, 1)),
-                            ),
-                            elevation: 0,
-                            onPressed: () {
-                              setState(() {
-                                _getData();
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-
+            if (snapshot.hasError) BadRequestWidget();
             return Scaffold(
-              appBar: _crearAppBar(),
               body: Builder(builder: (context) {
                 MAX_LEFT = MediaQuery.of(context).size.width * 1.0 - 80;
                 return _body(snapshot);
@@ -94,24 +56,6 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _crearAppBar() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: FlatButton(
-          onPressed: () {},
-          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
-      actions: <Widget>[
-        IconButton(
-            icon:
-                Icon(FontAwesomeIcons.search, color: Colors.black54, size: 15),
-            onPressed: () {
-              showSearch(context: context, delegate: DataSearch());
-            })
-      ],
     );
   }
 

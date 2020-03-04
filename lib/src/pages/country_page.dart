@@ -8,7 +8,6 @@ import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatefulWidget {
-
   final DetalleGeneracion detalleGeneracion;
 
   const CountryPage({
@@ -23,12 +22,12 @@ class CountryPage extends StatefulWidget {
 class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
-
-
-    return Scaffold(
-      appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
-      body: _body(widget.detalleGeneracion, context),
-      bottomNavigationBar: BottomBar(),
+    return Material(
+      child: Scaffold(
+        appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
+        body: _body(widget.detalleGeneracion, context),
+        bottomNavigationBar: BottomBar(),
+      ),
     );
   }
 
@@ -106,11 +105,7 @@ class _CountryPageState extends State<CountryPage> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-
-                            
-                            
-                          });
+                          setState(() {});
                         },
                         child: Container(
                           height: 20,

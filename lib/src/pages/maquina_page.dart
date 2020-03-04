@@ -15,11 +15,13 @@ class MaquinaPage extends StatefulWidget {
 class _MaquinaPageState extends State<MaquinaPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: _crearAppBar(),
-        body: _body(),
-        bottomNavigationBar: BottomBar(),
+    return Material(
+      child: Container(
+        child: Scaffold(
+          appBar: _crearAppBar(),
+          body: _body(),
+          bottomNavigationBar: BottomBar(),
+        ),
       ),
     );
   }

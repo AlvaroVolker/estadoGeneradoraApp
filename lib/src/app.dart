@@ -1,5 +1,6 @@
 import 'package:estadogeneradoraapp/src/core/routes.dart';
 import 'package:estadogeneradoraapp/src/pages/home_page.dart';
+import 'package:estadogeneradoraapp/util/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,6 +21,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light(),
       home: Center(
         child: Scaffold(
+          appBar: _crearAppBar(),
             body: _callPage(_currentIndex),
             bottomNavigationBar: _crearBottomBar()),
       ),
@@ -65,6 +67,25 @@ class _MyAppState extends State<MyApp> {
           });
         },
       ),
+    );
+  }
+
+  
+  Widget _crearAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: FlatButton(
+          onPressed: () {},
+          child: Icon(FontAwesomeIcons.gripLines, color: Colors.black)),
+      actions: <Widget>[
+        IconButton(
+            icon:
+                Icon(FontAwesomeIcons.search, color: Colors.black54, size: 15),
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            })
+      ],
     );
   }
 }
