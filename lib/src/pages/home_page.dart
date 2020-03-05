@@ -23,9 +23,9 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
     items.add(new ScreenHiddenDrawer(
         new ItemHiddenMenu(
           name: "Home",
-          colorLineSelected: Colors.teal,
+          colorLineSelected: Colors.blueGrey,
           baseStyle: TextStyle( color: Colors.white.withOpacity(0.5), fontSize: 25.0 ),
-          selectedStyle: TextStyle(color: Colors.teal),
+          selectedStyle: TextStyle(color: Colors.blueGrey),
         ),
         SBUPage(),
         ));
@@ -47,7 +47,7 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
-      backgroundColorMenu: Colors.deepPurple.withOpacity(0.7),
+      backgroundColorMenu: Colors.deepPurple.withOpacity(0.5),
       backgroundColorAppBar: Colors.white70,
       elevationAppBar: 0,
       iconMenuAppBar: Icon(FontAwesomeIcons.gripLines, color: Colors.black),
