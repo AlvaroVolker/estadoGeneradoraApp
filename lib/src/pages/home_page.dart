@@ -1,15 +1,11 @@
 import 'dart:ui';
-import 'package:estadogeneradoraapp/src/blocs/detalle_generacion_bloc.dart';
-import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
-import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
+import 'package:estadogeneradoraapp/src/pages/sbu_page.dart';
 import 'package:estadogeneradoraapp/src/widgets/error_widget.dart';
-import 'package:estadogeneradoraapp/util/loader.dart';
-import 'package:estadogeneradoraapp/util/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,120 +15,46 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> with TickerProviderStateMixin {
-  double left = 0;
-  double direction;
 
-  double MAX_LEFT = 0;
+  List<ScreenHiddenDrawer> items = new List();
+
+  @override
+  void initState() {
+    items.add(new ScreenHiddenDrawer(
+        new ItemHiddenMenu(
+          name: "Home",
+          colorLineSelected: Colors.teal,
+          baseStyle: TextStyle( color: Colors.white.withOpacity(0.5), fontSize: 25.0 ),
+          selectedStyle: TextStyle(color: Colors.teal),
+        ),
+        SBUPage(),
+        ));
+
+    items.add(new ScreenHiddenDrawer(
+        new ItemHiddenMenu(
+          name: "Other",
+          colorLineSelected: Colors.orange,
+          baseStyle: TextStyle( color: Colors.white.withOpacity(0.5), fontSize: 25.0 ),
+          selectedStyle: TextStyle(color: Colors.orange),
+        ),
+        BadRequestWidget(),
+        )
+        );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder(
-          future: _getData(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) return Loader();
-            if (snapshot.hasError) BadRequestWidget();
-            return Scaffold(
-              body: Builder(builder: (context) {
-                MAX_LEFT = MediaQuery.of(context).size.width * 1.0 - 80;
-                return _body(snapshot);
-              }),
-            );
-          }),
+    return HiddenDrawerMenu(
+      backgroundColorMenu: Colors.deepPurple.withOpacity(0.7),
+      backgroundColorAppBar: Colors.white70,
+      elevationAppBar: 0,
+      iconMenuAppBar: Icon(FontAwesomeIcons.gripLines, color: Colors.black),
+      screens: items,
+      slidePercent: 60.0,
+      contentCornerRadius: 40.0,
     );
   }
 
-  _getData() async {
-    return await blocDetalleGeneracion.getData();
-  }
-
-  Widget _body(dynamic snapshot) {
-    return SafeArea(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            _pagesNavigation(),
-            _containerGeneration(snapshot),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _pagesNavigation() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Container(
-          child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 12),
-                  child: Row(children: <Widget>[
-                    Text('Generación',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 29)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('favoritos',
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400)),
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          ),
-        ],
-      )),
-    );
-  }
-
-  Widget _containerGeneration(AsyncSnapshot snapshot) {
-    return Expanded(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: CircleBar(
-                          capacidadUsada: snapshot.data.capacidadUsada),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: DataGenerationColumn(
-                        capacidadInstalada:
-                            snapshot.data.capacidadInstalada.toString(),
-                        generacionActual:
-                            snapshot.data.generacionActual.toString(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 25.0),
-            DetalleDivider(
-                fechaActualizacion:
-                    snapshot.data.fechaActualizacion.toString()),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            CountryList()
-          ],
-        ),
-      ),
-    );
-  }
 }
