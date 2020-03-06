@@ -22,8 +22,7 @@ class Loader extends StatelessWidget {
                   width: 60,
                   decoration: BoxDecoration(
                       gradient: Gradients.aliHussien,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: SpinKitChasingDots(
                       color: Colors.white,

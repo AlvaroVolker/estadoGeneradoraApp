@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class CountryPage extends StatefulWidget {
   final DetalleGeneracion detalleGeneracion;
 
-   const CountryPage({
+  const CountryPage({
     Key key,
     @required this.detalleGeneracion,
   }) : super(key: key);

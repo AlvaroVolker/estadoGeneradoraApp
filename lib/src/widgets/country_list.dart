@@ -66,8 +66,7 @@ class CountryList extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                             "NMC: " +
-                                                snapshotData
-                                                    .capacidadInstalada
+                                                snapshotData.capacidadInstalada
                                                     .toString(),
                                             style: TextStyle(
                                                 fontSize: 9,
@@ -78,8 +77,7 @@ class CountryList extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                             "GEN: " +
-                                                snapshotData
-                                                    .generacionActual
+                                                snapshotData.generacionActual
                                                     .toString(),
                                             style: TextStyle(
                                                 fontSize: 9,

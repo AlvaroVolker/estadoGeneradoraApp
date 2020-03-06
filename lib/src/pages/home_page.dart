@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,31 +14,31 @@ class HomePage extends StatefulWidget {
 }
 
 class MyAppState extends State<HomePage> with TickerProviderStateMixin {
-
   List<ScreenHiddenDrawer> items = new List();
 
   @override
   void initState() {
     items.add(new ScreenHiddenDrawer(
-        new ItemHiddenMenu(
-          name: "Home",
-          colorLineSelected: Colors.blueGrey,
-          baseStyle: TextStyle( color: Colors.white.withOpacity(0.5), fontSize: 25.0 ),
-          selectedStyle: TextStyle(color: Colors.blueGrey),
-        ),
-        SBUPage(),
-        ));
+      new ItemHiddenMenu(
+        name: "Home",
+        colorLineSelected: Colors.blueGrey,
+        baseStyle:
+            TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 25.0),
+        selectedStyle: TextStyle(color: Colors.blueGrey),
+      ),
+      SBUPage(),
+    ));
 
     items.add(new ScreenHiddenDrawer(
-        new ItemHiddenMenu(
-          name: "Other",
-          colorLineSelected: Colors.orange,
-          baseStyle: TextStyle( color: Colors.white.withOpacity(0.5), fontSize: 25.0 ),
-          selectedStyle: TextStyle(color: Colors.orange),
-        ),
-        BadRequestWidget(),
-        )
-        );
+      new ItemHiddenMenu(
+        name: "Other",
+        colorLineSelected: Colors.orange,
+        baseStyle:
+            TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 25.0),
+        selectedStyle: TextStyle(color: Colors.orange),
+      ),
+      BadRequestWidget(),
+    ));
 
     super.initState();
   }
@@ -56,5 +55,4 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
       contentCornerRadius: 40.0,
     );
   }
-
 }
