@@ -1,5 +1,4 @@
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,6 @@ class _MaquinaPageState extends State<MaquinaPage> {
         child: Scaffold(
           appBar: _crearAppBar(),
           body: _body(),
-          bottomNavigationBar: BottomBar(),
         ),
       ),
     );

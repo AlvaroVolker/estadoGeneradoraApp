@@ -1,6 +1,5 @@
 import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
@@ -25,7 +24,6 @@ class _CountryPageState extends State<CountryPage> {
       child: Scaffold(
         appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
         body: _body(widget.detalleGeneracion, context),
-        bottomNavigationBar: BottomBar(),
       ),
     );
   }
@@ -127,7 +125,7 @@ class _CountryPageState extends State<CountryPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 25),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.20,
                 child: new Row(
@@ -151,7 +149,7 @@ class _CountryPageState extends State<CountryPage> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             DetalleDivider(fechaActualizacion: snapshot.fechaActualizacion),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             ComplejosList(snapshot: snapshot)
           ],
         ),

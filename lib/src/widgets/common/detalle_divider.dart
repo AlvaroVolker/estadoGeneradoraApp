@@ -32,8 +32,8 @@ class DetalleDivider extends StatelessWidget {
                 Text(fechaActualizacion,
                     style: TextStyle(
                         color: Colors.black26,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 10)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12)),
               ],
             ),
           )

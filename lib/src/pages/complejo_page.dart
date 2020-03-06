@@ -1,6 +1,5 @@
 import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
@@ -16,19 +15,18 @@ class ComplejoPage extends StatelessWidget {
     return Container(
       child: Scaffold(
         appBar: _crearAppBar(detalleGeneracion.nombre, context),
-        body: _body(detalleGeneracion),
-        bottomNavigationBar: BottomBar(),
+        body: _body(detalleGeneracion, context),
       ),
     );
   }
 
-  Widget _body(DetalleGeneracion detalleGeneracion) {
+  Widget _body(DetalleGeneracion detalleGeneracion, BuildContext context) {
     return SafeArea(
       child: Container(
         child: Column(
           children: <Widget>[
             _pagesNavigation(),
-            _containerGeneration(detalleGeneracion),
+            _containerGeneration(detalleGeneracion, context),
           ],
         ),
       ),
@@ -108,13 +106,13 @@ class ComplejoPage extends StatelessWidget {
     );
   }
 
-  Widget _containerGeneration(DetalleGeneracion detalleGeneracion) {
+  Widget _containerGeneration(DetalleGeneracion detalleGeneracion, BuildContext context) {
     return Expanded(
       child: Container(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 40),
               child: Container(
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,10 +135,10 @@ class ComplejoPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             DetalleDivider(
                 fechaActualizacion: detalleGeneracion.fechaActualizacion),
-            SizedBox(height: 18),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             PlantasList(snapshot: detalleGeneracion)
           ],
         ),

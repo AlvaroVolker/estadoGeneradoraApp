@@ -61,9 +61,36 @@ class PlantasList extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 9, color: Colors.black38)),
                               ),
+                              
                             ],
                           ),
                         ),
+                        Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              snapshotData.generacionActual.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .fontSize,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            ),
+                            Text(
+                              'MW',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            )
+                          ],
+                        ),
+                      ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: LinearPercentIndicator(
@@ -75,7 +102,7 @@ class PlantasList extends StatelessWidget {
                                 : capacUsada / 100 > 1.0
                                     ? 1.0
                                     : capacUsada / 100,
-                            width: MediaQuery.of(context).size.width - 230,
+                            width: MediaQuery.of(context).size.width - 270,
                             linearStrokeCap: LinearStrokeCap.butt,
                             lineHeight: 20,
                             progressColor: setProgressColor(capacUsada),
@@ -114,7 +141,7 @@ class PlantasList extends StatelessWidget {
               },
               separatorBuilder: (BuildContext context, int index) => Divider(
                   height: snapshot.listaDetalleGeneracion.length <= 3
-                      ? MediaQuery.of(context).size.height * 0.063
+                      ? MediaQuery.of(context).size.height * 0.065
                       : MediaQuery.of(context).size.height * 0.03))),
     );
   }

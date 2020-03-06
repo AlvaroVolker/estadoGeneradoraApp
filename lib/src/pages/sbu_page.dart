@@ -105,7 +105,7 @@ class _SBUPageState extends State<SBUPage> {
             DetalleDivider(
                 fechaActualizacion:
                     snapshot.data.fechaActualizacion.toString()),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             CountryList()
           ],
         ),

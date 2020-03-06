@@ -1,5 +1,4 @@
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/bottom_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
@@ -21,7 +20,6 @@ class _PlantaPageState extends State<PlantaPage> {
       child: Scaffold(
         appBar: _crearAppBar(),
         body: _body(),
-        bottomNavigationBar: BottomBar(),
       ),
     );
   }
@@ -121,14 +119,14 @@ class _PlantaPageState extends State<PlantaPage> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 55),
+                      padding: const EdgeInsets.only(left: 40),
                       child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50),
+                      padding: const EdgeInsets.only(right: 40),
                       child: DataGenerationColumn(
                         capacidadInstalada:
                             snapshot.capacidadInstalada.toString(),

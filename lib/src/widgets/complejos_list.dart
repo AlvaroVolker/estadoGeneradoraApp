@@ -12,6 +12,7 @@ class ComplejosList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
     return Expanded(
       child: Container(
         height: double.infinity,
@@ -31,7 +32,7 @@ class ComplejosList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
-                        width: 120,
+                        width: 110,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -46,7 +47,7 @@ class ComplejosList extends StatelessWidget {
                                         .caption
                                         .fontSize,
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.black54),
+                                    color: Colors.black87),
                               ),
                             ),
                             SizedBox(
@@ -64,6 +65,32 @@ class ComplejosList extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              snapshotData.generacionActual.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .fontSize,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            ),
+                            Text(
+                              'MW',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            )
+                          ],
+                        ),
+                      ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: LinearPercentIndicator(
@@ -73,7 +100,7 @@ class ComplejosList extends StatelessWidget {
                           percent: capacUsada < 0
                               ? 0.0
                               : capacUsada / 100 > 1.0 ? 1.0 : capacUsada / 100,
-                          width: MediaQuery.of(context).size.width - 240,
+                          width: MediaQuery.of(context).size.width - 250,
                           linearStrokeCap: LinearStrokeCap.butt,
                           lineHeight: 20,
                           progressColor: setProgressColor(capacUsada),
@@ -111,9 +138,12 @@ class ComplejosList extends StatelessWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) => Divider(
-                height: snapshot.listaDetalleGeneracion.length <= 3
-                    ? MediaQuery.of(context).size.height * 0.063
-                    : MediaQuery.of(context).size.height * 0.03)),
+                  height: snapshot.listaDetalleGeneracion.length <= 3
+                      ? screenHeight > 700
+                          ? MediaQuery.of(context).size.height * 0.078
+                          : MediaQuery.of(context).size.height * 0.065
+                      : MediaQuery.of(context).size.height * 0.04,
+                )),
       ),
     );
   }

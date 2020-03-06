@@ -20,11 +20,11 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     items.add(new ScreenHiddenDrawer(
       new ItemHiddenMenu(
-        name: "Home",
-        colorLineSelected: Colors.blueGrey,
+        name: "Inicio",
+        colorLineSelected: Colors.white60,
         baseStyle:
-            TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 25.0),
-        selectedStyle: TextStyle(color: Colors.blueGrey),
+            TextStyle(color: Colors.white24, fontSize: 25.0, fontFamily: 'OpenSans'),
+        selectedStyle: TextStyle(color: Colors.white60,fontFamily: 'OpenSans'),
       ),
       SBUPage(),
     ));
@@ -32,10 +32,10 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
     items.add(new ScreenHiddenDrawer(
       new ItemHiddenMenu(
         name: "Other",
-        colorLineSelected: Colors.orange,
+        colorLineSelected: Colors.white60,
         baseStyle:
-            TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 25.0),
-        selectedStyle: TextStyle(color: Colors.orange),
+            TextStyle(color: Colors.white24, fontSize: 25.0 ,fontFamily: 'OpenSans'),
+        selectedStyle: TextStyle(color: Colors.white60, fontFamily: 'OpenSans'),
       ),
       BadRequestWidget(),
     ));
@@ -46,7 +46,7 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
-      backgroundColorMenu: Colors.deepPurple.withOpacity(0.5),
+      backgroundColorMenu: Color.fromRGBO(13, 1, 31, 1),
       backgroundColorAppBar: Colors.white70,
       elevationAppBar: 0,
       iconMenuAppBar: Icon(FontAwesomeIcons.gripLines, color: Colors.black),

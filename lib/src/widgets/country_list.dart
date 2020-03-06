@@ -53,9 +53,9 @@ class CountryList extends StatelessWidget {
                                                         .textTheme
                                                         .caption
                                                         .fontSize +
-                                                    0.8,
+                                                    0.9,
                                                 fontWeight: FontWeight.w800,
-                                                color: Colors.black54),
+                                                color: Colors.black87),
                                           ),
                                         ),
                                       ),
@@ -72,16 +72,32 @@ class CountryList extends StatelessWidget {
                                                 fontSize: 9,
                                                 color: Colors.black38)),
                                       ),
-                                      SizedBox(height: 2),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "GEN: " +
-                                                snapshotData.generacionActual
-                                                    .toString(),
-                                            style: TextStyle(
-                                                fontSize: 9,
-                                                color: Colors.black38)),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        snapshotData.generacionActual
+                                            .toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .caption
+                                                .fontSize,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black38),
+                                      ),
+                                      Text(
+                                        'MW',
+                                        style: TextStyle(
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black38),
                                       )
                                     ],
                                   ),
@@ -144,9 +160,9 @@ class CountryList extends StatelessWidget {
                         separatorBuilder: (BuildContext context, int index) =>
                             Divider(
                                 height: screenHeight > 700
-                                    ? MediaQuery.of(context).size.height * 0.05
+                                    ? MediaQuery.of(context).size.height * 0.06
                                     : MediaQuery.of(context).size.height *
-                                        0.03));
+                                        0.04));
                   } else {
                     return CircularProgressIndicator();
                   }

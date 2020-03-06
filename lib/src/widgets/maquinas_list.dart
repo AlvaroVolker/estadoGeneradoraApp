@@ -45,7 +45,7 @@ class MaquinasList extends StatelessWidget {
                                                   .caption
                                                   .fontSize,
                                               fontWeight: FontWeight.w700,
-                                              color: Colors.black54),
+                                              color: Colors.black87),
                               ),
                             ),
                             SizedBox(
@@ -60,6 +60,32 @@ class MaquinasList extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 9, color: Colors.black38)),
                             ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              snapshotData.generacionActual.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .fontSize,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            ),
+                            Text(
+                              'MW',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38),
+                            )
                           ],
                         ),
                       ),
