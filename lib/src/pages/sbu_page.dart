@@ -21,7 +21,7 @@ class _SBUPageState extends State<SBUPage> {
         future: _getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) return Loader();
-          if (snapshot.hasError) BadRequestWidget();
+          if (snapshot.hasError) return BadRequestWidget();
 
           return Scaffold(
             backgroundColor: Colors.white,
