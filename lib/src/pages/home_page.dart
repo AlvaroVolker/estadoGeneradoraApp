@@ -47,7 +47,7 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
       backgroundColorMenu: Color.fromRGBO(13, 1, 31, 1),
-      backgroundColorAppBar: Colors.white70,
+      backgroundColorAppBar: Theme.of(context).accentIconTheme.color,
       elevationAppBar: 0,
       iconMenuAppBar: Icon(FontAwesomeIcons.gripLines, color: Colors.black),
       screens: items,

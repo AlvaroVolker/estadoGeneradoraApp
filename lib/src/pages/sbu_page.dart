@@ -23,15 +23,17 @@ class _SBUPageState extends State<SBUPage> {
           if (!snapshot.hasData) return Loader();
           if (snapshot.hasError) return BadRequestWidget();
 
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: Container(
-                child: Column(
-              children: <Widget>[
-                _pagesNavigation(),
-                _containerGeneration(snapshot)
-              ],
-            )),
+          return Material(
+            child: Scaffold(
+              body: Container(
+                color: Theme.of(context).accentIconTheme.color,
+                  child: Column(
+                children: <Widget>[
+                  _pagesNavigation(),
+                  _containerGeneration(snapshot)
+                ],
+              )),
+            ),
           );
         });
   }
@@ -50,7 +52,7 @@ class _SBUPageState extends State<SBUPage> {
                   child: Row(children: <Widget>[
                     Text('Generación',
                         style: TextStyle(
-                            color: Colors.black87,
+                            color: Theme.of(context).textTheme.body1.color,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
