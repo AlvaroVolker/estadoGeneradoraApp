@@ -52,7 +52,7 @@ class _SBUPageState extends State<SBUPage> {
                   child: Row(children: <Widget>[
                     Text('Generación',
                         style: TextStyle(
-                            color: Theme.of(context).textTheme.body1.color,
+                            color: Theme.of(context).textTheme.bodyText2.color,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
