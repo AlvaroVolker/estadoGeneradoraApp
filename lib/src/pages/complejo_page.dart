@@ -106,7 +106,8 @@ class ComplejoPage extends StatelessWidget {
     );
   }
 
-  Widget _containerGeneration(DetalleGeneracion detalleGeneracion, BuildContext context) {
+  Widget _containerGeneration(
+      DetalleGeneracion detalleGeneracion, BuildContext context) {
     return Expanded(
       child: Container(
         child: Column(
