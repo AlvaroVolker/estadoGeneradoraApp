@@ -14,7 +14,6 @@ class PlantasList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-          height: double.infinity,
           child: ListView.separated(
               itemCount: snapshot.listaDetalleGeneracion.length,
               itemBuilder: (BuildContext context, int index) {
@@ -31,7 +30,7 @@ class PlantasList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Container(
-                          width: snapshotData.nombre.length > 12 ? 110 : 80,
+                          width: 80,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -39,14 +38,16 @@ class PlantasList extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   snapshotData.nombre,
-                                  overflow: TextOverflow.ellipsis,
+                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
-                                      fontSize: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          .fontSize,
+                                      fontSize: snapshotData.nombre.length > 10
+                                          ? 11
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              .fontSize,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.black54),
+                                      color: Colors.black87),
                                 ),
                               ),
                               SizedBox(
@@ -61,36 +62,36 @@ class PlantasList extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 9, color: Colors.black38)),
                               ),
-                              
                             ],
                           ),
                         ),
                         Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              snapshotData.generacionActual.toString(),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .fontSize,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black38),
-                            ),
-                            Text(
-                              'MW',
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black38),
-                            )
-                          ],
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                snapshotData.generacionActual.toString(),
+                                overflow: TextOverflow.clip,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        .fontSize,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black38),
+                              ),
+                              Text(
+                                'MW',
+                                style: TextStyle(
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black38),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: LinearPercentIndicator(

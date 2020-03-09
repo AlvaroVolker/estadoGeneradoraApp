@@ -40,7 +40,7 @@ class ComplejosList extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 snapshotData.nombre,
-                                overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.clip,
                                 style: TextStyle(
                                     fontSize: Theme.of(context)
                                         .textTheme
