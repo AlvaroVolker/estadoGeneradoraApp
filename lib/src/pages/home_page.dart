@@ -22,9 +22,9 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
       new ItemHiddenMenu(
         name: "Inicio",
         colorLineSelected: Colors.white60,
-        baseStyle:
-            TextStyle(color: Colors.white24, fontSize: 25.0, fontFamily: 'OpenSans'),
-        selectedStyle: TextStyle(color: Colors.white60,fontFamily: 'OpenSans'),
+        baseStyle: TextStyle(
+            color: Colors.white24, fontSize: 25.0, fontFamily: 'OpenSans'),
+        selectedStyle: TextStyle(color: Colors.white60, fontFamily: 'OpenSans'),
       ),
       SBUPage(),
     ));
@@ -33,8 +33,8 @@ class MyAppState extends State<HomePage> with TickerProviderStateMixin {
       new ItemHiddenMenu(
         name: "Other",
         colorLineSelected: Colors.white60,
-        baseStyle:
-            TextStyle(color: Colors.white24, fontSize: 25.0 ,fontFamily: 'OpenSans'),
+        baseStyle: TextStyle(
+            color: Colors.white24, fontSize: 25.0, fontFamily: 'OpenSans'),
         selectedStyle: TextStyle(color: Colors.white60, fontFamily: 'OpenSans'),
       ),
       BadRequestWidget(),

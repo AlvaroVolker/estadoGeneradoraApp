@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class DetalleDivider extends StatelessWidget {
   const DetalleDivider({Key key, @required this.fechaActualizacion})
       : super(key: key);
+
   final String fechaActualizacion;
 
   @override

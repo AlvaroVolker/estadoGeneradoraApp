@@ -5,25 +5,15 @@ import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
 import 'package:flutter/material.dart';
 
 class PlantaPage extends StatefulWidget {
-  final dynamic snapshot;
-
   PlantaPage({Key key, @required this.snapshot}) : super(key: key);
+
+  final dynamic snapshot;
 
   @override
   _PlantaPageState createState() => _PlantaPageState();
 }
 
 class _PlantaPageState extends State<PlantaPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: _crearAppBar(),
-        body: _body(),
-      ),
-    );
-  }
-
   Widget _body() {
     return SafeArea(
       child: Container(
@@ -144,6 +134,16 @@ class _PlantaPageState extends State<PlantaPage> {
             MaquinasList(snapshot: snapshot)
           ],
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: _crearAppBar(),
+        body: _body(),
       ),
     );
   }

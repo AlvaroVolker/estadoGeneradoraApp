@@ -10,6 +10,24 @@ class MaquinasList extends StatelessWidget {
 
   final DetalleGeneracion snapshot;
 
+  Color setProgressColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(235, 112, 112, 1);
+      return Color.fromRGBO(255, 217, 142, 1);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 1);
+    }
+  }
+
+  Color setBarColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(235, 112, 112, 0.16);
+      return Color.fromRGBO(255, 217, 142, 0.2);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 0.1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -168,23 +186,5 @@ class MaquinasList extends StatelessWidget {
                       ? MediaQuery.of(context).size.height * 0.065
                       : MediaQuery.of(context).size.height * 0.03))),
     );
-  }
-
-  Color setProgressColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(235, 112, 112, 1);
-      return Color.fromRGBO(255, 217, 142, 1);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 1);
-    }
-  }
-
-  Color setBarColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(235, 112, 112, 0.16);
-      return Color.fromRGBO(255, 217, 142, 0.2);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 0.1);
-    }
   }
 }

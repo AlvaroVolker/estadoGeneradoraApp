@@ -6,19 +6,9 @@ import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
 import 'package:flutter/material.dart';
 
 class ComplejoPage extends StatelessWidget {
-  final DetalleGeneracion detalleGeneracion;
-
   ComplejoPage({Key key, @required this.detalleGeneracion}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: _crearAppBar(detalleGeneracion.nombre, context),
-        body: _body(detalleGeneracion, context),
-      ),
-    );
-  }
+  final DetalleGeneracion detalleGeneracion;
 
   Widget _body(DetalleGeneracion detalleGeneracion, BuildContext context) {
     return SafeArea(
@@ -143,6 +133,16 @@ class ComplejoPage extends StatelessWidget {
             PlantasList(snapshot: detalleGeneracion)
           ],
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: _crearAppBar(detalleGeneracion.nombre, context),
+        body: _body(detalleGeneracion, context),
       ),
     );
   }

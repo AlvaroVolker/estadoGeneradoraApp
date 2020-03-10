@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate {
-
   @override
   List<Widget> buildActions(BuildContext context) {
     // acciones del appbar

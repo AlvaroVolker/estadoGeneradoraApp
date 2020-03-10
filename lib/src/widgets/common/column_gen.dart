@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DataGenerationColumn extends StatelessWidget {
-
   const DataGenerationColumn({Key key, @required this.capacidadInstalada, @required this.generacionActual}) : super(key: key);
 
-  final String generacionActual;
   final String capacidadInstalada;
+  final String generacionActual;
 
   @override
   Widget build(BuildContext context) {

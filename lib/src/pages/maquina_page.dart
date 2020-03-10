@@ -3,27 +3,15 @@ import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:flutter/material.dart';
 
 class MaquinaPage extends StatefulWidget {
-  final dynamic snapshot;
-
   MaquinaPage({Key key, @required this.snapshot}) : super(key: key);
+
+  final dynamic snapshot;
 
   @override
   _MaquinaPageState createState() => _MaquinaPageState();
 }
 
 class _MaquinaPageState extends State<MaquinaPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        child: Scaffold(
-          appBar: _crearAppBar(),
-          body: _body(),
-        ),
-      ),
-    );
-  }
-
   Widget _body() {
     return SafeArea(
       child: Container(
@@ -140,6 +128,18 @@ class _MaquinaPageState extends State<MaquinaPage> {
             ),
             SizedBox(height: 25.0),
           ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        child: Scaffold(
+          appBar: _crearAppBar(),
+          body: _body(),
         ),
       ),
     );

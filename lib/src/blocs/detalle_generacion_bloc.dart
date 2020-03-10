@@ -4,11 +4,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
 
 class DetalleGeneracionBloc {
-  final _detalleGen = BehaviorSubject<DetalleGeneracion>();
-
   DetalleGeneracion detailGeneracion;
-
   var detalleGen;
+
+  final _detalleGen = BehaviorSubject<DetalleGeneracion>();
 
   //Con este stream obtenes lo que hay en detalle generacion traido del JSON
   Observable<DetalleGeneracion> get getDetalleGen => _detalleGen.stream;

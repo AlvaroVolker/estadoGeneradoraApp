@@ -15,29 +15,6 @@ class SBUPage extends StatefulWidget {
 }
 
 class _SBUPageState extends State<SBUPage> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return Loader();
-          if (snapshot.hasError) return BadRequestWidget();
-
-          return Material(
-            child: Scaffold(
-              body: Container(
-                color: Theme.of(context).accentIconTheme.color,
-                  child: Column(
-                children: <Widget>[
-                  _pagesNavigation(),
-                  _containerGeneration(snapshot)
-                ],
-              )),
-            ),
-          );
-        });
-  }
-
   Widget _pagesNavigation() {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
@@ -117,5 +94,28 @@ class _SBUPageState extends State<SBUPage> {
 
   _getData() async {
     return await blocDetalleGeneracion.getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: _getData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) return Loader();
+          if (snapshot.hasError) return BadRequestWidget();
+
+          return Material(
+            child: Scaffold(
+              body: Container(
+                color: Theme.of(context).accentIconTheme.color,
+                  child: Column(
+                children: <Widget>[
+                  _pagesNavigation(),
+                  _containerGeneration(snapshot)
+                ],
+              )),
+            ),
+          );
+        });
   }
 }

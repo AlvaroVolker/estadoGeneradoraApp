@@ -6,28 +6,18 @@ import 'package:estadogeneradoraapp/src/widgets/complejos_list.dart';
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatefulWidget {
-  final DetalleGeneracion detalleGeneracion;
-
   const CountryPage({
     Key key,
     @required this.detalleGeneracion,
   }) : super(key: key);
+
+  final DetalleGeneracion detalleGeneracion;
 
   @override
   _CountryPageState createState() => _CountryPageState();
 }
 
 class _CountryPageState extends State<CountryPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
-        body: _body(widget.detalleGeneracion, context),
-      ),
-    );
-  }
-
   Widget _body(DetalleGeneracion detalleGeneracion, BuildContext context) {
     return SafeArea(
       child: Container(
@@ -153,6 +143,16 @@ class _CountryPageState extends State<CountryPage> {
             ComplejosList(snapshot: snapshot)
           ],
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Scaffold(
+        appBar: _crearAppBar(context, widget.detalleGeneracion.nombre),
+        body: _body(widget.detalleGeneracion, context),
       ),
     );
   }

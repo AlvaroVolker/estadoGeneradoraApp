@@ -41,38 +41,4 @@ class _BottomBarState extends State<BottomBar> {
       ),
     );
   }
-
-  //   return Container(
-  //      child:  BottomAppBar(
-  //     color: Colors.white,
-  //     child: Row(
-  //       mainAxisSize: MainAxisSize.max,
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: <Widget>[
-  //         _bottomAction(FontAwesomeIcons.home),
-  //         _bottomAction(FontAwesomeIcons.heart),
-  //         _bottomAction(FontAwesomeIcons.chartBar),
-  //         _bottomAction(FontAwesomeIcons.cog),
-  //       ],
-  //     ),
-  //   )
-  //   );
-  // }
-
-  // Widget _bottomAction(IconData icon) {
-  //   return InkWell(
-  //     focusColor: Colors.transparent,
-  //     highlightColor: Colors.transparent,
-  //     hoverColor: Colors.transparent,
-  //     splashColor: Colors.transparent,
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(15.0),
-  //       child: Icon(icon),
-  //     ),
-  //     onTap: () {
-
-  //     },
-  //   );
-  // }
-
 }

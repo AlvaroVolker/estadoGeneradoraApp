@@ -10,6 +10,24 @@ class PlantasList extends StatelessWidget {
 
   final DetalleGeneracion snapshot;
 
+ Color setProgressColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.9);
+      return Color.fromRGBO(255, 217, 142, 1);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 1);
+    }
+  }
+
+  Color setBarColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.16);
+      return Color.fromRGBO(255, 217, 142, 0.2);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 0.1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -166,23 +184,5 @@ class PlantasList extends StatelessWidget {
                       ? MediaQuery.of(context).size.height * 0.065
                       : MediaQuery.of(context).size.height * 0.03))),
     );
-  }
-
- Color setProgressColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.9);
-      return Color.fromRGBO(255, 217, 142, 1);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 1);
-    }
-  }
-
-  Color setBarColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.16);
-      return Color.fromRGBO(255, 217, 142, 0.2);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 0.1);
-    }
   }
 }

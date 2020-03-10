@@ -10,6 +10,24 @@ class CountryList extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  Color setProgressColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 1);
+      return Color.fromRGBO(255, 217, 142, 1);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 1);
+    }
+  }
+
+  Color setBarColor(double capacidadUsada) {
+    if (capacidadUsada < 50) {
+      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.16);
+      return Color.fromRGBO(255, 217, 142, 0.2);
+    } else {
+      return Color.fromRGBO(88, 145, 103, 0.1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -198,23 +216,5 @@ class CountryList extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Color setProgressColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 1);
-      return Color.fromRGBO(255, 217, 142, 1);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 1);
-    }
-  }
-
-  Color setBarColor(double capacidadUsada) {
-    if (capacidadUsada < 50) {
-      if (capacidadUsada < 10) return Color.fromRGBO(252, 121, 120, 0.16);
-      return Color.fromRGBO(255, 217, 142, 0.2);
-    } else {
-      return Color.fromRGBO(88, 145, 103, 0.1);
-    }
   }
 }
