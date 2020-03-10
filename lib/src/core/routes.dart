@@ -1,5 +1,7 @@
+import 'package:estadogeneradoraapp/src/pages/complejo_page.dart';
 import 'package:estadogeneradoraapp/src/pages/country_page.dart';
 import 'package:estadogeneradoraapp/src/pages/home_page.dart';
+import 'package:estadogeneradoraapp/src/pages/maquina_page.dart';
 import 'package:estadogeneradoraapp/src/pages/plantas_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +13,13 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/countryPage':
-        return MaterialPageRoute(builder: (_) => CountryPage(snapshot: args));
+        return MaterialPageRoute(builder: (_) => CountryPage(detalleGeneracion: args));
+      case '/complejoPage':
+        return MaterialPageRoute(builder: (_) => ComplejoPage(detalleGeneracion:args));
       case '/plantaPage':
-        return MaterialPageRoute(builder: (_) => PlantaPage());
-      // return _errorRoute();
+        return MaterialPageRoute(builder: (_) => PlantaPage(snapshot: args));
+      case '/maquinaPage':
+        return MaterialPageRoute(builder: (_) => MaquinaPage(snapshot: args));
       default:
         return _errorRoute();
     }

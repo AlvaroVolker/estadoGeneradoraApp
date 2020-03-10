@@ -4,10 +4,10 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class CircleBar extends StatelessWidget {
   const CircleBar({
     Key key,
-    @required this.snapshot,
+    @required this.capacidadUsada,
   }) : super(key: key);
 
-  final dynamic snapshot;
+  final String capacidadUsada;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class CircleBar extends StatelessWidget {
       const Color.fromRGBO(158, 112, 255, 0.5),
       const Color.fromRGBO(142, 255, 112, 0.5)
     ]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
-
+    var capacUsada = double.parse(capacidadUsada);
     return new CircularPercentIndicator(
-      animationDuration: 2,
+      animationDuration: 800,
       addAutomaticKeepAlive: true,
       animateFromLastPercent: true,
       startAngle: 0,
       center: Text(
-        " " + snapshot.data.capacidadUsada + "%",
+        " " + capacidadUsada + "%",
         style: TextStyle(
             foreground: Paint()..shader = linearGradient,
             fontSize: 27,
@@ -41,7 +41,9 @@ class CircleBar extends StatelessWidget {
         begin: Alignment.topRight,
         end: Alignment.topLeft,
       ),
-      percent: double.parse(snapshot.data.capacidadUsada) / 100,
+      percent: capacUsada / 100 < 0
+          ? 0
+          : capacUsada / 100 > 1 ? 1.0 : capacUsada / 100,
       animation: true,
       backgroundColor: Color.fromRGBO(241, 236, 251, 0.6),
       lineWidth: 13,

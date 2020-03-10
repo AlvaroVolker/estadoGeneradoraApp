@@ -1,23 +1,22 @@
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
-import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
-import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
 import 'package:flutter/material.dart';
 
-class PlantaPage extends StatefulWidget {
-  PlantaPage({Key key, @required this.snapshot}) : super(key: key);
+class MaquinaPage extends StatefulWidget {
+  MaquinaPage({Key key, @required this.snapshot}) : super(key: key);
 
   final dynamic snapshot;
 
   @override
-  _PlantaPageState createState() => _PlantaPageState();
+  _MaquinaPageState createState() => _MaquinaPageState();
 }
 
-class _PlantaPageState extends State<PlantaPage> {
+class _MaquinaPageState extends State<MaquinaPage> {
   Widget _body() {
     return SafeArea(
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _pagesNavigation(),
             _containerGeneration(widget.snapshot),
@@ -36,7 +35,7 @@ class _PlantaPageState extends State<PlantaPage> {
           BackButton(
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           )
         ],
@@ -77,14 +76,14 @@ class _PlantaPageState extends State<PlantaPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 12),
                   child: Row(children: <Widget>[
-                    Text('Plantas',
+                    Text('Unidad',
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('unidades',
+                      child: Text(widget.snapshot.nombre,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
@@ -101,7 +100,7 @@ class _PlantaPageState extends State<PlantaPage> {
   }
 
   Widget _containerGeneration(dynamic snapshot) {
-    return Expanded(
+    return Center(
       child: Container(
         child: Column(
           children: <Widget>[
@@ -112,11 +111,11 @@ class _PlantaPageState extends State<PlantaPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 40),
+                      padding: const EdgeInsets.only(left: 55),
                       child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 40),
+                      padding: const EdgeInsets.only(right: 50),
                       child: DataGenerationColumn(
                         capacidadInstalada:
                             snapshot.capacidadInstalada.toString(),
@@ -127,11 +126,7 @@ class _PlantaPageState extends State<PlantaPage> {
                 ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            DetalleDivider(
-                fechaActualizacion: snapshot.fechaActualizacion.toString()),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            MaquinasList(snapshot: snapshot)
+            SizedBox(height: 25.0),
           ],
         ),
       ),
@@ -140,10 +135,12 @@ class _PlantaPageState extends State<PlantaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: _crearAppBar(),
-        body: _body(),
+    return Material(
+      child: Container(
+        child: Scaffold(
+          appBar: _crearAppBar(),
+          body: _body(),
+        ),
       ),
     );
   }

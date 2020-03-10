@@ -1,33 +1,29 @@
+import 'package:estadogeneradoraapp/src/models/generacion.dart';
 import 'package:estadogeneradoraapp/src/widgets/circle_progress_bar.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
-import 'package:estadogeneradoraapp/src/widgets/maquinas_list.dart';
+import 'package:estadogeneradoraapp/src/widgets/plantas_list.dart';
 import 'package:flutter/material.dart';
 
-class PlantaPage extends StatefulWidget {
-  PlantaPage({Key key, @required this.snapshot}) : super(key: key);
+class ComplejoPage extends StatelessWidget {
+  ComplejoPage({Key key, @required this.detalleGeneracion}) : super(key: key);
 
-  final dynamic snapshot;
+  final DetalleGeneracion detalleGeneracion;
 
-  @override
-  _PlantaPageState createState() => _PlantaPageState();
-}
-
-class _PlantaPageState extends State<PlantaPage> {
-  Widget _body() {
+  Widget _body(DetalleGeneracion detalleGeneracion, BuildContext context) {
     return SafeArea(
       child: Container(
         child: Column(
           children: <Widget>[
             _pagesNavigation(),
-            _containerGeneration(widget.snapshot),
+            _containerGeneration(detalleGeneracion, context),
           ],
         ),
       ),
     );
   }
 
-  Widget _crearAppBar() {
+  Widget _crearAppBar(String nombre, BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -36,7 +32,7 @@ class _PlantaPageState extends State<PlantaPage> {
           BackButton(
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
           )
         ],
@@ -51,7 +47,7 @@ class _PlantaPageState extends State<PlantaPage> {
             ),
             child: MaterialButton(
               child: Text(
-                widget.snapshot.nombre,
+                nombre,
                 style: TextStyle(
                     color: Color.fromRGBO(41, 128, 185, 1),
                     fontWeight: FontWeight.w600),
@@ -77,14 +73,14 @@ class _PlantaPageState extends State<PlantaPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, top: 12),
                   child: Row(children: <Widget>[
-                    Text('Plantas',
+                    Text('Complejos',
                         style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w600,
                             fontSize: 29)),
                     Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8),
-                      child: Text('unidades',
+                      child: Text('plantas',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17,
@@ -100,27 +96,30 @@ class _PlantaPageState extends State<PlantaPage> {
     );
   }
 
-  Widget _containerGeneration(dynamic snapshot) {
+  Widget _containerGeneration(
+      DetalleGeneracion detalleGeneracion, BuildContext context) {
     return Expanded(
       child: Container(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 40),
               child: Container(
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 40),
-                      child: CircleBar(capacidadUsada: snapshot.capacidadUsada),
+                      padding: const EdgeInsets.only(left: 30),
+                      child: CircleBar(
+                          capacidadUsada: detalleGeneracion.capacidadUsada),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 40),
+                      padding: const EdgeInsets.only(right: 30),
                       child: DataGenerationColumn(
                         capacidadInstalada:
-                            snapshot.capacidadInstalada.toString(),
-                        generacionActual: snapshot.generacionActual.toString(),
+                            detalleGeneracion.capacidadInstalada.toString(),
+                        generacionActual:
+                            detalleGeneracion.generacionActual.toString(),
                       ),
                     ),
                   ],
@@ -129,9 +128,9 @@ class _PlantaPageState extends State<PlantaPage> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             DetalleDivider(
-                fechaActualizacion: snapshot.fechaActualizacion.toString()),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            MaquinasList(snapshot: snapshot)
+                fechaActualizacion: detalleGeneracion.fechaActualizacion),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+            PlantasList(snapshot: detalleGeneracion)
           ],
         ),
       ),
@@ -142,8 +141,8 @@ class _PlantaPageState extends State<PlantaPage> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: _crearAppBar(),
-        body: _body(),
+        appBar: _crearAppBar(detalleGeneracion.nombre, context),
+        body: _body(detalleGeneracion, context),
       ),
     );
   }
