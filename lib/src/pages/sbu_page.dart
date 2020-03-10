@@ -4,6 +4,7 @@ import 'package:estadogeneradoraapp/src/widgets/common/column_gen.dart';
 import 'package:estadogeneradoraapp/src/widgets/common/detalle_divider.dart';
 import 'package:estadogeneradoraapp/src/widgets/country_list.dart';
 import 'package:estadogeneradoraapp/src/widgets/error_widget.dart';
+import 'package:estadogeneradoraapp/src/widgets/line_chart.dart';
 import 'package:estadogeneradoraapp/util/loader.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _SBUPageState extends State<SBUPage> {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 12),
+                  padding: const EdgeInsets.only(left: 20, top: 5),
                   child: Row(children: <Widget>[
                     Text('Generación',
                         style: TextStyle(
@@ -58,7 +59,7 @@ class _SBUPageState extends State<SBUPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.20,
+                height: MediaQuery.of(context).size.height * 0.18,
                 child: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -85,7 +86,11 @@ class _SBUPageState extends State<SBUPage> {
                 fechaActualizacion:
                     snapshot.data.fechaActualizacion.toString()),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            CountryList()
+            CountryList(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LineChartSample2(),
+            )
           ],
         ),
       ),
@@ -107,13 +112,13 @@ class _SBUPageState extends State<SBUPage> {
           return Material(
             child: Scaffold(
               body: Container(
-                color: Theme.of(context).accentIconTheme.color,
+                  color: Theme.of(context).accentIconTheme.color,
                   child: Column(
-                children: <Widget>[
-                  _pagesNavigation(),
-                  _containerGeneration(snapshot)
-                ],
-              )),
+                    children: <Widget>[
+                      _pagesNavigation(),
+                      _containerGeneration(snapshot)
+                    ],
+                  )),
             ),
           );
         });

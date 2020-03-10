@@ -209,7 +209,7 @@ class CountryList extends StatelessWidget {
                       separatorBuilder: (BuildContext context, int index) =>
                           Divider(
                               height: screenHeight > 700
-                                  ? MediaQuery.of(context).size.height * 0.06
+                                  ? MediaQuery.of(context).size.height * 0.01
                                   : MediaQuery.of(context).size.height * 0.04));
                 }),
           ),
